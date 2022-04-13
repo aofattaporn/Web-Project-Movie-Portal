@@ -1,9 +1,10 @@
 import { Fragment } from "react"
 
+
 const HomePage=()=>{
    return(
       <Fragment>
-         <h1>Hello Hompage</h1>
+         <h1>Hello world</h1>
       </Fragment>
    )
 }

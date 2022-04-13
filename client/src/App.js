@@ -1,15 +1,19 @@
 import {Route, Routes} from 'react-router-dom';
-import pages from './pages/index';
+import page from './pages/index';
+import Nav from './components/Nav'
 
 
 
 function App() {
+
   return (
     <div className="App">
+      <Nav/>
+      
       <Routes>
-        <Route path='/' element={ <pages.HomePage/> }></Route>
-        <Route path='/movies' element={ <pages.MoviePage/>}></Route>
-        <Route path='/cinemas' element={ <pages.PromotionsPage/>}></Route>
+        <Route path='/' element={ <page.HomePage/> }></Route>
+        <Route path='/movies' element={ <page.MoviePage/>}></Route>
+        <Route path='/cinemas' element={ <page.CinemasPage/>}></Route>
       </Routes>
     </div>
   );
