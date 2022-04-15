@@ -1,0 +1,42 @@
+
+.card{
+   width:  14rem;
+   background-color: transparent;
+   text-align: center;
+   margin: 0 2rem;
+}
+
+.card__text{
+   height: 3rem;
+   padding: 10px;
+   line-height: 20%;
+   background-color: #967959;
+   border-top: #C9B898 solid 5px;
+   color: #ffff;
+}
+
+.card__release{
+   font-size: 10px;
+}
+
+.card__movie{
+   font-size: 16px;
+}
+
+.card__header{
+   background-color: transparent;
+}
+
+.card__like{
+   position:absolute;
+   top: 10;
+   right: 0;
+   color: white;
+}
+
+.card__img{
+   background-size: cover;
+}
+
+
+

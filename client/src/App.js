@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
-import page from './pages/index';
-import Nav from './components/Nav'
 
+import page from './pages/index';
+import Nav from './components/Nav/Nav'
 
 
 function App() {

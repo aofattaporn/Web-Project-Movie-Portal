@@ -1,0 +1,19 @@
+.carouselmovies{
+   background-color: #17130A;
+   height: auto;
+}
+
+.carouselmovies__title{
+   padding: 2rem 11rem;
+   color: #C9B898;
+}
+
+.carouselmovies__slide{
+   margin-bottom: 5rem;
+}
+
+.carouselmovies__tapbutton{
+   background: linear-gradient(to bottom right, rgba(201,184,152,1) , rgba(150,121,89,1) );
+   height: 2rem;
+   margin-top: 3rem;
+}

@@ -1,10 +1,17 @@
-import { Fragment } from "react"
-
+import { Fragment } from "react";
+import CarauselMovies from '../../components/Carousel/CarouselMovies';
+import Tap from "../../components/Tap/Tap";
+import MovieLayout from "../../Layout/MovieLayout";
+import SliderMovies from "../../components/Slider/SliderMovies";
+import './Homepage.css'
 
 const HomePage=()=>{
    return(
-      <Fragment>
-         <h1>Hello world</h1>
+      <Fragment className='HomePage'>
+         <CarauselMovies/>
+         <Tap/>
+         <SliderMovies/>
+
       </Fragment>
    )
 }
