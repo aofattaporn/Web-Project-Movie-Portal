@@ -5,7 +5,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 4000;
 const logger = require('./logger');
+const userRoutes = require('./api/route/user');
 
+app.use(cors());
+app.use(bodyParser.json());
+app.use(logger);
 
 // connecting mongos 
 mongoose.connect('mongodb://127.0.0.1:27017/MoviePortal', { useNewUrlParser: true });
@@ -15,9 +19,8 @@ connection.once('open', ()=>{
    console.log("MongoDB database connection established successfully");
 })
 
-app.use(cors());
-app.use(bodyParser.json());
-app.use(logger);
+
+app.use('/users', userRoutes);
 
 
 // create server 
