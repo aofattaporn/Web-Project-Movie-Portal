@@ -1,9 +1,12 @@
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
-    uuid: String,
-    username: String,
-    profileImage: {type: String},
+    username: {type: String, default: null},
+    email: {type: String, unique: true},
+    password: {type: String, default: null},
+    isAdmin: {type: Boolean, default: false},
+    token: {type: String}
+
 });
 
 

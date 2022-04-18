@@ -1,6 +1,13 @@
-.HomePage{
-   background-color: #17130A;
-   padding-top: 6rem;
-   height: auto;
+.moviescontainer{
+   border: #BDAD8E solid 2px;
+   margin-bottom: 10rem;
 }
 
+.title{
+   color:  #967959;
+   margin-top: 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+
+ }

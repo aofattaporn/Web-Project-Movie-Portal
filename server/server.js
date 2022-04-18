@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 4000;
 const logger = require('./logger');
-const userRoutes = require('./api/route/user');
+const userRoutes = require('./api/route/user.routes');
 
 app.use(cors());
 app.use(bodyParser.json());

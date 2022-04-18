@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {Carousel, Col, Container, Row} from 'react-bootstrap';
-import CardMovie from '../Card/Card';
+// import {Carousel, Col, Container, Row} from 'react-bootstrap';
+// import CardMovie from '../Card/Card';
 import './SliderMovies.css'
 
 const SliderMovies=()=>{
@@ -18,66 +18,7 @@ const SliderMovies=()=>{
    return (
 
       <div className='carouselmovies'>
-
-         <h1 className='carouselmovies__title'>Now Showing </h1>
-         <Carousel className='carouselmovies__slide fade-up' indicators={false} activeIndex={index1} onSelect={handleSelect1}>
-          <Carousel.Item>
-             <Container className='d-flex justify-content-center' >
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-             </Container>
-          </Carousel.Item>
-          <Carousel.Item>
-             <Container className='d-flex justify-content-center' >
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-             </Container>
-          </Carousel.Item>
-        </Carousel>
-        <Carousel className='carouselmovies__slide fade-up' indicators={false} activeIndex={index1} onSelect={handleSelect1}>
-          <Carousel.Item>
-             <Container className='d-flex justify-content-center' >
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-             </Container>
-          </Carousel.Item>
-          <Carousel.Item>
-             <Container className='d-flex justify-content-center' >
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-             </Container>
-          </Carousel.Item>
-        </Carousel>
-
-        <h1 className='carouselmovies__title' >Comming Zoon</h1>
-        <Carousel className='carouselmovies__slide' indicators={false} activeIndex={index2} onSelect={handleSelect2}>
-          <Carousel.Item>
-             <Container className='d-flex justify-content-center' >
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-             </Container>
-          </Carousel.Item>
-          <Carousel.Item>
-             <Container className='d-flex justify-content-center' >
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-               <CardMovie/>
-             </Container>
-          </Carousel.Item>
-        </Carousel>
-
-        <div className='carouselmovies__tapbutton'></div>
+        <p>Hello </p>
 
       </div>
  
