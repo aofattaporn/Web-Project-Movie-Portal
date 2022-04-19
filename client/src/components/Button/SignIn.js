@@ -3,13 +3,14 @@ import { useState } from "react";
 import { Button, Col, Container, Form, Modal, Row  } from "react-bootstrap"
 import firebaseConfig from "../../config/firebase-config";
 import { AuthContext } from "../Auth";
+import  axios  from "axios"
 import './SignIn.css'
 
 const SignInButton=()=>{
    const [showSign, setShowSign] = useState(false);
    const [showLog, setShowLog] = useState(false);
 
-   const handleSignIn = (event) =>{
+   const handleSignIn2 = (event) =>{
       event.preventDefault();
       const {email_SignUp, password_SignUp, name_SignUp} = event.target.elements;
       console.log(email_SignUp.value);
@@ -29,34 +30,44 @@ const SignInButton=()=>{
       setShowSign(false);
    }
 
+   const handleSignIn = (event) =>{
+      event.preventDefault();
+      const {email_SignUp, password_SignUp, name_SignUp} = event.target.elements;
+
+      const email = email_SignUp.value;
+      const password = password_SignUp.value;
+      const name = name_SignUp.value;
+
+
+      setShowSign(false);
+   }
+
    const handleLogIn = (event) =>{
       event.preventDefault();
       const {email_Login, password_Login} = event.target.elements;
 
-      try {
+      const email = email_Login.value;
+      const password = password_Login.value;
 
-         firebaseConfig.auth().signInWithEmailAndPassword(email_Login.value, password_Login.value)
-         .then((userCredential)=>{
+      console.log(email);
+      console.log(password);
 
-            console.log(userCredential.user.email);
-            console.log(userCredential.user.uid);
-            console.log(userCredential.user.getIdToken);
-            console.log(firebaseConfig.auth().currentUser.getIdToken(true));
-
-            // console.log("Login complete");
-            // setShowLog(false);
-
-         });
-
-      }
-
-      
-      catch (error) {
-         alert(error);
-      }
+      axios.post('http://localhost:4000/users/login', 
+         { 
+            email: email,
+            password: password
+         }
+      )
+      .then(response => {
+         if(response.data.accesstoken){
+            localStorage.setItem("user", JSON.stringify(response.data));
+            console.log(localStorage.getItem("user"));
+         }else{
+            return response;
+         }
+      });
 
       setShowSign(false);
-
 
    }
 

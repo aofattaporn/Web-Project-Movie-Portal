@@ -4,10 +4,10 @@ import MoviePage from './MoviesPage/MoviesPage';
 import PromotionsPage from './PromotionsPag/PromotionsPage';
 
 import '../components/Button/SignIn.css'
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">AOS.init();</script>
 
+const page ={
+   CinemasPage, HomePage, MoviePage, PromotionsPage
+}
 
-
-
-export default  {CinemasPage, HomePage, MoviePage, PromotionsPage}
+export default page;
 

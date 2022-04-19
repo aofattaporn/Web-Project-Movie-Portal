@@ -16,7 +16,7 @@ routerUser.post('/register', registerUser);
 
 routerUser.post('/login', loginUser);
 
-// provate routes
+// private routes
 routerUser.get('/',auth, getUsers)
 
 routerUser.get('/:id', getUserById);
