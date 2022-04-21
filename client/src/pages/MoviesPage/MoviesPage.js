@@ -23,7 +23,7 @@ const MoviesPage=()=>{
             <h3 className="title">Movie show</h3>
             <Row  className="moviescontainer"
                data-aos='fade-up'
-               data-aos-duration="3000"
+               data-aos-duration="1000"
                >
                <Col xs='6' sm='6' md='3'><CardMovie/></Col>
                <Col xs='6' sm='6' md='3'><CardMovie/></Col>

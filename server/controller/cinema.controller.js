@@ -1,7 +1,9 @@
 let Cinema = require('../model/cinema.model');
 ObjectId = require('mongodb').ObjectID;
 
+
 const getCinemas =(req, res) => {
+   
    Cinema.find((err, user)=>{
       if(err){
          console.log(err);

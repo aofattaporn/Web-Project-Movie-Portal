@@ -1,21 +1,20 @@
 var mongoose = require('mongoose');
 
 var movieSchema = new mongoose.Schema({
-   name: String,
+   name:{ type: String, default: null},
 
    //  Media
-   image: String,
-   trailer: String,
+   image: { type: String, default: null},
+   trailer: { type: String, default: null},
 
    //  Desc
-   genre: String,
-   director: String,
-   runtime: String,
-   score: Number,
-   desc: String,
-   released: Date,
+   genre:  [{ type: String, default: null}],
+   director: { type: String, default: null},
+   runtime: { type: String, default: null},
+   desc: { type: String, default: null},
+   released: { type: Date, default: Date.now},
 
 });
 
 
-module.exports = mongoose.model('Cinema', movieSchema);
+module.exports = mongoose.model('Movie', movieSchema);

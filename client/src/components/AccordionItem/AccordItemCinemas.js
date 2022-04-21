@@ -1,23 +1,23 @@
 import propTypes from "prop-types";
-// import { useEffect } from "react";
-// import serviceCinemas  from "../../service/cienemaService";
 
-const { Accordion } = require("react-bootstrap")
+const { Accordion, ListGroup } = require("react-bootstrap")
 
 const AccordionItemCinemas =(props)=>{
 
    // manage props 
-   const {title, keyAC } = props;
-
-   // usecontext    
+   const {data ,title, keyAC } = props;
 
    return (
       <> 
          <Accordion.Item eventKey={keyAC}>
             <Accordion.Header> {title} </Accordion.Header>
             <Accordion.Body>
-               <p>fetch data</p>
-               </Accordion.Body>
+               {
+                  data.map((Item, index) => {
+                     return  ( <ListGroup key={index}> <ListGroup.Item > {Item.cinemaName} </ListGroup.Item> <br/></ListGroup> ) ; 
+                  })
+               }          
+            </Accordion.Body>
          </Accordion.Item> 
 
       </>
@@ -25,6 +25,7 @@ const AccordionItemCinemas =(props)=>{
 }
 
 AccordionItemCinemas.propTypes ={
+   data: propTypes.array,
    title: propTypes.string, 
    keyAC: propTypes.string
 }

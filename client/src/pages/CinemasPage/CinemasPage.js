@@ -5,14 +5,6 @@ import './CinemasPage.css'
 import serviceCinemas from "../../service/cienemaService";
 import { useEffect } from "react";
 import { useState } from "react";
-import { createContext } from "react";
-import { useContext } from "react";
-
-const CinemaContext = createContext({});
-
-export function useCinemaContext(){
-   return useContext(CinemaContext);
-}
 
 
 const CinemasPage=()=>{
@@ -23,11 +15,15 @@ const CinemasPage=()=>{
    // call service 
    useEffect(()=>{
       serviceCinemas.getCinemas()
-      .then((res)=> {setCinema(res.data)}) 
+      .then((res)=> {
+         setCinema(res.data) 
+      })
+
    }, []);
    
    // create array for map data 
    const area = ["Bangkok", "Central", "North", "West", "NorthEast", "South", "East"];
+
 
    return(
       <Fragment>
@@ -37,25 +33,45 @@ const CinemasPage=()=>{
                   <Col md='1'></Col>
                   <Col>
 
-                  <CinemaContext.Provider value={cinema}>
                      <Accordion defaultActiveKey={'0'}>
 
                         {
+   
+                           
                            area.map((item, index)=>{
                               var keyAC = index.toString();
-                              return <AccordionItemCinemas title={item} key={index} keyAC={keyAC}/>      
+                              var cinemas = cinema.filter(x => x.cinemaArea === item);
+
+
+                              return <AccordionItemCinemas 
+                              data={cinemas} 
+                              title={item} 
+                              key={index} 
+                              keyAC={keyAC}
+                              
+                              />      
                            })
+
+                           
+
+
                         }
 
-                     </Accordion>
-                  </CinemaContext.Provider>
 
+
+
+                     </Accordion>
 
 
 
                   </Col>
                   <Col md='1'></Col>
                </Row>
+
+
+
+
+    
             </Container>
 
          </main>

@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 
 var programSchema = new mongoose.Schema({
-    date : new Date(),
+    date : { type: Date, default: Date.now }, 
     theater: Number,
     seats: [
       {
@@ -12,8 +12,8 @@ var programSchema = new mongoose.Schema({
       }   
    ],
      
-    cinema: {type: mongoose.Schema.Types.ObjectId, ref: 'Theater' },
-    movies: {type: mongoose.Schema.Types.ObjectId, ref: 'Movie' },
+    cinema: {type: mongoose.Schema.Types.ObjectId, ref: 'cinemas' },
+    movies: {type: mongoose.Schema.Types.ObjectId, ref: 'movies' },
 });
 
 module.exports = mongoose.model('program', programSchema);
