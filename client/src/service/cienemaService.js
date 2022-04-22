@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-const getCinemas =()=>{
+const getCinemas = ()=>{
    return axios.get('http://localhost:4000/cinemas');
 }
 

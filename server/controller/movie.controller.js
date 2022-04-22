@@ -1,5 +1,25 @@
 let Movie = require('../model/movie.model');
 
+
+
+const testUpload = async (req, res) => {
+
+   try{
+
+
+      // console.log(req.body.name);
+      console.log(req.file);
+      console.log(req.body);
+
+
+      // res.json( await new Movie(newData).save() );
+   }catch(err) {
+      console.log(err);
+      res.status(400).send("create faile");
+   }
+}
+
+
 const getMovie =(req, res) => {
    Movie.find((err, movie)=>{
       if(err){
@@ -24,9 +44,11 @@ const getMovieById =(req, res) => {
 
 const createMovie =(req, res) => {
 
-   console.log(req.body);
+   let movie = req.body;
 
-   Movie.create(req.body, (err, movie)=>{
+   movie.released = new Date(req.body.released);
+
+   Movie.create(movie, (err, movie)=>{
       if(err){
          console.log(err);
       }
@@ -34,6 +56,7 @@ const createMovie =(req, res) => {
          res.json(movie);
       }
    })
+
 }
 
 const updateMovieById =(req, res) =>{
@@ -74,5 +97,7 @@ module.exports = {
    createMovie, 
    updateMovieById,
    deleteMovies,
-   deleteMovieById
+   deleteMovieById,
+
+   testUpload
 }

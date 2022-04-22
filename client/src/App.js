@@ -10,10 +10,6 @@ import { AuthProvider } from './components/Auth';
 
 function App() {
 
-
-
-
-
   return (
     <AuthProvider>
       <div className="App">
@@ -23,6 +19,8 @@ function App() {
           <Route path='/movies' element={ <page.MoviePage/>}></Route>
           <Route path='/cinemas' element={ <page.CinemasPage/>}></Route>
           <Route path='/promotions' element={ <page.PromotionsPage/>}></Route>
+          <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
+
         </Routes>
       </div>
     </AuthProvider>

@@ -4,7 +4,7 @@ var movieSchema = new mongoose.Schema({
    name:{ type: String, default: null},
 
    //  Media
-   image: { type: String, default: null},
+   image: { type: String, default: "../../assets/images/movies/venom/post-venom.png"},
    trailer: { type: String, default: null},
 
    //  Desc

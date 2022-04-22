@@ -12,6 +12,7 @@ const express = require('express'),
 const userRoutes = require('./api/route/user.routes'),
       cinemaRoutes = require('./api/route/cinema.routes'),
       movieRoutes = require('./api/route/movie.routes');
+const upload = require('./middleware/uploadfile');
       programRoutes = require('./api/route/program.routes');
 
 
@@ -26,12 +27,14 @@ connection.once('open', ()=>{
 
 // fix cors 
 // app.use(cors);
+app.use(express.static(__dirname + './public'));
 app.use(fixCORS);
 app.options('*', cors())
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 app.use(logger);
+
 app.use('/seed', seed);
 app.use('/users', userRoutes);
 app.use('/cinemas', cinemaRoutes);

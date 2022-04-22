@@ -11,14 +11,17 @@ const CinemasPage=()=>{
 
    // set state 
    const [cinema, setCinema] = useState([]);
+
+   const getCinemas =()=>{
+      serviceCinemas.getCinemas()
+      .then((res)=> {
+         setCinema(res.data)
+      })
+   }
    
    // call service 
    useEffect(()=>{
-      serviceCinemas.getCinemas()
-      .then((res)=> {
-         setCinema(res.data) 
-      })
-
+      getCinemas();
    }, []);
    
    // create array for map data 

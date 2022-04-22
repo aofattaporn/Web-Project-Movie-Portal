@@ -22,6 +22,7 @@ const Navigation=()=>{
                      <Link className='pt-2 me-4 nav__link' to={'/movies'}> MOVIES </Link>
                      <Link className='pt-2 me-4 nav__link' to={'/cinemas'}> CINEMAS </Link>
                      <Link className='pt-2 me-4 nav__link' to={'/promotions'}> PROMOTIONS </Link>
+                     <Link className='pt-2 me-4 nav__link' to={'/createmovie'}> Create Movies </Link>
                   </Nav>
                   <Nav>
                      <Form className="d-flex">
