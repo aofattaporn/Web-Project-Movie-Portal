@@ -17,3 +17,10 @@
    background-color: #BDAD8E;
    border: 0;
 }
+
+
+.listItem:hover{
+   background-color: rgba(41, 42, 42, 0.224);
+   color: rgb(151, 121, 89);
+   cursor: pointer;
+}

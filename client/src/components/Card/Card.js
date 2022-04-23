@@ -1,41 +1,44 @@
 import './Card.css';
-import { Card} from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import propTypes from "prop-types";
-// import { useState } from 'react';
-// import { useEffect } from 'react';
 
 
 const CardMovie =(props)=>{
 
-   const {title} = props;
-   // const test_img = "../../assets/images/movies/venom/post-venom.png";
-   const img = "post-venom.png";
+   const {title, image, released, runtime} = props;
+
+   console.log(runtime);
+   const getDate =(released)=>{
+      const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      let d = new Date(released);
+      return ('release date : ' + d.getDate()+' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
+   }
 
 
    return (
-      <Card  className='card mt-3 fade-up text-center' data-aos="fade-up" >
-         <div className='card__header'>
+         <Card  className='card mt-3 fade-up ' data-aos="fade-up" >
+            <div className='card__header'>
+               <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`}  />
+            </div>
+            <Card.Body className='card__text'>
+               <ListGroup>
+                  <ListGroupItem className='card__text__releas'><p>{getDate(released)}</p></ListGroupItem>
+               </ListGroup>
+            </Card.Body>
+            <ListGroupItem className='card__text__title'><h3>{title}</h3></ListGroupItem>
+            <FontAwesomeIcon className='like' icon={faHeart}></FontAwesomeIcon>
 
-            <Card.Img className='card__ixmg' variant="top" src={ require(`../../assets/images/movies/venom/${img}`)}  />
-
-
-
-            <div className='overlay'></div>
-         </div>
-         <div className='card__text'>
-            <p className='card__release'>releas date</p>
-            <h5 className='card__movie'>{title}</h5>
-            <FontAwesomeIcon className='card__like' icon={faHeart}></FontAwesomeIcon>
-         </div>
-      </Card>
+         </Card>
    )
 }
 
 CardMovie.propTypes ={
    title: propTypes.string,
    images: propTypes.string, 
+   released: propTypes.string,
+   runtime: propTypes.string
 }
 
 

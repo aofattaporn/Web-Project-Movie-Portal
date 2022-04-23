@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-
+const { Link } =  require('react-router-dom')
 const { Accordion, ListGroup } = require("react-bootstrap")
 
 const AccordionItemCinemas =(props)=>{
@@ -14,7 +14,15 @@ const AccordionItemCinemas =(props)=>{
             <Accordion.Body>
                {
                   data.map((Item, index) => {
-                     return  ( <ListGroup key={index}> <ListGroup.Item > {Item.cinemaName} </ListGroup.Item> <br/></ListGroup> ) ; 
+                     return  ( 
+                      <ListGroup key={index}> 
+                        <Link to={`/cinemas/${Item._id}`}>
+                           <ListGroup.Item className="listItem" > 
+                              {Item.cinemaName} 
+                           </ListGroup.Item> 
+                        </Link>
+                        <br/>
+                      </ListGroup> ) ; 
                   })
                }          
             </Accordion.Body>

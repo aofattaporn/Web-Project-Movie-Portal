@@ -15,20 +15,7 @@ const {
 } = require('../../controller/movie.controller');
 
 
-routerMovie.post('/upload', upload.single('image'), (req, res) => {
-
-   try{
-
-
-      console.log(req.file.filename);
-      // console.log(req.file.fieldname);
-   
-      // res.json( await new Movie(newData).save() );
-   }catch(err) {
-      console.log(err);
-      res.status(400).send("create faile");
-   }
-});
+routerMovie.post('/upload', upload.single('image'), testUpload);
 
 routerMovie.get('/', getMovie);
 

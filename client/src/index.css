@@ -5,9 +5,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+  font-family: 'Anton', sans-serif;
+  font-family: 'Kanit', sans-serif;
+  font-family: 'Roboto', sans-serif;
+
   margin: 0;
   padding: 0;
+
 }
 
 code {

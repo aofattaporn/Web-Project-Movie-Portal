@@ -1,18 +1,23 @@
 let Movie = require('../model/movie.model');
 
 
-
 const testUpload = async (req, res) => {
 
    try{
 
-
-      // console.log(req.body.name);
-      console.log(req.file);
-      console.log(req.body);
-
-
-      // res.json( await new Movie(newData).save() );
+      const newData = {
+         "name": req.body.movieName,
+         "trailer": null,
+         "image": req.file.filename,
+         "genre": ["action"],
+         "director": req.body.directorName,
+         "released" : new Date(req.body.released),
+         "runtime": req.body.runtime,
+         "desc": req.body.desc
+      }
+   
+      res.json( await new Movie(newData).save());
+      
    }catch(err) {
       console.log(err);
       res.status(400).send("create faile");

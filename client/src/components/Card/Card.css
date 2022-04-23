@@ -1,61 +1,77 @@
-.card{
-   width:  14rem;
+
+.card {
+   width: 13rem;
+   height: auto;
+   margin: 0 auto;
    background-color: transparent;
-   text-align: center;
-   border-radius: 10px;
-   text-align: center;
-   margin: 5rem auto;
 
 }
+
+.card__header :hover{
+   cursor: pointer;
+   
+   box-shadow: rgba(151, 121, 89, 0.25) 0px 14px 28px, rgba(151, 121, 89, 0.22) 0px 10px 10px;
+}
+
+.card__header {
+   margin: 0 auto;
+}
+
+/* ----------------- show thim and gerner ------------- */
 
 .card__text{
-   height: 3rem;
-   padding-top: 10px;
-   line-height: 1px;
-   background-color: #967959;
    border-top: #C9B898 solid 5px;
-   color: #ffff;
+   padding: 0 10px;
+   line-height: 1px;
+   background-color: rgb(151, 121, 89);
+   height: auto;
+
 }
 
-.card__release{
+.card__text__releas{
+   font-size: 0.8rem;
+   font-weight: bolder;
+   align-items: center;
+   border: 0;
+   display: flex;
+   padding-top: 1.5rem;
+   height: 1rem;
+   font-size: 32px;
    font-size: 10px;
+   background-color: rgb(151, 121, 89);
+   border-bottom-right-radius: 10px ;
+   border-bottom-left-radius: 10px ;
+
 }
 
-.card__movie{
-   font-size: 16px;
-}
-
-.card__header:hover{
-   background-color:#967959;
-   z-index: 1;
-}
-
-.overlay{
-   position: absolute;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   height: 100%;
-   width: 100%;
-   opacity: 0;
-   transition: .5s ease;
-   background-color: #008CBA;
-}
-
-.card__like{
-   position: absolute;
-   bottom: 13px; 
-   right: 12px;
+.card__text__title{
+   border: 0;
    color: white;
+   font-weight: bolder;
+   height: auto;
+   width: auto;
+   background-color: transparent;
+
 }
 
-.card__img{
-   background-size: cover;
+/* ----------------- show thim and gerner ------------- */
+
+
+.like{
+   position: relative;
+   font-size: 32px;
+   color: #4d4d4d;
+   left: 4.5rem;
+   bottom: 23rem;
+}
+
+.like:active, .like:hover{
+   color: rgb(151, 121, 89);
+   cursor: pointer;
 }
 
 
-
+/* ----------------- when screen lester 10000px ------------- */
 
 @media only screen and (max-width: 1000px) {
 
@@ -66,6 +82,32 @@
       border-radius: 10px;
       text-align: center;
       margin: 5rem auto;
+   }
+
+   .card__text{
+      border-top: #C9B898 solid 5px;
+      padding: 0 10px;
+      background-color: transparent;
+   }
+
+   .card__text__title h2{
+
+      font-size: 1.5rem;
+   
+   }
+
+   .card__text__releas, .card__text__title, .card{
+      border: 0;
+      background-color: transparent;
+      color: #ffff;
+   }
+
+
+   .like{
+      position: relative;
+      font-size: 24px;
+      left: 3.5rem;
+      bottom: 19rem;
    }
  }
 

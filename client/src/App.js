@@ -21,6 +21,9 @@ function App() {
           <Route path='/promotions' element={ <page.PromotionsPage/>}></Route>
           <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
 
+          <Route path='/cinemas/:cinema_id' element={ <page.FindByCinema/>}></Route>
+          <Route path='/movies/:movie_id' element={ <page.FindByMovie/>}></Route>
+
         </Routes>
       </div>
     </AuthProvider>

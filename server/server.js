@@ -31,6 +31,7 @@ app.use(express.static(__dirname + './public'));
 app.use(fixCORS);
 app.options('*', cors())
 
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 app.use(logger);
