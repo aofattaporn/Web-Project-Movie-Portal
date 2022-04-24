@@ -1,10 +1,8 @@
-import './CinemasPage.css'
-import { Fragment } from "react"
+import styled from 'styled-components';
+import { Fragment, useEffect, useState } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import AccordionItemCinemas from "../../components/AccordionItem/AccordItemCinemas";
 import serviceCinemas from "../../service/cienemaService";
-import { useEffect } from "react";
-import { useState } from "react";
 import 'aos'
 import AOS from "aos";
 
@@ -32,26 +30,18 @@ const CinemasPage=()=>{
 
    return(
       <Fragment>
-         <main>
+         <CinemasPageStyle>
             <Container className="mt-5" >
-
                <h3 className="title mb-5">Cinemas</h3>
-
-
                <Row>
                   <Col md='1'></Col>
                   <Col>
-
-                     <Accordion 
-                     
+                     <Accordion               
                         defaultActiveKey={'0'}
                         data-aos='fade-up'
-                        data-aos-duration="1000"
-                     
+                        data-aos-duration="1000"                  
                      >
-
-                        {
-   
+                        { 
                            area.map((item, index)=>{
                               var keyAC = index.toString();
                               var cinemas = cinema.filter(x => x.cinemaArea === item);
@@ -71,9 +61,37 @@ const CinemasPage=()=>{
                   <Col md='1'></Col>
                </Row>    
             </Container>
-         </main>
+         </CinemasPageStyle>
       </Fragment>
    )
 }
+
+const CinemasPageStyle = styled.main`
+      .test{
+      background-color: antiquewhite;
+      width: 100%;
+      height: 100%;
+   }
+
+   .accordion-header button{
+      background-color: #BDAD8E;
+      color: white;
+   }
+   .accordion-button:focus{
+      border-color: #BDAD8E;
+   }
+   .accordion-button:not(.collapsed){
+      color: white;
+      background-color: #BDAD8E;
+      border: 0;
+   }
+   .listItem:hover{
+      background-color: rgba(41, 42, 42, 0.224);
+      color: rgb(151, 121, 89);
+      cursor: pointer;
+   }
+
+
+`;
 
 export default CinemasPage;

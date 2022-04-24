@@ -10,9 +10,6 @@ import FindByMovie from './NestedPage/FiindByMovie/FindByMovie';
 // -------------- for admin --------------------------
 import CreateMovie from './CreateMovie/CreateMovie';
 
-
-import '../components/Button/SignIn.css'
-
 const page ={
    CinemasPage, HomePage, MoviePage, PromotionsPage,
    FindByCinema, FindByMovie,

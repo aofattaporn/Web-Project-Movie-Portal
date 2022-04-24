@@ -15,6 +15,7 @@ const getCinemas =(req, res) => {
 }
 
 const getCinemasById =(req, res)=>{
+   console.log(req.params.id);
    Cinema.findById(req.params.id, (err, user)=>{
       if(err){
          console.log(err);

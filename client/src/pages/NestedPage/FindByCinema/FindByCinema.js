@@ -1,11 +1,145 @@
-const { Link, useParams } =  require('react-router-dom')
+/* eslint-disable import/first */
+import { useState, Fragment } from "react";
+import { useEffect } from "react";
+import { Container, ListGroup, ListGroupItem } from "react-bootstrap";
+import serviceCinemas from "../../../service/cienemaService";
+// import serviceMovies from "../../../service/movieService";
+import './FindByCinema.css';
+import DatePicker from "react-horizontal-datepicker";
+import styled from "styled-components";
 
+
+const {useParams } =  require('react-router-dom');
 
 const FindByCinema =()=>{
 
    let { cinema_id } = useParams();
 
-   return <h1>FindByCinema {cinema_id}</h1>
+   
+
+   const [cinemas, setCinemas] = useState({});
+   const [dateSelect, setDateSelect] = useState('');
+
+
+   // const getCinemas =()=>{
+   //    serviceCinemas.getCinemasById(cinema_id)
+   //    .then((res)=> {
+   //       console.log(res.data);
+   //       setCinemas(res.data)
+   //    })
+   // }
+
+   const selectedDay = (val) =>{
+      setDateSelect(val);
+  };
+
+   useEffect(()=>{
+      const getCinemas =()=>{
+         serviceCinemas.getCinemasById(cinema_id)
+         .then((res)=> {
+            console.log(res.data);
+            setCinemas(res.data)
+         })
+      }
+      getCinemas();
+      },[cinema_id]);
+
+
+   return (
+      <Fragment>
+         <FindByCinemaStyle className="findbycinemas">
+
+            <div className="findbycinemas__header">
+               <Container className="findbycinemas__header__container" >
+                  <ListGroup>
+                     <ListGroupItem className="findbycinemas__header__container__list1">
+                        <h5>{cinemas.cinemaName}</h5>
+                     </ListGroupItem>
+                     <ListGroupItem className="findbycinemas__header__container__list2">
+                        <h5>{cinemas.cinemaArea}</h5>
+                     </ListGroupItem>
+                  </ListGroup>
+               </Container>
+            </div>
+
+            <div className="findbycinemas__date">
+               <DatePicker
+                     getSelectedDay={selectedDay}
+                     endDate={100}
+                     selectDate={new Date("2020-04-30")}
+                     labelFormat={"MMMM"}
+                     color={"#ffff"} 
+                     >
+               </DatePicker>
+            </div>
+
+            <h1>{dateSelect.toString()}</h1>
+
+         </FindByCinemaStyle>
+      </Fragment>
+   )
 }
+
+const FindByCinemaStyle = styled.div`
+   .findbycinemas__header{
+      /* background-color: bisque; */
+      height: 15rem;
+      display: flex;
+      background: linear-gradient( to bottom , rgb(175, 160, 132) , rgba(58,52,36,1) );
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      /* margin-top: 2rem; */
+
+   }
+
+   .findbycinemas__header__container{
+      margin: auto ;
+      color: #ffff;
+   }
+
+   .findbycinemas__header__container__list1 {
+      background-color: #C9B898;
+      color: #ffff;
+
+   }
+
+   .findbycinemas__header__container__list2 {
+      background-color: rgba(201, 184, 152, 0.189);
+      color: #ffff;
+
+   }
+
+
+   /* -------------- date tap ----------------------- */
+   .findbycinemas__date{
+      margin-top:  4rem;
+      padding: 0.2rem 5rem;
+      background-color: #C9B898;
+   }
+
+   .DatePicker_monthContainer__4SSK4{
+      margin-right: 2rem;
+   }
+
+   .DatePicker_button__iBgLD{
+      border-radius: 0px;
+      background-color: transparent;
+      display: none;
+   }
+
+   .DatePicker_daysContainer__9htA9{
+      border-top: #ffff 2px solid;
+   }
+
+   /* text-item */
+   .DatePicker_dateDayItem__XwRQy{
+      margin-right: 100px;
+      margin-left: 100px;
+
+      /* padding-left: 4rem; */
+      color: white;
+      border-radius: 50%;
+   }  
+
+`
 
 export default FindByCinema;

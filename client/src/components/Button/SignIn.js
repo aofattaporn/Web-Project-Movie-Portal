@@ -4,7 +4,8 @@ import { Button, Col, Container, Form, Modal, Row  } from "react-bootstrap"
 import firebaseConfig from "../../config/firebase-config";
 import { AuthContext } from "../Auth";
 import  axios  from "axios"
-import './SignIn.css'
+import styled from "styled-components";
+// import './SignIn.css'
 
 const SignInButton=()=>{
    const [showSign, setShowSign] = useState(false);
@@ -73,7 +74,7 @@ const SignInButton=()=>{
 
 
  return (
-   <> 
+   <ButtonSignStyle> 
       <Button onClick={()=> {setShowSign(true)}}> SignUp </Button>
 
       <Button onClick={()=> {setShowLog(true)}}> LogIn </Button>
@@ -160,9 +161,78 @@ const SignInButton=()=>{
         <Modal.Footer className="modal__footer">
         </Modal.Footer>
       </Modal>
-   </>
+   </ButtonSignStyle>
    )
 }
+
+
+const ButtonSignStyle = styled.div`
+
+   .modalheader{
+      background-color: #BDAD8E;
+   }
+
+   .modalheader__tile{
+      text-align: center;
+      color: rgb(255, 255, 255);
+      justify-content: center;
+
+   }
+
+   .Modal__Body__Button{
+      background-color: #BDAD8E;
+      color: rgb(255, 255, 255);
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      border: none;
+      width: 15rem;
+      height: 3rem;
+   }
+
+   /* input style  */
+
+   .form__group{
+      padding: 15px 0 0;
+   }
+
+   .form__field{
+      border: 0;
+      border-bottom: 2px solid #17130a7e;
+      outline: none;
+      font-size: 1.3rem;
+      padding: 7px 0;
+      color: #BDAD8E;
+      background: transparent;
+      transition: border-color 0.2s;
+   }
+   .form__field::placeholder{
+      color: transparent;
+   }
+   .form__field-shown ~ .form__label{
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+   }
+
+   *:focus{
+      outline: none;
+   }
+
+   .form__label {
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: #3e3e3c;
+   }
+
+   .modal__footer{
+      background-color: #BDAD8E;
+      height: 50px;
+   }
+
+`;
+
+
 
 export default SignInButton;
 

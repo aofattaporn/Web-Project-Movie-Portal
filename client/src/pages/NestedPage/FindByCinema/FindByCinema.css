@@ -1,0 +1,26 @@
+.findbycinemas__header{
+   /* background-color: bisque; */
+   height: 15rem;
+   display: flex;
+   background: linear-gradient( to bottom , rgb(175, 160, 132) , rgba(58,52,36,1) );
+   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+   /* margin-top: 2rem; */
+
+}
+
+.findbycinemas__header__container{
+   margin: auto ;
+   color: #ffff;
+}
+
+.findbycinemas__header__container__list1 {
+   background-color: #C9B898;
+   color: #ffff;
+
+}
+
+.findbycinemas__header__container__list2 {
+   background-color: rgba(201, 184, 152, 0.189);
+   color: #ffff;
+
+}
