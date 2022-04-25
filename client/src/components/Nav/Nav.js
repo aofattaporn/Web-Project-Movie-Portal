@@ -1,4 +1,4 @@
-import {Navbar, Nav, Container, Form, FormControl, Button} from 'react-bootstrap';
+import {Navbar, NavDropdown, Nav, Container, Form, FormControl, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SignInButton from '../Button/SignIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,7 +10,7 @@ const Navigation=()=>{
    return (
 
    <NavigationBar> 
-      <Navbar className='nav ps-5'  expand="lg">
+      <Navbar className='nav ps-5'  expand="lg" variant="dark">
          <Container fluid>
             <Navbar.Brand className='fw-5 pt-2 nav__band'><h1>XTra</h1></Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
@@ -23,7 +23,12 @@ const Navigation=()=>{
                      <Link className='pt-2 me-4 nav__link' to={'/movies'}> MOVIES </Link>
                      <Link className='pt-2 me-4 nav__link' to={'/cinemas'}> CINEMAS </Link>
                      <Link className='pt-2 me-4 nav__link' to={'/promotions'}> PROMOTIONS </Link>
-                     <Link className='pt-2 me-4 nav__link' to={'/createmovie'}> Create Movies </Link>
+                     <NavDropdown className='Dropdown' variant="dark" title="Dropdown" id="basic-nav-dropdown">
+                        <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createmovie'}> Create Movies </Link></NavDropdown.Item>
+                        <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createCinema'}> Create Cinemas </Link></NavDropdown.Item>
+                        <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createProgram'}> Create programs </Link></NavDropdown.Item>
+
+                     </NavDropdown>
                   </Nav>
                   <Nav>
                      <Form className="d-flex">
@@ -121,6 +126,17 @@ const NavigationBar = styled.div`
    }
    .nav__search:hover,.nav__search:focus {
       background-color: #C9B898;
+   }
+
+
+   /* ------------------ nav-dropdown-admin ------------------------------- */
+
+   .Dropdown{
+      color: #ffff;
+   }
+
+   .nav__admin{
+      color: #C9B898;
    }
 
 `;

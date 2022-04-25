@@ -3,10 +3,10 @@ import { useState, Fragment } from "react";
 import { useEffect } from "react";
 import { Container, ListGroup, ListGroupItem } from "react-bootstrap";
 import serviceCinemas from "../../../service/cienemaService";
-// import serviceMovies from "../../../service/movieService";
-import './FindByCinema.css';
+import serviceProgram from "../../../service/programService";
 import DatePicker from "react-horizontal-datepicker";
 import styled from "styled-components";
+import { useCallback } from "react";
 
 
 const {useParams } =  require('react-router-dom');
@@ -15,34 +15,50 @@ const FindByCinema =()=>{
 
    let { cinema_id } = useParams();
 
-   
-
    const [cinemas, setCinemas] = useState({});
-   const [dateSelect, setDateSelect] = useState('');
+   const [dateSelect, setDateSelect] = useState(new Date().toISOString());
+   const [dateSelectNext, setDateSelectNext] = useState(new Date().toISOString());
+   const [program, setProgram]= useState([]);
 
-
-   // const getCinemas =()=>{
-   //    serviceCinemas.getCinemasById(cinema_id)
-   //    .then((res)=> {
-   //       console.log(res.data);
-   //       setCinemas(res.data)
-   //    })
-   // }
 
    const selectedDay = (val) =>{
-      setDateSelect(val);
+                                     
+      let date_select = new Date(val);
+      let today = date_select.setDate(new Date(val).getDate() );
+      let tommorrow = date_select.setDate(new Date(val).getDate() + parseInt(1));
+         
+      today = new Date(today).toISOString();
+      tommorrow = new Date(tommorrow).toISOString();
+      
+      setDateSelect(today);
+      setDateSelectNext(tommorrow);
+
   };
 
+  const getProgramByDate = useCallback(()=>{
+     serviceProgram.getProgramByDate({start: dateSelect, end: dateSelectNext})
+     .then((res) => {
+         setProgram(res.data);
+         console.log(res);
+     })
+     .catch((err) => {console.log(err)});
+  }, [dateSelect, dateSelectNext]);
+
+  const getCinemas = useCallback(()=>{
+   serviceCinemas.getCinemasById(cinema_id)
+   .then((res)=> {
+      setCinemas(res.data)
+   })}, [cinema_id]);
+
+   // when 
    useEffect(()=>{
-      const getCinemas =()=>{
-         serviceCinemas.getCinemasById(cinema_id)
-         .then((res)=> {
-            console.log(res.data);
-            setCinemas(res.data)
-         })
-      }
       getCinemas();
-      },[cinema_id]);
+   }, [getCinemas]);
+
+   // rerender when select date 
+   useEffect(()=>{
+      getProgramByDate();
+   },[getProgramByDate]) 
 
 
    return (
@@ -73,7 +89,10 @@ const FindByCinema =()=>{
                </DatePicker>
             </div>
 
-            <h1>{dateSelect.toString()}</h1>
+            <h1>{dateSelect}</h1>
+            <h1>{dateSelectNext}</h1>
+            <h1>{program}</h1>
+
 
          </FindByCinemaStyle>
       </Fragment>
@@ -82,12 +101,10 @@ const FindByCinema =()=>{
 
 const FindByCinemaStyle = styled.div`
    .findbycinemas__header{
-      /* background-color: bisque; */
       height: 15rem;
       display: flex;
       background: linear-gradient( to bottom , rgb(175, 160, 132) , rgba(58,52,36,1) );
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-      /* margin-top: 2rem; */
 
    }
 
@@ -134,8 +151,6 @@ const FindByCinemaStyle = styled.div`
    .DatePicker_dateDayItem__XwRQy{
       margin-right: 100px;
       margin-left: 100px;
-
-      /* padding-left: 4rem; */
       color: white;
       border-radius: 50%;
    }  

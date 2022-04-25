@@ -11,9 +11,10 @@ const express = require('express'),
 // create schema 
 const userRoutes = require('./api/route/user.routes'),
       cinemaRoutes = require('./api/route/cinema.routes'),
-      movieRoutes = require('./api/route/movie.routes');
-const upload = require('./middleware/uploadfile');
+      movieRoutes = require('./api/route/movie.routes'),
       programRoutes = require('./api/route/program.routes');
+
+const upload = require('./middleware/uploadfile');
 
 
 

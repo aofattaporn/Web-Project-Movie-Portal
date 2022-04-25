@@ -42,8 +42,15 @@ const MoviesPage=()=>{
          <MoviePageStyle> 
                {/* get all movies now showing  */}
                <Container  fluid="sm">
-                  <h3 className="title">Movie show</h3>
-                  <Row  className="moviescontainer "
+                  <div className="header">
+                     <h3 className="header__title">Movie show</h3>
+                     <section className="header__filter">
+                        <button className="header__filter__button"> A - Z </button>
+                        <button className="header__filter__button"> Like </button>
+                        <button className="header__filter__button"> Ddate </button>
+                     </section>
+                  </div>
+                  <Row  className="moviescontainer"
                      data-aos='fade-up'
                      data-aos-duration="1000"
                      >
@@ -59,7 +66,9 @@ const MoviesPage=()=>{
 
                {/* get all movies comming zoon  */}
                <Container >
-                  <h3 className="title">Comming Zoon</h3>
+                  <div className="header">
+                     <h3 className="header__title">Comming Zoon</h3>
+                  </div>
                   <Row 
                   data-aos='fade-up'
                   data-aos-duration="1000"
@@ -82,6 +91,41 @@ const MoviesPage=()=>{
 
 
 const MoviePageStyle = styled.div`
+
+   /* ------------------------- container-fram ------------------------- */
+
+   .moviescontainer{
+      border: 2px solid #BDAD8E;
+      padding-top: 3rem;
+   }
+
+   /* ------------------------- header-button ------------------------- */
+   .header{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 5rem;
+      margin-bottom: 2em;
+      
+   }
+
+   .header__title{
+      color: #BDAD8E;
+   }
+   
+   .header__filter__button{
+      margin-right: 1rem;
+      border: 0;
+      border-radius: 10px;
+      background-color: #BDAD8E;
+      color: #ffff;
+      width: 5rem;
+   }
+
+   .header__filter__button:hover{
+      cursor: pointer;
+   }
 
 `;
 

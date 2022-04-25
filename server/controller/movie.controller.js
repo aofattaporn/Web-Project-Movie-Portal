@@ -1,4 +1,8 @@
 let Movie = require('../model/movie.model');
+const fs = require('fs');
+const path = require('path');
+const directory = 'public/image/poster'
+ObjectId = require('mongodb').ObjectID;
 
 
 const testUpload = async (req, res) => {
@@ -9,7 +13,7 @@ const testUpload = async (req, res) => {
          "name": req.body.movieName,
          "trailer": null,
          "image": req.file.filename,
-         "genre": ["action"],
+         "genre": req.body.genre,
          "director": req.body.directorName,
          "released" : new Date(req.body.released),
          "runtime": req.body.runtime,
@@ -19,11 +23,9 @@ const testUpload = async (req, res) => {
       res.json( await new Movie(newData).save());
       
    }catch(err) {
-      console.log(err);
       res.status(400).send("create faile");
    }
 }
-
 
 const getMovie =(req, res) => {
    Movie.find((err, movie)=>{
@@ -37,7 +39,7 @@ const getMovie =(req, res) => {
 }
 
 const getMovieById =(req, res) => {
-   Movie.findById( { _id: req.id } ,(err, movie)=>{
+   Movie.findById( { _id:  ObjectId(req.id) } ,(err, movie)=>{
       if(err){
          console.log(err);
       }
@@ -75,14 +77,25 @@ const updateMovieById =(req, res) =>{
 }
 
 const deleteMovies =(req, res)=>{
-   Movie.remove((err, movie)=>{
+   Movie.deleteMany((err, movie)=>{
       if(err){
          console.log(err);
       }
       else{
          res.json(movie);
+         fs.readdir(directory, (err, files) => {
+            if (err) throw err;
+          
+            for (const file of files) {
+              fs.unlink(path.join(directory, file), err => {
+                if (err) throw err;
+              });
+            }
+          });
       }
-   })
+   });
+
+
 }
 
 const deleteMovieById =(req, res)=>{
@@ -91,6 +104,9 @@ const deleteMovieById =(req, res)=>{
          console.log(err);
       }
       else{
+         console.log(movie);
+         // console(path.join(directory, req.body.image));
+         // fs.unlink( directory +  req.body.image , err => {  if (err) throw err;})
          res.json(movie);
       }
    })
@@ -103,6 +119,5 @@ module.exports = {
    updateMovieById,
    deleteMovies,
    deleteMovieById,
-
    testUpload
 }

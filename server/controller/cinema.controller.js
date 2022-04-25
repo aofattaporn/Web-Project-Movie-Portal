@@ -28,7 +28,13 @@ const getCinemasById =(req, res)=>{
 }
 
 const createCinema =(req, res)=>{
-   Cinema.create(req.body, (err, user)=>{
+
+   const newCinema = {
+      "cinemaName" : req.body.cinemaName,
+      "cinemaArea" : req.body.cinemaArea
+   }
+
+   Cinema.create( newCinema , (err, user)=>{
       if(err){
          console.log(err);
       }

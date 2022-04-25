@@ -9,7 +9,6 @@ const CardMovie =(props)=>{
 
    const {title, image, released, runtime} = props;
 
-   console.log(runtime);
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);

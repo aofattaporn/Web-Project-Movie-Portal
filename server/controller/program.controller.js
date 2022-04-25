@@ -25,6 +25,24 @@ const getProgramById =(req, res)=>{
    })
 }
 
+const getProgramByDate =(req, res)=>{
+
+   let start = new Date(req.body.date.start);
+   let end = new Date(req.body.date.end);
+
+   console.log(start);
+   console.log(end);
+
+   Program.find({"date": {$gte: start, $lt: end}}, (err, program)=>{
+      if(err){
+         console.log(err);
+      }
+      else{
+         res.status(200).json(program);
+      }
+   })
+}
+
 const createProgram =(req, res)=>{
    Program.create(req.body, (err, program)=>{
       if(err){
@@ -72,6 +90,7 @@ const deleteProgramById =(req, res)=>{
 module.exports = {
    getPrograms,
    getProgramById,
+   getProgramByDate,
    createProgram,
    updateProgramById,
    deletePrograms,

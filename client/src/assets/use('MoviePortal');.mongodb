@@ -1,0 +1,5 @@
+use('MoviePortal');
+
+db.programs.find({"date": {$gte:ISODate("2022-04-24"), $lt:ISODate("2022-04-25")}});
+
+// db.programs.find({theater: 1})

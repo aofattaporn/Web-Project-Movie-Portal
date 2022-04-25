@@ -10,14 +10,17 @@ seed.get('/', async (req, res)=>{
    const data = {
       theater: 1,
       seats: [
-        { type: "A1" }   
+        { type: "A1" },
+        { type: "A2" }, 
+        { type: "A3" },   
+        { type: "A4" },   
+        { type: "A5" }   
+ 
      ],
        
       cinema: ObjectId("62605d3162ffa738df61ce72"),
       movies: ObjectId("6260547b886ecd4862868c56"),
    }
-
-
 
    // seed data 
    Program.create( data , (err, user)=>{

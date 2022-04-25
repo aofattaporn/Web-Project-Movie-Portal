@@ -33,7 +33,7 @@ const CinemasPage=()=>{
          <CinemasPageStyle>
             <Container className="mt-5" >
                <h3 className="title mb-5">Cinemas</h3>
-               <Row>
+               <Row className='cinemacintainer'>
                   <Col md='1'></Col>
                   <Col>
                      <Accordion               
@@ -67,8 +67,20 @@ const CinemasPage=()=>{
 }
 
 const CinemasPageStyle = styled.main`
-      .test{
-      background-color: antiquewhite;
+
+   .cinemacintainer{
+      border-top: 5px solid rgb(151, 121, 89);
+      padding-top: 2rem;
+   }
+
+   .title{
+      color: #BDAD8E;
+      margin-top: 5rem;
+
+   }
+
+   .test{
+      color: #BDAD8E;
       width: 100%;
       height: 100%;
    }
