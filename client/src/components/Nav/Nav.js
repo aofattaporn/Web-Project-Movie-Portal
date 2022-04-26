@@ -27,11 +27,10 @@ const Navigation=()=>{
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createmovie'}> Create Movies </Link></NavDropdown.Item>
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createCinema'}> Create Cinemas </Link></NavDropdown.Item>
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createProgram'}> Create programs </Link></NavDropdown.Item>
-
                      </NavDropdown>
                   </Nav>
                   <Nav>
-                     <Form className="d-flex">
+                     {/* <Form className="d-flex">
                         <FormControl
                            type="search"
                            placeholder="Search"
@@ -42,7 +41,7 @@ const Navigation=()=>{
                         <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
 
                         </Button>
-                     </Form>
+                     </Form> */}
                      <div>
                         <SignInButton/>
                      </div>

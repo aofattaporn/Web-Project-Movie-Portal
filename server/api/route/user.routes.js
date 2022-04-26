@@ -17,9 +17,9 @@ routerUser.post('/register', registerUser);
 routerUser.post('/login', loginUser);
 
 // private routes
-routerUser.get('/',auth, getUsers)
+routerUser.get('/', getUsers)
 
-routerUser.get('/:id', getUserById);
+routerUser.get('/:id', auth, getUserById);
 
 routerUser.post('/create', createUser);
 

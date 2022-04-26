@@ -125,6 +125,7 @@ const MoviePageStyle = styled.div`
 
    .header__filter__button:hover{
       cursor: pointer;
+      background-color: rgb(151, 121, 89);
    }
 
 `;

@@ -7,9 +7,8 @@ import serviceProgram from "../../../service/programService";
 import DatePicker from "react-horizontal-datepicker";
 import styled from "styled-components";
 import { useCallback } from "react";
-
-
-const {useParams } =  require('react-router-dom');
+import components from "../../../components";
+const { useParams } =  require('react-router-dom');
 
 const FindByCinema =()=>{
 
@@ -18,6 +17,7 @@ const FindByCinema =()=>{
    const [cinemas, setCinemas] = useState({});
    const [dateSelect, setDateSelect] = useState(new Date().toISOString());
    const [dateSelectNext, setDateSelectNext] = useState(new Date().toISOString());
+   const [moviesShow, setMoviesShow] = useState([]);
    const [program, setProgram]= useState([]);
 
 
@@ -36,13 +36,29 @@ const FindByCinema =()=>{
   };
 
   const getProgramByDate = useCallback(()=>{
-     serviceProgram.getProgramByDate({start: dateSelect, end: dateSelectNext})
+     const dateSet = {
+         cinema_id: cinema_id,
+         start: dateSelect,
+         end: dateSelectNext
+     }
+
+     // get program check 
+     serviceProgram.getProgramByDate(dateSet)
      .then((res) => {
          setProgram(res.data);
-         console.log(res);
+         console.log(res.data);
      })
      .catch((err) => {console.log(err)});
-  }, [dateSelect, dateSelectNext]);
+
+     // get movies showtime check 
+     serviceProgram.getMoviesShowtime(dateSet)
+     .then((res) => {
+         setMoviesShow(res.data);
+         console.log(res.data);
+     })
+
+
+  }, [dateSelect, dateSelectNext, cinema_id]);
 
   const getCinemas = useCallback(()=>{
    serviceCinemas.getCinemasById(cinema_id)
@@ -89,9 +105,11 @@ const FindByCinema =()=>{
                </DatePicker>
             </div>
 
-            <h1>{dateSelect}</h1>
-            <h1>{dateSelectNext}</h1>
-            <h1>{program}</h1>
+            {
+               moviesShow.map((item, idx) => {
+                  return (<components.BoxShowTime key={idx} movie_id={item}></components.BoxShowTime>)
+               })
+            }
 
 
          </FindByCinemaStyle>
