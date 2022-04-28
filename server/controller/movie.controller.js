@@ -19,6 +19,8 @@ const testUpload = async (req, res) => {
          "runtime": req.body.runtime,
          "desc": req.body.desc
       }
+
+      console.log(newData);
    
       res.json( await new Movie(newData).save());
       
@@ -39,14 +41,15 @@ const getMovie =(req, res) => {
 }
 
 const getMovieById =(req, res) => {
-   Movie.findById( { _id:  ObjectId(req.id) } ,(err, movie)=>{
+   Movie.findById( ObjectId(req.params.id)  ,(err, movie) =>{
       if(err){
          console.log(err);
       }
       else{
          res.json(movie);
+         console.log(movie);
       }
-   })
+   });
 }
 
 const createMovie =(req, res) => {
@@ -94,19 +97,15 @@ const deleteMovies =(req, res)=>{
           });
       }
    });
-
-
 }
 
+ 
 const deleteMovieById =(req, res)=>{
    Movie.findByIdAndRemove(req.params.id, req.body, (err, movie) =>{
       if(err){
          console.log(err);
       }
       else{
-         console.log(movie);
-         // console(path.join(directory, req.body.image));
-         // fs.unlink( directory +  req.body.image , err => {  if (err) throw err;})
          res.json(movie);
       }
    })

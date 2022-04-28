@@ -11,7 +11,7 @@ const CreateMovie=()=>{
    const [fileImgURL, setFileImgURl] = useState(null); 
    const [movieName, setMovieName] = useState('');
    const [directorName, setDirector] = useState('');
-   const [gener, setGener] = useState('');
+   const [genre, setGener] = useState('');
    const [released, setReleased] = useState('');
    const [runtime, setRuntime] = useState('');
    const [desc, setDesc] = useState('');
@@ -25,7 +25,7 @@ const CreateMovie=()=>{
       
       formData.append('movieName', movieName);
       formData.append('directorName', directorName);
-      formData.append('gener', gener);
+      formData.append('genre', genre);
       formData.append('released', released);
       formData.append('runtime', runtime);
       formData.append('desc', desc);
@@ -33,7 +33,7 @@ const CreateMovie=()=>{
       formData.append('image', fileImg);
       
       console.log(formData.get('image'));
-      axios.post('http://localhost:4000/movies/upload', formData, { headers: "" } )
+      axios.post('http://localhost:4000/movies/upload', formData)
       .then( res => {
          res.status(200);
       }).catch( err => {

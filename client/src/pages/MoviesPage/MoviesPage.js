@@ -8,18 +8,13 @@ import { useEffect } from "react";
 import { useState } from "react";
 import 'aos'
 import AOS from "aos";
+import { useCallback } from "react";
 
 
 const MoviesPage=()=>{
 
    const [movies, setMovies] = useState([]);
-
-   useEffect(() => {
-      AOS.init();
-      AOS.refresh();
-
-      getMovies();
-    }, []);
+   const [sort, setSort] = useState('');
 
 
    const getMovies =()=>{
@@ -28,6 +23,61 @@ const MoviesPage=()=>{
          setMovies(response.data)
       });
    }
+
+   const sortByCharacterASC = async () => {
+      
+      if(sort !== "by ASC" ){
+         let temp = movies.sort((a,b)=> (a.name > b.name ? -1 : 1))
+         await setMovies([]);
+         await setMovies(temp);
+         await setSort("by ASC");
+
+      }
+   };
+
+   const sortByCharacterDSC = async () => {
+      if(sort !== "by DSC" ){
+         let temp = movies.sort((a,b)=> (a.name > b.name ? 1 : -1))
+         await setMovies([]);
+         await setMovies(temp);
+         await setSort("by DSC");
+
+      }
+   };
+
+   const sortByDateReleas = async () => {
+      if(sort !== "by Date" ){
+         let temp = movies.sort((a,b)=> (a.released > b.released ? 1 : -1))
+         await setMovies([]);
+         await setMovies(temp);
+         await setSort("by Date");
+
+      }
+   }
+   
+
+   // when on initial 
+   useEffect(() => {
+      AOS.init();
+      AOS.refresh();
+      getMovies();
+      
+    }, []);
+
+   // when on Click 
+   useEffect(()=>{     
+      AOS.init();
+ 
+      // AOS.refresh();
+
+    }, [sortByCharacterASC, sortByCharacterDSC])
+
+ // when on Click 
+   // useEffect(()=>{
+   //    sortByCharacterDSC();
+   //  }, [])
+
+
 
    const checkDate =(released)=>{
       let d = new Date(released);
@@ -45,20 +95,24 @@ const MoviesPage=()=>{
                   <div className="header">
                      <h3 className="header__title">Movie show</h3>
                      <section className="header__filter">
-                        <button className="header__filter__button"> A - Z </button>
-                        <button className="header__filter__button"> Like </button>
-                        <button className="header__filter__button"> Ddate </button>
+                        <button className="header__filter__button ASC" onClick={sortByCharacterASC} > A - Z </button>
+                        <button className="header__filter__button" onClick={sortByCharacterDSC}> Z - A </button>
+                        <button className="header__filter__button" onClick={sortByDateReleas}> Released </button>
                      </section>
                   </div>
                   <Row  className="moviescontainer"
                      data-aos='fade-up'
-                     data-aos-duration="1000"
+                     data-aos-duration="2000"
                      >
                         {
                            movies.filter(movie => {
-                              return checkDate(movie.released) === true
+                              
+                              return checkDate(movie.released) !== true
+                              
                            }).map((item, index) => {      
-                              return <Col  key={index} xs='6' sm='6' md='3'><CardMovie title={item.name} image={item.image} released={item.released} /></Col>
+                              console.log(item);
+
+                              return <Col  key={index} xs='6' sm='6' md='3'><CardMovie title={item.name} image={item.image} released={item.released} runtime={item.runtime} /></Col>
                            })
                         }
                   </Row>
@@ -75,10 +129,10 @@ const MoviesPage=()=>{
                   className="moviescontainer">
                         {
                            movies.filter(movie => {
-                              return checkDate(movie.released) !== true
+                              return checkDate(movie.released) === true
                            }).map((item, index) => {      
                               return <Col key={index} xs='6' sm='6' md='3'>
-                                 <CardMovie title={item.name} image={item.image} runtime={item.runtime} />
+                                 <CardMovie title={item.name} image={item.image} runtime={item.runtime} genre={item.genre}/>
                                  </Col>
                            })
                         }
@@ -126,6 +180,11 @@ const MoviePageStyle = styled.div`
    .header__filter__button:hover{
       cursor: pointer;
       background-color: rgb(151, 121, 89);
+   }
+
+   .ASC:active{
+      background-color: rgb(151, 121, 89);
+
    }
 
 `;

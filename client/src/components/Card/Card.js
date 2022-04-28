@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import propTypes from "prop-types";
 
 
 const CardMovie =(props)=>{
 
-   const {title, image, released, runtime} = props;
+   const {title, image, released, runtime, genre} = props;
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -28,7 +28,15 @@ const CardMovie =(props)=>{
                </ListGroup>
             </Card.Body>
             <ListGroupItem className='card__text__title'><h3>{title}</h3></ListGroupItem>
-            <FontAwesomeIcon className='like' icon={faHeart}></FontAwesomeIcon>
+            <div className='card__footer'>
+               <div className='card__footer__runtime text-center'>
+                  <p>{`${runtime} minute`}</p>
+               </div>
+               <div className='card__footer__gener text-center'>
+                  <p>{`${genre}`}</p>
+               </div>
+               
+             </div>
          </Card>
       </CardStyle>
    )
@@ -37,10 +45,11 @@ const CardMovie =(props)=>{
 const CardStyle = styled.div`
 
 .card {
-   width: 13rem;
+   width: 15rem;
    height: auto;
    margin: 0 auto;
    background-color: transparent;
+   margin-bottom: 3rem;
 
 }
 .card__header :hover{
@@ -102,6 +111,27 @@ const CardStyle = styled.div`
    cursor: pointer;
 }
 
+.card__footer{
+   padding: 0rem 1rem;
+   display: flex;
+   justify-content: space-around;
+   
+}
+
+.card__footer__runtime, .card__footer__gener{
+      background-color:#707070;
+      width: 5.5rem;
+      padding: 0.5rem;
+      height: 2rem;
+      border-radius: 20px;
+      color: #C9B898;
+      
+   }
+.card__footer__runtime p, .card__footer__gener p {
+   font-size: 12px;
+   font-weight: bold;
+}
+
 
 /* ----------------- when screen lester 10000px ------------- */
 
@@ -141,6 +171,7 @@ const CardStyle = styled.div`
       left: 3.5rem;
       bottom: 19rem;
    }
+
  }
 
 

@@ -4,7 +4,6 @@ import { Button, Col, Container, Form, Modal, Row  } from "react-bootstrap"
 import  axios  from "axios"
 import styled from "styled-components";
 import { AuthContext } from "../../App";
-import { useEffect } from "react";
 
 const SignInButton=()=>{
 
@@ -12,11 +11,7 @@ const SignInButton=()=>{
 
    const [showSign, setShowSign] = useState(false);
    const [showLog, setShowLog] = useState(false);
-   const [user, setUser] = useState('');
-
-   useEffect(()=>{
-   },[auth]);
-
+   const [user, setUser] = useState(null);
 
    const handleSignIn = (event) =>{
       event.preventDefault();
@@ -49,6 +44,7 @@ const SignInButton=()=>{
          if(response.data.accesstoken){
             localStorage.setItem("user", JSON.stringify(response.data));
             setAuth(localStorage.getItem("user"));
+            setUser(localStorage.getItem("user"));
             console.log(localStorage.getItem("user"));
          }else{
             return response;
@@ -56,12 +52,17 @@ const SignInButton=()=>{
       });
 
       setShowSign(false);
+      setShowLog(false);
+
 
    }
 
    const handlelogout =  async (event) => {
       event.preventDefault();
+
+      console.log(localStorage.getItem("user"));
       await localStorage.removeItem("user");
+      await setUser(null);
       await setAuth(null);
       setShowLog(false);
       setShowLog(false);
@@ -72,12 +73,8 @@ const SignInButton=()=>{
  return (
    <ButtonSignStyle> 
 
-      {!auth ? (  
-         
-         <> 
-
-         <Button onClick={()=> {setShowSign(true)}}> SignUp </Button>
-         <Button onClick={()=> {setShowLog(true)}}> LogIn </Button>
+         <Button  className="button-signIn" onClick={()=> {setShowSign(true)}}> SignUp </Button>
+         <Button  className="button-logIn" onClick={()=> {setShowLog(true)}}> LogIn </Button>
 
    {/*------------------------------------------- Modal SignUp --------------------------------------------------------------- */}
 
@@ -93,6 +90,7 @@ const SignInButton=()=>{
                <Col lg='2'></Col>
                <Col lg='8'>
                      <Form className="mt-5 mb-5" onSubmit={handleSignIn}>
+
                         <Form.Group className="form__group" >
                            <Form.Label className="form__label" >UserName</Form.Label>
                            <Form.Control className="form__field" name="name_SignUp" type="text" placeholder="Enter Name"></Form.Control>
@@ -117,9 +115,7 @@ const SignInButton=()=>{
 
             </Row>
          </Container>
-         
-
-
+      
          <Modal.Footer className="modal__footer">
          </Modal.Footer>
          </Modal>
@@ -138,6 +134,7 @@ const SignInButton=()=>{
                <Col lg='2'></Col>
                <Col lg='8'>
                      <Form className="mt-5 mb-5" onSubmit={handleLogIn}>
+
                         <Form.Group className="form__group" >
                            <Form.Label className="form__label" >Email Name</Form.Label>
                            <Form.Control className="form__field" name="email_Login" type="email"></Form.Control>
@@ -146,7 +143,6 @@ const SignInButton=()=>{
                            <Form.Label className="form__label" >Password</Form.Label>
                            <Form.Control className="form__field" name="password_Login" type="text"></Form.Control>
                         </Form.Group>
-
 
                      <Container className="text-center">
                         <button className="Modal__Body__Button mt-5">Log In</button>
@@ -162,17 +158,26 @@ const SignInButton=()=>{
          </Modal.Footer>
          </Modal>
 
-         </>
-      
-      ): 
-      
-         <button onClick={handlelogout} >logout</button> }
    </ButtonSignStyle>
+   
    )
 }
 
 
 const ButtonSignStyle = styled.div`
+
+   .button-logout, .button-signIn, .button-logIn{
+      width: 5rem;
+      height: 2rem;
+      border-radius: 13px;
+      border: none;
+      background-color: #BDAD8E;
+      color: #ffff;
+   }
+
+   .button-signIn{
+      margin-right: 1rem;
+   }
 
    .modalheader{
       background-color: #BDAD8E;
@@ -182,7 +187,6 @@ const ButtonSignStyle = styled.div`
       text-align: center;
       color: rgb(255, 255, 255);
       justify-content: center;
-
    }
 
    .Modal__Body__Button{
@@ -235,6 +239,7 @@ const ButtonSignStyle = styled.div`
       background-color: #BDAD8E;
       height: 50px;
    }
+
 
 `;
 

@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { useCallback } from "react";
 import components from "../../../components";
 const { useParams } =  require('react-router-dom');
+import 'aos'
+import AOS from "aos";
 
 const FindByCinema =()=>{
 
@@ -19,7 +21,6 @@ const FindByCinema =()=>{
    const [dateSelectNext, setDateSelectNext] = useState(new Date().toISOString());
    const [moviesShow, setMoviesShow] = useState([]);
    const [program, setProgram]= useState([]);
-
 
    const selectedDay = (val) =>{
                                      
@@ -36,27 +37,18 @@ const FindByCinema =()=>{
   };
 
   const getProgramByDate = useCallback(()=>{
+     
      const dateSet = {
          cinema_id: cinema_id,
          start: dateSelect,
          end: dateSelectNext
      }
 
-     // get program check 
-     serviceProgram.getProgramByDate(dateSet)
-     .then((res) => {
-         setProgram(res.data);
-         console.log(res.data);
-     })
-     .catch((err) => {console.log(err)});
-
      // get movies showtime check 
      serviceProgram.getMoviesShowtime(dateSet)
      .then((res) => {
          setMoviesShow(res.data);
-         console.log(res.data);
      })
-
 
   }, [dateSelect, dateSelectNext, cinema_id]);
 
@@ -81,9 +73,9 @@ const FindByCinema =()=>{
       <Fragment>
          <FindByCinemaStyle className="findbycinemas">
 
-            <div className="findbycinemas__header">
+            <div className="findbycinemas__header"  >
                <Container className="findbycinemas__header__container" >
-                  <ListGroup>
+                  <ListGroup  data-aos='fade-up' data-aos-duration="1000" >
                      <ListGroupItem className="findbycinemas__header__container__list1">
                         <h5>{cinemas.cinemaName}</h5>
                      </ListGroupItem>
@@ -104,11 +96,23 @@ const FindByCinema =()=>{
                      >
                </DatePicker>
             </div>
+            
 
             {
+             moviesShow.length !== 0  ? 
                moviesShow.map((item, idx) => {
-                  return (<components.BoxShowTime key={idx} movie_id={item}></components.BoxShowTime>)
-               })
+                  return (<components.BoxShowTime 
+                     key={idx}
+                     movie_id={item} 
+                     cinema_id={cinema_id}
+                     today={dateSelect}
+                     tommorrow={dateSelectNext}
+                     />)
+               }) : 
+
+               <div>
+                  <components.NoMovie/>
+               </div>
             }
 
 
@@ -148,7 +152,7 @@ const FindByCinemaStyle = styled.div`
    .findbycinemas__date{
       margin-top:  4rem;
       padding: 0.2rem 5rem;
-      background-color: #C9B898;
+      background-color: #A89776;
    }
 
    .DatePicker_monthContainer__4SSK4{

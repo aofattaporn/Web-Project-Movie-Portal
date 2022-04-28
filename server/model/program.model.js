@@ -2,9 +2,10 @@
 var mongoose = require('mongoose');
 
 var programSchema = new mongoose.Schema({
-    date : { type: Date, default: Date.now }, 
+    date : { type: Date, default: Date.now}, 
+    time:  {type: Date, default: Date.now},
     theater: Number,
-    seats: [
+    seats: [     
       {
          type: { type: String },
          price: { type: Number, default: 120 }, 

@@ -7,7 +7,9 @@ const {
    getProgramById,
    getProgramByDate,
    getProgramByDateAndCinema,
+   getTheater,
    getMoviesShowtime,
+   getProgramShowtime,
    createProgram,
    updateProgramById,
    deletePrograms,
@@ -25,6 +27,10 @@ routerProgram.get('/:id', getProgramById);
 routerProgram.post('/datetime', getProgramByDateAndCinema);
 
 routerProgram.post('/movies/showtime', getMoviesShowtime);
+
+routerProgram.post('/movies/showtime/theater', getTheater);
+
+routerProgram.post('/movies/showtime/programs', getProgramShowtime);
 
 routerProgram.post('/create', createProgram);
 

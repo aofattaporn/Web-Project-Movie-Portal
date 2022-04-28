@@ -7,12 +7,11 @@ import 'aos'
 import { useState } from 'react';
 import { createContext } from 'react';
 
-
 export const AuthContext = createContext();
 
 function App() {
 
-  const [auth, setAuth] = useState("Hello");
+  const [auth, setAuth] = useState(null);
 
   return (
       <div className="App">
@@ -36,6 +35,8 @@ function App() {
             <Route path='/createProgram' element={ <page.CreateProgram/>}></Route>
 
           </Routes>
+
+          
         </AuthContext.Provider>
       </div>
   );

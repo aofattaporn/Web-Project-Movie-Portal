@@ -15,7 +15,7 @@ const getCinemas =(req, res) => {
 }
 
 const getCinemasById =(req, res)=>{
-   console.log(req.params.id);
+
    Cinema.findById(req.params.id, (err, user)=>{
       if(err){
          console.log(err);
@@ -45,7 +45,6 @@ const createCinema =(req, res)=>{
 }
 
 const updateCinemaById =(req, res)=>{
-   console.log(req.params.id);
    Cinema.findByIdAndUpdate(req.params.id, req.body, (err, cinema) =>{
       if(err){
          console.log(err);

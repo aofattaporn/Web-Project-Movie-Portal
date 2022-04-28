@@ -8,7 +8,8 @@ var movieSchema = new mongoose.Schema({
    trailer: { type: String, default: null},
 
    //  Desc
-   genre:  [{ type: String, default: null}],
+   
+   genre:  { type: String, default: null},
    director: { type: String, default: null},
    runtime: { type: String, default: null},
    desc: { type: String, default: null},

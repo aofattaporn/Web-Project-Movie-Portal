@@ -2,7 +2,12 @@ use('MoviePortal');
 
 // db.programs.find({"cinema": ObjectId("6267e0831d1a93cc0b85cdb2") ,"date": {$gte:ISODate("2022-03-26"), $lt:ISODate("2022-04-27")}});
 
-db.programs.distinct("movies" ,{"cinema": ObjectId("6267e0831d1a93cc0b85cdb2") ,"date": {$gte:ISODate("2022-03-26"), $lt:ISODate("2022-04-27")}});
+// db.programs.distinct("movies" ,{"cinema": ObjectId("6267e0831d1a93cc0b85cdb2") ,"date": {$gte:ISODate("2022-03-26"), $lt:ISODate("2022-04-27")}});
+
+// db.programs.distinct("theater" ,{"movies" : ObjectId("6266d233f4a2922c6ea7d95d"), "cinema": ObjectId("6267e0831d1a93cc0b85cdb2") ,"date": {$gte:ISODate("2022-03-26"), $lt:ISODate("2022-04-27")}});
+
+// db.movies.find({}).sort({name : -1} );
+db.movies.find({}).sort({name : 1} );
 
 // db.programs.distinct("movies");
 // db.programs.find()

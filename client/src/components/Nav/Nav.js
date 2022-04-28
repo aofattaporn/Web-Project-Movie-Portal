@@ -1,11 +1,21 @@
-import {Navbar, NavDropdown, Nav, Container, Form, FormControl, Button} from 'react-bootstrap';
+import {Navbar, NavDropdown, Nav, Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SignInButton from '../Button/SignIn';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { AuthContext } from '../../App';
  
 const Navigation=()=>{
+
+   const {auth, setAuth} = useContext(AuthContext);
+
+   const handleLogout = () => {
+      localStorage.removeItem("user");
+      console.log(localStorage.getItem("user"));
+      setAuth(null);
+   }
 
    return (
 
@@ -30,21 +40,16 @@ const Navigation=()=>{
                      </NavDropdown>
                   </Nav>
                   <Nav>
-                     {/* <Form className="d-flex">
-                        <FormControl
-                           type="search"
-                           placeholder="Search"
-                           className="me-2 nav__input"
-                           aria-label="Search"
-                        />
-                        <Button className="me-2 fa fa-search nav__search">
-                        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
 
-                        </Button>
-                     </Form> */}
-                     <div>
-                        <SignInButton/>
-                     </div>
+                     {
+                        !auth ?  
+                        
+                        ( <div> <SignInButton/> </div> ) : 
+                         <div> 
+                            <button className='button-logout' onClick={handleLogout}> logout</button>
+                         </div>
+                     }
+                     
 
                   </Nav>
                </Navbar.Collapse>
@@ -60,6 +65,7 @@ const NavigationBar = styled.div`
    .nav{
    background-color: #17130A;
    }
+   
 
    /* ------------------ nav-logo ------------------------------- */
 
@@ -136,6 +142,15 @@ const NavigationBar = styled.div`
 
    .nav__admin{
       color: #C9B898;
+   }
+
+   .button-logout{
+      width: 5rem;
+      height: 2rem;
+      border-radius: 13px;
+      border: none;
+      background-color: #BDAD8E;
+      color: #ffff;
    }
 
 `;

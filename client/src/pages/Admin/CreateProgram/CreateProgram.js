@@ -4,13 +4,14 @@ import {Col, Container, Form, Row, FloatingLabel} from 'react-bootstrap'
 import serviceMovies from '../../../service/movieService'
 import serviceCinemas from '../../../service/cienemaService'
 import serviceProgram from '../../../service/programService'
+import DateTimePicker from 'react-datetime-picker';
 import { useState } from "react"
 import { useEffect } from "react"
 
 const CreateProgram = ()=>{
 
    // manage state 
-   const [date, setDate] =useState('');
+   const [date, setDate] = useState(new Date());
    const [theater, setThearter] =useState(1);
    const [movieSelect, setMovieSelect] =useState('');
    const [cinemaSelect, setCinemasSelect] =useState('');
@@ -80,12 +81,6 @@ const CreateProgram = ()=>{
                      <h1 className="title"> Create Programs </h1>
 
                      <Form onSubmit={onSubmit}>
-                        {/* -------------------------------- date ----------------------------------------  */}
-                        <Form.Group>
-                           <FloatingLabel controlId="floatingInput" label="Date time" className="mb-3">
-                              <Form.Control type="text" name="DateTime" placeholder="Date Time" onChange={event => setDate(event.target.value)}/>
-                           </FloatingLabel> 
-                        </Form.Group>
 
                         {/* -------------------------------- theater-number ----------------------------------------  */}
                         <Form.Group>
@@ -116,8 +111,12 @@ const CreateProgram = ()=>{
                            }
                         </Form.Select>
 
+                        {/* -------------------------------- date ----------------------------------------  */}
+
+                        <DateTimePicker className="test mb-3" onChange={setDate} value={date} />
+
                         {/* -------------------------------- button ----------------------------------------  */}
-                         <Form.Group className="containerbutton" >
+                        <Form.Group className="containerbutton" >
                            <button className="containerbutton__button" > save </button>
                         </Form.Group>
 
@@ -161,6 +160,14 @@ const CreateProgramStyle = styled.div`
       border-radius: 5px;
       border: none;
       color: #ffff;
+   }
+
+   .test{
+      /* color: white; */
+      background-color: white;
+      width: 20rem;
+      height: 3rem;
+
    }
 
 

@@ -3,6 +3,8 @@ import { Fragment, useEffect, useState } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import AccordionItemCinemas from "../../components/AccordionItem/AccordItemCinemas";
 import serviceCinemas from "../../service/cienemaService";
+import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {  faCocktail } from "@fortawesome/free-solid-svg-icons";
 import 'aos'
 import AOS from "aos";
 
@@ -42,6 +44,8 @@ const CinemasPage=()=>{
                         data-aos-duration="1000"                  
                      >
                         { 
+                        // console.log(area)
+                        
                            area.map((item, index)=>{
                               var keyAC = index.toString();
                               var cinemas = cinema.filter(x => x.cinemaArea === item);
@@ -60,6 +64,7 @@ const CinemasPage=()=>{
                   </Col>
                   <Col md='1'></Col>
                </Row>    
+               <FontAwesomeIcon icon={faCocktail}></FontAwesomeIcon>
             </Container>
          </CinemasPageStyle>
       </Fragment>
@@ -107,3 +112,6 @@ const CinemasPageStyle = styled.main`
 `;
 
 export default CinemasPage;
+
+
+ 
