@@ -9,11 +9,12 @@ import Nav from "./Nav/Nav";
 import SliderMovies from "./Slider/SliderMovies";
 import Tap from "./Tap/Tap";
 import NoMovie from "./Handle/NoMovie";
+import Footer from "./Footer/Footer";
 
 
 const components ={
    Accordion, AccorrdionItem, BoxShowTime, Button, Card, Nav,
-   SliderMovies, Tap, ListTheater, NoMovie
+   SliderMovies, Tap, ListTheater, NoMovie, Footer
 }
 
 export default components;

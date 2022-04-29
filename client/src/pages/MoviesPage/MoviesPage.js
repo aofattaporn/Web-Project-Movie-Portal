@@ -16,7 +16,6 @@ const MoviesPage=()=>{
    const [movies, setMovies] = useState([]);
    const [sort, setSort] = useState('');
 
-
    const getMovies =()=>{
       serviceMovies.getMovies()
       .then((response) => { 
@@ -72,10 +71,6 @@ const MoviesPage=()=>{
 
     }, [sortByCharacterASC, sortByCharacterDSC])
 
- // when on Click 
-   // useEffect(()=>{
-   //    sortByCharacterDSC();
-   //  }, [])
 
 
 
@@ -102,7 +97,7 @@ const MoviesPage=()=>{
                   </div>
                   <Row  className="moviescontainer"
                      data-aos='fade-up'
-                     data-aos-duration="2000"
+                     data-aos-duration="1000"
                      >
                         {
                            movies.filter(movie => {
@@ -131,9 +126,10 @@ const MoviesPage=()=>{
                            movies.filter(movie => {
                               return checkDate(movie.released) === true
                            }).map((item, index) => {      
-                              return <Col key={index} xs='6' sm='6' md='3'>
-                                 <CardMovie title={item.name} image={item.image} runtime={item.runtime} genre={item.genre}/>
-                                 </Col>
+                              return (
+                                 <Col key={index} xs='6' sm='6' md='3'>
+                                    <CardMovie title={item.name} image={item.image} runtime={item.runtime} genre={item.genre}/>
+                                 </Col> )
                            })
                         }
                   </Row>

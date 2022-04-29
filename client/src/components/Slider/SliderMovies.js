@@ -1,31 +1,60 @@
 import { useState } from 'react';
-// import {Carousel, Col, Container, Row} from 'react-bootstrap';
-// import CardMovie from '../Card/Card';
+
 import './SliderMovies.css'
+import "react-multi-carousel/lib/styles.css";
+import { Col, Container, Row } from 'react-bootstrap';
+import styled from 'styled-components';
+import CarouselCard from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { useEffect } from 'react';
+import { useCallback } from 'react';
 
-const SliderMovies=()=>{
-   const [index1, setIndex1] = useState(0);
-   const [index2, setIndex2] = useState(0);
 
-   const handleSelect1 = (selectedIndex1, e) => {
-     setIndex1(selectedIndex1);
-   };
+const SliderMovies=(props)=>{
 
-   const handleSelect2 = (selectedIndex2, e) => {
-      setIndex2(selectedIndex2);
-    };
+  const {title, image, released, runtime, genre} = props;
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
  
    return (
 
-      <div className='carouselmovies'>
-        <p>Hello </p>
-
+      <div className='carouselmovies'> 
+        <SliderStyle> 
+          <Container>
+            <CarouselCard responsive={responsive}>
+              <div>Item 1</div>
+              <div>Item 2</div>
+              <div>Item 3</div>
+              <div>Item 4</div>
+            </CarouselCard>;
+          </Container>
+        </SliderStyle>
       </div>
- 
-  
-
-      );
-    
+      ); 
 }
+
+const SliderStyle = styled.div`
+
+
+`
 
 export default SliderMovies;

@@ -1,29 +1,20 @@
-import styled from 'styled-components';
-import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
-import propTypes from "prop-types";
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import styled from "styled-components";
 
 
-const CardMovie =(props)=>{
-
-   const {title, image, released, runtime, genre} = props;
+const CardHomePage =(props)=>{
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
    }
-
-   useEffect(()=>{
-      getDate();
-   }, [title, image, released, runtime, genre])
-
+   
+   const {title, image, released, runtime, genre} = props;
 
    return (
-      <CardStyle> 
-         <div  className='card mt-3 fade-up ' data-aos="fade-up" >
-
+      <CardHomepageStyle> 
+         <Card className="card-container">
             {/* header  */}
             <div className='card__header'>
                <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`}  />
@@ -35,9 +26,7 @@ const CardMovie =(props)=>{
                   <ListGroupItem className='card__text__releas'><p>{getDate(released)}</p></ListGroupItem>
                </ListGroup>
             </Card.Body>
-
-            {/* footer */}
-            <ListGroupItem className='card__text__title'><h3>{title}</h3></ListGroupItem>
+            <ListGroupItem className='card__text__title'><h5>{title}</h5></ListGroupItem>
             <div className='card__footer'>
                <div className='card__footer__runtime text-center'>
                   <p>{`${runtime} minute`}</p>
@@ -46,32 +35,42 @@ const CardMovie =(props)=>{
                   <p>{`${genre}`}</p>
                </div>
              </div>
-         </div>
-       </CardStyle>
+         </Card>
+      </CardHomepageStyle>
    )
 }
 
-const CardStyle = styled.div`
+const CardHomepageStyle = styled.div`
+
+.card-container{
+   /* margin-top: 5rem; */
+   width: 14rem;
+   height: 5rem;
+   height: auto;
+   margin:0 auto;
+   /* margin-top: 7rem; */
+
+   background-color: transparent;
+   margin-bottom: 3rem;
+}
 
 h1{
    color: #C9B898;
 }
 
-.card {
-   width: 15rem;
-   height: auto;
-   margin: 0 auto;
-   background-color: transparent;
-   margin-bottom: 3rem;
-
-}
-.card__header :hover{
+.card__header:hover{
    cursor: pointer;
    box-shadow: rgba(151, 121, 89, 0.25) 0px 14px 28px, rgba(151, 121, 89, 0.22) 0px 10px 10px;
+   width: 13rem;
 }
 .card__header {
    margin: 0 auto;
 }
+
+.card__ixmg{
+   cursor: pointer;
+}
+
 
 /* ----------------- show thim and gerner ------------- */
 
@@ -145,60 +144,9 @@ h1{
 }
 
 
-/* ----------------- when screen lester 10000px ------------- */
-
-@media only screen and (max-width: 1000px) {
-
-   .card{
-      width:  10rem;
-      background-color: transparent;
-      text-align: center;
-      border-radius: 10px;
-      text-align: center;
-      margin: 5rem auto;
-   }
-
-   .card__text{
-      border-top: #C9B898 solid 5px;
-      padding: 0 10px;
-      background-color: transparent;
-   }
-
-   .card__text__title h2{
-
-      font-size: 1.5rem;
-   
-   }
-
-   .card__text__releas, .card__text__title, .card{
-      border: 0;
-      background-color: transparent;
-      color: #ffff;
-   }
 
 
-   .like{
-      position: relative;
-      font-size: 24px;
-      left: 3.5rem;
-      bottom: 19rem;
-   }
+`
 
- }
+export default CardHomePage;
 
-
-
-
-
-
-`;
-
-
-CardMovie.propTypes ={
-   title: propTypes.string,
-   images: propTypes.string, 
-   released: propTypes.string,
-   runtime: propTypes.string
-}
-
-export default CardMovie;

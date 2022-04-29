@@ -113,6 +113,9 @@ const loginUser= async (req, res)=>{
          user.token = token; 
 
          res.status(200).json({accesstoken: `Bearer ${token}`});
+
+         
+         console.log(jwt.decode(token));
       }
 
       else{

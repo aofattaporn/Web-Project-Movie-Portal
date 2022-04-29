@@ -152,7 +152,7 @@ const FindByCinemaStyle = styled.div`
    .findbycinemas__date{
       margin-top:  4rem;
       padding: 0.2rem 5rem;
-      background-color: #A89776;
+      background-color: transparent;
    }
 
    .DatePicker_monthContainer__4SSK4{
@@ -166,7 +166,7 @@ const FindByCinemaStyle = styled.div`
    }
 
    .DatePicker_daysContainer__9htA9{
-      border-top: #ffff 2px solid;
+      /* border-top: #ffff 2px solid; */
    }
 
    /* text-item */

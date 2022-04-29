@@ -1,6 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 import React from 'react';
 import page from './pages/index';
+import components from './components';
 import Nav from './components/Nav/Nav'
 import './App.css';
 import 'aos'
@@ -11,16 +12,16 @@ export const AuthContext = createContext();
 
 function App() {
 
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(localStorage.getItem("user"));
 
   return (
       <div className="App">
         <AuthContext.Provider value={{auth, setAuth}}>
-          <Nav/>
+          <components.Nav/>
           <Routes>
 
             {/* ------------------ main-page -------------------------------- */}
-            <Route path='/' element={ <page.HomePage/> }></Route>
+            <Route path='/' exact element={ <page.HomePage/> }></Route>
             <Route path='/movies' element={ <page.MoviePage/>}></Route>
             <Route path='/cinemas' element={ <page.CinemasPage/>}></Route>
             <Route path='/promotions' element={ <page.PromotionsPage/>}></Route>
@@ -35,6 +36,8 @@ function App() {
             <Route path='/createProgram' element={ <page.CreateProgram/>}></Route>
 
           </Routes>
+          
+          <components.Footer/>
 
           
         </AuthContext.Provider>

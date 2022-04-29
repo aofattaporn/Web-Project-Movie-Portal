@@ -3,8 +3,6 @@ import { Fragment, useEffect, useState } from "react"
 import { Accordion, Col, Container, Row } from "react-bootstrap";
 import AccordionItemCinemas from "../../components/AccordionItem/AccordItemCinemas";
 import serviceCinemas from "../../service/cienemaService";
-import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {  faCocktail } from "@fortawesome/free-solid-svg-icons";
 import 'aos'
 import AOS from "aos";
 
@@ -64,7 +62,6 @@ const CinemasPage=()=>{
                   </Col>
                   <Col md='1'></Col>
                </Row>    
-               <FontAwesomeIcon icon={faCocktail}></FontAwesomeIcon>
             </Container>
          </CinemasPageStyle>
       </Fragment>
