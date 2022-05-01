@@ -57,6 +57,27 @@ const getProgramByDateAndCinema =(req, res)=>{
 
 }
 
+const getCinemasShowTime = (req, res)=>{
+
+   let movie_id = req.body.date.movie_id;
+   let start = new Date(req.body.date.start);
+   let end = new Date(req.body.date.end);
+
+   Program.distinct("cinema", 
+   
+   {"movies": ObjectId(movie_id) ,"date": {$gte: start, $lt: end}}, (err, program)=>{
+      if(err){
+         console.log(err);
+      }
+      else{
+         res.status(200).json(program);
+      }
+   })
+
+
+
+}
+
 const getTheater =(req, res) =>{
 
    let cinema_id = req.body.cinema_id;
@@ -197,6 +218,7 @@ module.exports = {
    getProgramById,
    getProgramByDate,
    getProgramByDateAndCinema,
+   getCinemasShowTime,
    getMoviesShowtime,
    getProgramShowtime,
    getTheater,

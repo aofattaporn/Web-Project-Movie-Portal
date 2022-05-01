@@ -8,8 +8,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import 'aos'
 import AOS from "aos";
-import { useCallback } from "react";
-
 
 const MoviesPage=()=>{
 
@@ -106,8 +104,7 @@ const MoviesPage=()=>{
                               
                            }).map((item, index) => {      
                               console.log(item);
-
-                              return <Col  key={index} xs='6' sm='6' md='3'><CardMovie title={item.name} image={item.image} released={item.released} runtime={item.runtime} /></Col>
+                              return <Col  key={index} xs='6' sm='6' md='3'><CardMovie title={item.name} image={item.image} released={item.released} runtime={item.runtime} movie_id={item._id}/></Col>
                            })
                         }
                   </Row>
@@ -125,10 +122,11 @@ const MoviesPage=()=>{
                         {
                            movies.filter(movie => {
                               return checkDate(movie.released) === true
-                           }).map((item, index) => {      
+                           }).map((item, index) => {   
+                              console.log(item);   
                               return (
                                  <Col key={index} xs='6' sm='6' md='3'>
-                                    <CardMovie title={item.name} image={item.image} runtime={item.runtime} genre={item.genre}/>
+                                    <CardMovie title={item.name} image={item.image} runtime={item.runtime} genre={item.genre} movie_id={item._id} />
                                  </Col> )
                            })
                         }

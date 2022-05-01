@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 import propTypes from "prop-types";
 import { useEffect } from 'react';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 const CardMovie =(props)=>{
 
-   const {title, image, released, runtime, genre} = props;
+   const {title, image, released, runtime, genre, movie_id} = props;
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -22,11 +22,13 @@ const CardMovie =(props)=>{
 
    return (
       <CardStyle> 
+
          <div  className='card mt-3 fade-up ' data-aos="fade-up" >
 
             {/* header  */}
+            
             <div className='card__header'>
-               <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`}  />
+               <Link to={`/movies/${movie_id}`}><Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`} /></Link>
             </div>
 
             {/* card-body */}
@@ -198,7 +200,8 @@ CardMovie.propTypes ={
    title: propTypes.string,
    images: propTypes.string, 
    released: propTypes.string,
-   runtime: propTypes.string
+   runtime: propTypes.string,
+   movie_id: propTypes.string.isRequired
 }
 
 export default CardMovie;

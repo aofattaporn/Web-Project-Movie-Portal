@@ -10,7 +10,7 @@ const NoMovie = () =>{
             <Row>
                {/* <h1>dfdsfs</h1> */}
                <FontAwesomeIcon className="icon" icon={faNotEqual} />
-               <h1 className="text-center title"> [ DONT HAVE A MOVIE ]</h1>
+               <h1 className="text-center title"> [ NO MOVIES SHOWTIME ]</h1>
             </Row>
          </Container>
       </NoMovieStyle>

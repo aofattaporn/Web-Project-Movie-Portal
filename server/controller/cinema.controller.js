@@ -27,6 +27,7 @@ const getCinemasById =(req, res)=>{
 
 }
 
+
 const createCinema =(req, res)=>{
 
    const newCinema = {

@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import styled from "styled-components";
 // import components from "../../components";
-import { Card, Container, ListGroup, ListGroupItem, Row} from 'react-bootstrap';
+import {  Container, Row} from 'react-bootstrap';
 import serviceMovies from "../../service/movieService";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -63,18 +63,19 @@ const HomePage=()=>{
 
    {/* ------------------------  carousel-header ------------------------------ */}
                <Carousel>
+                  <div>
+                     <img src={require("../../assets/images/ads/test.png")} alt="img3"/>
+                  </div>
+                  <div>
+                     <img src={"https://i0.wp.com/theallapps.com/wp-content/uploads/1500x500.jpeg?w=1500&ssl=1"} alt="img3"/>
+                  </div>
                   <div> 
-                     <img src={"https://cdn.cinemacloud.co.uk/imageFilm/1041_1_2.jpg"}  />
+                     <img src={"https://cdn.cinemacloud.co.uk/imageFilm/1041_1_2.jpg"} alt="img3" />
                   </div>
                   <div>
-                     <img src={require("../../assets/images/ads/test.png")}/>
+                        <img src={"https://pbs.twimg.com/media/FDUbC-WUcAECL-m?format=jpg&name=4096x4096"} alt="img3"/>
                   </div>
-                  <div>
-                        <img src={"https://pbs.twimg.com/media/FDUbC-WUcAECL-m?format=jpg&name=4096x4096"}/>
-                  </div>
-                  <div>
-                        <img src={"https://i0.wp.com/theallapps.com/wp-content/uploads/1500x500.jpeg?w=1500&ssl=1"}/>
-                  </div>
+
 
                </Carousel>
                <Tap/>

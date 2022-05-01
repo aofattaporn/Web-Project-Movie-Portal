@@ -10,20 +10,19 @@ import { useCallback } from "react";
 import components from "../../../components";
 const { useParams } =  require('react-router-dom');
 import 'aos'
-import AOS from "aos";
 
 const FindByCinema =()=>{
 
    let { cinema_id } = useParams();
 
    const [cinemas, setCinemas] = useState({});
-   const [dateSelect, setDateSelect] = useState(new Date().toISOString());
-   const [dateSelectNext, setDateSelectNext] = useState(new Date().toISOString());
+   const [dateSelect, setDateSelect] = useState(new Date(new Date(dateSelect.setDate(new Date().getDate()))).toISOString());
+   const [dateSelectNext, setDateSelectNext] = useState(new Date(dateSelect.setDate(new Date().getDate() + parseInt(1))).toISOString());
    const [moviesShow, setMoviesShow] = useState([]);
-   const [program, setProgram]= useState([]);
 
    const selectedDay = (val) =>{
                                      
+      console.log(val);
       let date_select = new Date(val);
       let today = date_select.setDate(new Date(val).getDate() );
       let tommorrow = date_select.setDate(new Date(val).getDate() + parseInt(1));
@@ -36,7 +35,7 @@ const FindByCinema =()=>{
 
   };
 
-  const getProgramByDate = useCallback(()=>{
+  const getProgramByDate =  useCallback(async ()=>{
      
      const dateSet = {
          cinema_id: cinema_id,
@@ -45,10 +44,11 @@ const FindByCinema =()=>{
      }
 
      // get movies showtime check 
-     serviceProgram.getMoviesShowtime(dateSet)
+     await serviceProgram.getMoviesShowtime(dateSet)
      .then((res) => {
          setMoviesShow(res.data);
      })
+
 
   }, [dateSelect, dateSelectNext, cinema_id]);
 
@@ -114,8 +114,6 @@ const FindByCinema =()=>{
                   <components.NoMovie/>
                </div>
             }
-
-
          </FindByCinemaStyle>
       </Fragment>
    )

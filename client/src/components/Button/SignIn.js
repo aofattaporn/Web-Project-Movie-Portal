@@ -4,7 +4,7 @@ import { Button, Col, Container, Form, Modal, Row  } from "react-bootstrap"
 import  axios  from "axios"
 import styled from "styled-components";
 import { AuthContext } from "../../App";
-import jwt from "jwt-decode";
+// import jwt from "jwt-decode";
 
 const SignInButton=()=>{
 
@@ -18,9 +18,9 @@ const SignInButton=()=>{
       event.preventDefault();
       const {email_SignUp, password_SignUp, name_SignUp} = event.target.elements;
 
-      const email = email_SignUp.value;
-      const password = password_SignUp.value;
-      const name = name_SignUp.value;
+      // const email = email_SignUp.value;
+      // const password = password_SignUp.value;
+      // const name = name_SignUp.value;
 
       setShowSign(false);
    }
@@ -170,11 +170,17 @@ const ButtonSignStyle = styled.div`
    .button-logout, .button-signIn, .button-logIn{
       width: 5rem;
       height: 2rem;
-      border-radius: 13px;
+      border-radius: 0px;
       border: none;
       background-color: #BDAD8E;
       color: #ffff;
    }
+
+   .button-logout:hover, .button-signIn:hover, .button-logIn:hover, .button-signIn:hover:active{
+      background-color:  #967959;
+      border: 0px;
+   }
+   
 
    .button-signIn{
       margin-right: 1rem;

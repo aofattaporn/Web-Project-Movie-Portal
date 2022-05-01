@@ -32,7 +32,7 @@ const AccordionItemCinemas =(props)=>{
    )
 }
 
-AccordionItemCinemas.propTypes ={
+AccordionItemCinemas.propTypes = {
    data: propTypes.array,
    title: propTypes.string, 
    keyAC: propTypes.string

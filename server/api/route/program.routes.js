@@ -7,6 +7,7 @@ const {
    getProgramById,
    getProgramByDate,
    getProgramByDateAndCinema,
+   getCinemasShowTime,
    getTheater,
    getMoviesShowtime,
    getProgramShowtime,
@@ -25,6 +26,8 @@ routerProgram.get('/', getPrograms);
 routerProgram.get('/:id', getProgramById);
 
 routerProgram.post('/datetime', getProgramByDateAndCinema);
+
+routerProgram.post('/movie/:movie_id/showtime', getCinemasShowTime);
 
 routerProgram.post('/movies/showtime', getMoviesShowtime);
 

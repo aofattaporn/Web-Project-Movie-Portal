@@ -10,6 +10,7 @@ const CinemasPage=()=>{
 
    // set state 
    const [cinema, setCinema] = useState([]);
+   
 
    const getCinemas =()=>{
       serviceCinemas.getCinemas()
@@ -42,7 +43,6 @@ const CinemasPage=()=>{
                         data-aos-duration="1000"                  
                      >
                         { 
-                        // console.log(area)
                         
                            area.map((item, index)=>{
                               var keyAC = index.toString();

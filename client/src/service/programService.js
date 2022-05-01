@@ -1,9 +1,10 @@
 import axios from 'axios'; 
 
 const getProgramByDate =(body)=>{
-   // console.log(body);
    return axios.post('http://localhost:4000/programs/datetime', {date: body});
 }
+
+// use from FinfByCinemas page
 
 const getMoviesShowtime =(body)=>{
    return axios.post('http://localhost:4000/programs/movies/showtime', {date: body});
@@ -21,6 +22,13 @@ const getThearter =(body)=>{
    return axios.post('http://localhost:4000/programs/movies/showtime/theater', body);
 }
 
-const serviceProgram = {getProgramByDate, createProgram, getMoviesShowtime, getThearter, getProgramsShowtime}
+// use from FinfByMovvie page
+
+const getProgramsByMovie =(body)=>{
+   return axios.post(`http://localhost:4000/programs/movie/${body.movie_id}/showtime`, {date: body});
+}
+
+
+const serviceProgram = {getProgramByDate, createProgram, getMoviesShowtime, getThearter, getProgramsShowtime, getProgramsByMovie}
 
 export default serviceProgram;
