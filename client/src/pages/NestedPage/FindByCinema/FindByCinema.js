@@ -16,8 +16,8 @@ const FindByCinema =()=>{
    let { cinema_id } = useParams();
 
    const [cinemas, setCinemas] = useState({});
-   const [dateSelect, setDateSelect] = useState(new Date(new Date(dateSelect.setDate(new Date().getDate()))).toISOString());
-   const [dateSelectNext, setDateSelectNext] = useState(new Date(dateSelect.setDate(new Date().getDate() + parseInt(1))).toISOString());
+   const [dateSelect, setDateSelect] = useState("");
+   const [dateSelectNext, setDateSelectNext] = useState("");
    const [moviesShow, setMoviesShow] = useState([]);
 
    const selectedDay = (val) =>{
@@ -35,7 +35,28 @@ const FindByCinema =()=>{
 
   };
 
+  const dateFormat=(date)=>{
+      const d = new Date(date);
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+      ]
+
+      return `${d.getDate()} ${monthNames[d.getMonth()]} ${d.getFullYear()}`
+   }
+
   const getProgramByDate =  useCallback(async ()=>{
+
+      // if(dateSelect === "" && dateSelectNext===""){
+      //    let date_select = new Date();
+      //    let today = date_select.setDate(new Date().getDate() - parseInt(1));
+      //    let tommorrow = date_select.setDate(new Date().getDate() );
+            
+      //    today = new Date(today).toISOString();
+      //    tommorrow = new Date(tommorrow).toISOString();
+
+      //    setDateSelect(today);
+      //    setDateSelectNext(tommorrow);
+      // }
      
      const dateSet = {
          cinema_id: cinema_id,
@@ -68,14 +89,12 @@ const FindByCinema =()=>{
       getProgramByDate();
    },[getProgramByDate]) 
 
-
    return (
       <Fragment>
          <FindByCinemaStyle className="findbycinemas">
-
             <div className="findbycinemas__header"  >
                <Container className="findbycinemas__header__container" >
-                  <ListGroup  data-aos='fade-up' data-aos-duration="1000" >
+                  <ListGroup>
                      <ListGroupItem className="findbycinemas__header__container__list1">
                         <h5>{cinemas.cinemaName}</h5>
                      </ListGroupItem>
@@ -87,6 +106,10 @@ const FindByCinema =()=>{
             </div>
 
             <div className="findbycinemas__date">
+               <header  className="findbycinemas__date__head">
+                  <h6>{`[ SHOW TIME DATE `} <span>{`${dateFormat(dateSelect)} `} </span> ]</h6>
+                  <div></div>
+               </header>
                <DatePicker
                      getSelectedDay={selectedDay}
                      endDate={100}
@@ -120,6 +143,7 @@ const FindByCinema =()=>{
 }
 
 const FindByCinemaStyle = styled.div`
+   
    .findbycinemas__header{
       height: 15rem;
       display: flex;
@@ -145,6 +169,25 @@ const FindByCinemaStyle = styled.div`
 
    }
 
+   .findbycinemas__date__head{
+      margin-bottom: 2rem;
+      color: #FFFF;
+      
+   }
+
+   .findbycinemas__date__head div {
+      background-color: #C9B898;
+      height: 0.2rem;
+      width: 100%;
+   }
+
+   .findbycinemas__date__head span {
+      color: rgb(151, 121, 89);
+      margin-left: 0.5rem;
+      font-weight: bold;
+      font-size: 2rem;
+   }
+
 
    /* -------------- date tap ----------------------- */
    .findbycinemas__date{
@@ -164,7 +207,15 @@ const FindByCinemaStyle = styled.div`
    }
 
    .DatePicker_daysContainer__9htA9{
-      /* border-top: #ffff 2px solid; */
+      background-color: #A89776;
+   }
+
+   .accordion-button:focus{
+      border-color: #C9B898;
+   }
+
+   .accordion-button:not(.collapsed) {
+      color: #ffff;
    }
 
    /* text-item */

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {Col, Row} from "react-bootstrap";
 import propTypes from "prop-types";
 import serviceProgram from "../../service/programService";
+import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -43,7 +44,7 @@ const ListTheater = (props) =>{
                {/* // map */}
                {
                   program.map((item) => {
-                     return (<button className="showtime-button">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
+                     return ( <Link to={`/booking/${item._id}/${item.movies}/${item.cinema}`}><button className="showtime-button">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
                   })
                }
             </Col>

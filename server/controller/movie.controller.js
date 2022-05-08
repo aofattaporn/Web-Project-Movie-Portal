@@ -19,8 +19,6 @@ const testUpload = async (req, res) => {
          "runtime": req.body.runtime,
          "desc": req.body.desc
       }
-
-      console.log(newData);
    
       res.json( await new Movie(newData).save());
       
@@ -47,7 +45,6 @@ const getMovieById =(req, res) => {
       }
       else{
          res.json(movie);
-         console.log(movie);
       }
    });
 }

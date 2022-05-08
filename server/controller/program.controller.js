@@ -1,4 +1,6 @@
 let Program = require('../model/program.model');
+let Cinema = require('../model/cinema.model');
+
 ObjectId = require('mongodb').ObjectID;
 
 
@@ -57,7 +59,7 @@ const getProgramByDateAndCinema =(req, res)=>{
 
 }
 
-const getCinemasShowTime = (req, res)=>{
+const getCinemasShowTime = async (req, res)=>{
 
    let movie_id = req.body.date.movie_id;
    let start = new Date(req.body.date.start);
@@ -70,7 +72,27 @@ const getCinemasShowTime = (req, res)=>{
          console.log(err);
       }
       else{
-         res.status(200).json(program);
+
+         if(program.length === 0){
+            res.status(200).json([]);
+         }else{
+
+            const cinemas = [];
+
+            program.forEach( (element, index) => {
+               Cinema.findById(element, (err, cinema) => {
+                  if(err){
+                     console.log(err);
+                  }
+                  else if(cinemas.length !== program.length){
+                     cinemas.push(cinema);
+                     if(cinemas.length == program.length){
+                        res.status(200).json(cinemas);
+                     }
+                  }
+               })
+            });
+         }
       }
    })
 

@@ -1,5 +1,8 @@
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import propTypes from "prop-types";
+
 
 
 const CardHomePage =(props)=>{
@@ -10,17 +13,21 @@ const CardHomePage =(props)=>{
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
    }
    
-   const {title, image, released, runtime, genre} = props;
+   const { movie_id , title, image, released, runtime, genre } = props;
+
+   console.log(props);
 
    return (
       <CardHomepageStyle> 
          <Card className="card-container">
-            {/* header  */}
-            <div className='card__header'>
-               <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`}  />
-            </div>
+            {/*---- header -----------------------------------*/}
+            <Link to={`/movies/${movie_id}`}>
+               <div className='card__header'>
+                  <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`} />
+               </div>
+            </Link>
 
-            {/* card-body */}
+            {/*---- card-body -----------------------------------*/}
             <Card.Body className='card__text'>
                <ListGroup>
                   <ListGroupItem className='card__text__releas'><p>{getDate(released)}</p></ListGroupItem>
@@ -61,7 +68,7 @@ h1{
 .card__header:hover{
    cursor: pointer;
    box-shadow: rgba(151, 121, 89, 0.25) 0px 14px 28px, rgba(151, 121, 89, 0.22) 0px 10px 10px;
-   width: 13rem;
+   /* width: 13rem; */
 }
 .card__header {
    margin: 0 auto;
@@ -101,9 +108,12 @@ h1{
    border: 0;
    color: white;
    font-weight: bolder;
-   height: auto;
-   width: auto;
+   height: 2rem;
+   margin-bottom: 1rem;
+   /* width: 18rem; */
    background-color: transparent;
+   overflow-y: scroll;
+
 
 }
 
@@ -143,10 +153,15 @@ h1{
    font-weight: bold;
 }
 
-
-
-
 `
+
+CardHomePage.propTypes ={
+   title: propTypes.string,
+   image: propTypes.string, 
+   released: propTypes.string,
+   runtime: propTypes.string,
+   movie_id: propTypes.string
+}
 
 export default CardHomePage;
 

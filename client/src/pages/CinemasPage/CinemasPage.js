@@ -38,7 +38,7 @@ const CinemasPage=()=>{
                   <Col md='1'></Col>
                   <Col>
                      <Accordion               
-                        defaultActiveKey={'0'}
+                        defaultActiveKey={['0']} alwaysOpen
                         data-aos='fade-up'
                         data-aos-duration="1000"                  
                      >

@@ -4,6 +4,7 @@ import { Button, Col, Container, Form, Modal, Row  } from "react-bootstrap"
 import  axios  from "axios"
 import styled from "styled-components";
 import { AuthContext } from "../../App";
+import swal from "sweetalert"
 // import jwt from "jwt-decode";
 
 const SignInButton=()=>{
@@ -18,9 +19,30 @@ const SignInButton=()=>{
       event.preventDefault();
       const {email_SignUp, password_SignUp, name_SignUp} = event.target.elements;
 
-      // const email = email_SignUp.value;
-      // const password = password_SignUp.value;
-      // const name = name_SignUp.value;
+      const email = email_SignUp.value;
+      const password = password_SignUp.value;
+      const name = name_SignUp.value;
+
+      axios.post('http://localhost:4000/users/register', 
+      { 
+         username: name,
+         email: email,
+         password: password
+      }
+   )
+   .then(response => {
+      console.log(response.data)
+      if(response.data.accesstoken){
+            swal("Register Success!", "You clicked the button!", "success");
+            localStorage.setItem("user", JSON.stringify(response.data));
+            setAuth(localStorage.getItem("user"));
+            setUser(localStorage.getItem("user"));
+            console.log(localStorage.getItem("user"));
+         
+      }else{
+         return response;
+      }
+   });
 
       setShowSign(false);
    }
@@ -43,10 +65,13 @@ const SignInButton=()=>{
       )
       .then(response => {
          if(response.data.accesstoken){
-            localStorage.setItem("user", JSON.stringify(response.data));
-            setAuth(localStorage.getItem("user"));
-            setUser(localStorage.getItem("user"));
-            console.log(localStorage.getItem("user"));
+            // if(response.status == 200){
+               swal("Login Success!", "You clicked the button!", "success");
+               localStorage.setItem("user", JSON.stringify(response.data));
+               setAuth(localStorage.getItem("user"));
+               setUser(localStorage.getItem("user"));
+               console.log(localStorage.getItem("user"));
+            // }
          }else{
             return response;
          }
@@ -58,24 +83,24 @@ const SignInButton=()=>{
 
    }
 
-   const handlelogout =  async (event) => {
-      event.preventDefault();
+   // const handlelogout =  async (event) => {
+   //    event.preventDefault();
 
-      console.log(localStorage.getItem("user"));
-      await localStorage.removeItem("user");
-      await setUser(null);
-      await setAuth(null);
-      setShowLog(false);
-      setShowLog(false);
+   //    console.log(localStorage.getItem("user"));
+   //    await localStorage.removeItem("user");
+   //    await setUser(null);
+   //    await setAuth(null);
+   //    setShowLog(false);
+   //    setShowLog(false);
 
-   }
+   // }
 
 
  return (
    <ButtonSignStyle> 
 
-         <Button  className="button-signIn" onClick={()=> {setShowSign(true)}}> SignUp </Button>
-         <Button  className="button-logIn" onClick={()=> {setShowLog(true)}}> LogIn </Button>
+         <Button  className="button-signIn" onClick={()=> {setShowSign(true)}}> Sign up </Button>
+         <Button  className="button-logIn" onClick={()=> {setShowLog(true)}}> Login </Button>
 
    {/*------------------------------------------- Modal SignUp --------------------------------------------------------------- */}
 

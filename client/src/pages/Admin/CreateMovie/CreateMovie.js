@@ -3,6 +3,8 @@ import {Col, Container, Form, Row, FloatingLabel} from "react-bootstrap"
 import axios from "axios";
 import { useState } from "react";
 import styled from 'styled-components';
+import swal from "sweetalert"
+
 
 const CreateMovie=()=>{
 
@@ -15,7 +17,6 @@ const CreateMovie=()=>{
    const [released, setReleased] = useState('');
    const [runtime, setRuntime] = useState('');
    const [desc, setDesc] = useState('');
-
 
    const uploadFile= async (event)=>{
 
@@ -35,10 +36,15 @@ const CreateMovie=()=>{
       console.log(formData.get('image'));
       axios.post('http://localhost:4000/movies/upload', formData)
       .then( res => {
-         res.status(200);
-      }).catch( err => {
-         console.log(err);
+         console.log(res)
+         if(res.status === 200){
+            swal("Add Program Success!", "You clicked the button!", "success");
+         }
       })
+      .catch((err) => {
+         console.log(err);
+         swal("Add Program fail!", "You clicked the button!", "error")
+      });
    }
 
    const handleUploadImage =(event) =>{

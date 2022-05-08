@@ -88,8 +88,8 @@ const MoviesPage=()=>{
                   <div className="header">
                      <h3 className="header__title">Movie show</h3>
                      <section className="header__filter">
-                        <button className="header__filter__button ASC" onClick={sortByCharacterASC} > A - Z </button>
-                        <button className="header__filter__button" onClick={sortByCharacterDSC}> Z - A </button>
+                        <button className="header__filter__button ASC" onClick={sortByCharacterDSC} > A - Z </button>
+                        <button className="header__filter__button" onClick={sortByCharacterASC}> Z - A </button>
                         <button className="header__filter__button" onClick={sortByDateReleas}> Released </button>
                      </section>
                   </div>
@@ -104,7 +104,15 @@ const MoviesPage=()=>{
                               
                            }).map((item, index) => {      
                               console.log(item);
-                              return <Col  key={index} xs='6' sm='6' md='3'><CardMovie title={item.name} image={item.image} released={item.released} runtime={item.runtime} movie_id={item._id}/></Col>
+                              return <Col  key={index} xs='6' sm='6' md='3'>
+                                 <CardMovie 
+                                 title={item.name} 
+                                 image={item.image} 
+                                 released={item.released} 
+                                 runtime={item.runtime} 
+                                 movie_id={item._id}
+                                 genre={item.genre}
+                                 /></Col>
                            })
                         }
                   </Row>

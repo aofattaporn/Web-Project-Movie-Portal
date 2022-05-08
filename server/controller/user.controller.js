@@ -83,7 +83,7 @@ const registerUser= async (req, res)=>{
       user.token = token; 
 
       // return new user 
-      res.status(201).json({token: `Bearer ${token}`});
+      res.status(201).json({accesstoken: `Bearer ${token}`});
    }catch(err) {
       console.log(err);
    }

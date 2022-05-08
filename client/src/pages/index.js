@@ -7,6 +7,9 @@ import PromotionsPage from './PromotionsPag/PromotionsPage';
 import FindByCinema from './NestedPage/FindByCinema/FindByCinema';
 import FindByMovie from './NestedPage/FiindByMovie/FindByMovie';
 
+import DetailsPage from './NestedPage/Details/DetailsPage';
+import BookingPage from './BookingPage/BookingPage';
+
 // -------------- for admin --------------------------
 import CreateCinema from './Admin/CreateCinema/CreateCinema';
 import CreateMovie from './Admin/CreateMovie/CreateMovie';
@@ -16,8 +19,8 @@ import CreateProgram from './Admin/CreateProgram/CreateProgram';
 
 const page ={
    CinemasPage, HomePage, MoviePage, PromotionsPage,
-   FindByCinema, FindByMovie,
-   CreateCinema, CreateMovie, CreateProgram
+   FindByCinema, FindByMovie, DetailsPage,
+   CreateCinema, CreateMovie, CreateProgram, BookingPage
 }
 
 export default page;

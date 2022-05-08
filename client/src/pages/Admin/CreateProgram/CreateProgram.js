@@ -4,9 +4,10 @@ import {Col, Container, Form, Row, FloatingLabel} from 'react-bootstrap'
 import serviceMovies from '../../../service/movieService'
 import serviceCinemas from '../../../service/cienemaService'
 import serviceProgram from '../../../service/programService'
-import DateTimePicker from 'react-datetime-picker';
+import DateTimePicker from 'react-datetime-picker'
 import { useState } from "react"
 import { useEffect } from "react"
+import swal from "sweetalert"
 
 const CreateProgram = ()=>{
 
@@ -54,11 +55,35 @@ const CreateProgram = ()=>{
          date : date, 
          theater: theater,
          seats: [
-           { type: "A1" , price: 120 },
-           { type: "A2" , price: 120 },
-           { type: "A3" , price: 120 },
-           { type: "A4" , price: 120 },
-           { type: "A5" , price: 120 },
+           { type: "A1" , price: 220 },
+           { type: "A2" , price: 220 },
+           { type: "A3" , price: 220 },
+           { type: "A4" , price: 220 },
+           { type: "A5" , price: 220 },
+
+           { type: "B1" , price: 120 },
+           { type: "B2" , price: 120 },
+           { type: "B3" , price: 120 },
+           { type: "B4" , price: 120 },
+           { type: "B5" , price: 120 },
+
+           { type: "C1" , price: 120 },
+           { type: "C2" , price: 120 },
+           { type: "C3" , price: 120 },
+           { type: "C4" , price: 120 },
+           { type: "C5" , price: 120 },
+
+           { type: "D1" , price: 120 },
+           { type: "D2" , price: 120 },
+           { type: "D3" , price: 120 },
+           { type: "D4" , price: 120 },
+           { type: "DD5" , price: 120 },
+
+           { type: "E1" , price: 120 },
+           { type: "E2" , price: 120 },
+           { type: "E3" , price: 120 },
+           { type: "E4" , price: 120 },
+           { type: "E5" , price: 120 },
         ],
           
          cinema: cinemaSelect,
@@ -66,8 +91,16 @@ const CreateProgram = ()=>{
       }
 
       serviceProgram.createProgram(newCinema)
-      .then(res => console.log(res))
-      .catch(err => alert(err));
+      .then((res) =>{ 
+         console.log(res)
+         if(res.status === 200){
+            swal("Add Program Success!", "You clicked the button!", "success");
+         }
+      })
+      .catch((err) => {
+         console.log(err);
+         swal("Add Program fail!", "You clicked the button!", "error")
+      });
 
    }
 

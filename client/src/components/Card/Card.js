@@ -25,20 +25,19 @@ const CardMovie =(props)=>{
 
          <div  className='card mt-3 fade-up ' data-aos="fade-up" >
 
-            {/* header  */}
-            
+            {/*----- header --------------------------- */}
             <div className='card__header'>
                <Link to={`/movies/${movie_id}`}><Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`} /></Link>
             </div>
 
-            {/* card-body */}
+            {/*-- card-body ----------------------------*/}
             <Card.Body className='card__text'>
                <ListGroup>
                   <ListGroupItem className='card__text__releas'><p>{getDate(released)}</p></ListGroupItem>
                </ListGroup>
             </Card.Body>
 
-            {/* footer */}
+            {/*-- footer ---------------------- */}
             <ListGroupItem className='card__text__title'><h3>{title}</h3></ListGroupItem>
             <div className='card__footer'>
                <div className='card__footer__runtime text-center'>
@@ -67,10 +66,12 @@ h1{
    margin-bottom: 3rem;
 
 }
+
 .card__header :hover{
    cursor: pointer;
    box-shadow: rgba(151, 121, 89, 0.25) 0px 14px 28px, rgba(151, 121, 89, 0.22) 0px 10px 10px;
 }
+
 .card__header {
    margin: 0 auto;
 }
@@ -104,10 +105,16 @@ h1{
    border: 0;
    color: white;
    font-weight: bolder;
-   height: auto;
-   width: auto;
+   height: 3rem;
+   /* width: auto; */
    background-color: transparent;
+   overflow-y: scroll;
+   /* overflow-x: scroll; */
+   /* width: 20rem; */
 
+}
+.card__text__title h3{
+   font-size: 1.5rem;
 }
 
 /* ----------------- show thim and gerner ------------- */
@@ -118,11 +125,13 @@ h1{
    color: #4d4d4d;
    left: 4.5rem;
    bottom: 23rem;
+
 }
 
 .like:active, .like:hover{
    color: rgb(151, 121, 89);
    cursor: pointer;
+
 }
 
 .card__footer{
@@ -133,14 +142,15 @@ h1{
 }
 
 .card__footer__runtime, .card__footer__gener{
-      background-color:#707070;
-      width: 5.5rem;
-      padding: 0.5rem;
-      height: 2rem;
-      border-radius: 20px;
-      color: #C9B898;
+   background-color:#707070;
+   width: 5.5rem;
+   padding: 0.5rem;
+   height: 2rem;
+   border-radius: 20px;
+   color: #C9B898;
       
-   }
+}
+
 .card__footer__runtime p, .card__footer__gener p {
    font-size: 12px;
    font-weight: bold;
@@ -169,6 +179,7 @@ h1{
    .card__text__title h2{
 
       font-size: 1.5rem;
+      
    
    }
 

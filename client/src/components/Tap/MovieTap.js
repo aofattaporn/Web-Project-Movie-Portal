@@ -2,16 +2,19 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { Fragment } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
+import propTypes from "prop-types"
 import serviceMovie from "../../service/movieService";
 import 'aos'
 import AOS from "aos";
 import { useCallback } from "react";
  
-const MovieTap = () =>{
+const MovieTap = (props) =>{
 
    const {movie_id} = useParams();
+
+   const { cinemaName, cinemaArea } = props;
 
    // manage state in component 
    const [movie, setMovie] = useState({});
@@ -25,12 +28,13 @@ const MovieTap = () =>{
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);
-      return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
+      return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+ 1 )] + ' '+ d.getFullYear());
    }
 
    useEffect(()=>{
       AOS.init();
       AOS.refresh();
+      window.scrollTo(0, 0);
       getMovieById();
    }, [getMovieById]);
 
@@ -38,50 +42,74 @@ const MovieTap = () =>{
       <Fragment>
          <TapMovieStyle> 
             <div className="tapMovie">
+               <div className="tapMovie__content">
                <Container>
                   <Row className="box-container">
                      <Container>
                         <Row className="box-container-row">
-                           <Col lg="4" md="5" sm="12" className="box-container__img ">
-                              <div className="container-img ">
+
+                           <Col lg="4" md="5" sm="12">
+                              <div className="box-container__img">
                                  <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} />
                               </div>
                            </Col>
+                           
                            <Col lg="8" md="7" sm="12" className="box-container__content">
                               <Container fluid>
                                  <Row className="container-movie-info">
                                     <h1>{movie.name}</h1>
-                                    <div className="container-movie-info__genre">
-                                       <h3>Genre : </h3>
-                                       <h5>{movie.genre}</h5>
-                                    </div>
-                                    <div className="container-movie-info__genre">
-                                       <h3>Runtime : </h3>
-                                       <h5>{` ${movie.runtime} Mins`}</h5>
-                                    </div>
-                                    <div className="container-movie-info__realeased">
-                                       <h6>Released date</h6>
-                                       <p>{` ${getDate(movie.released)} `}</p>
-                                    </div>
-                                    <div className="container-movie-info__button-detail">
-                                       <button className="">
-                                          Show Detaile
-                                       </button>
-                                    </div>
+                                    {/* -------------- check cenema -------------------- */}
+                                    {
+                                       (!cinemaArea && !cinemaName) ? <></> : 
+                                    <>
+                                       <div className="container-movie-info__Cinema">
+                                          <div className="Cinema__cinemaName">
+                                             <h6>{cinemaName}</h6>
+                                          </div>
+                                          <div className="Cinema__cinemaArea">
+                                             <h6>{cinemaArea}</h6>
+                                          </div>
+                                       </div>
+{/*                                     
+                                       <div className="container-movie-info__genre">
+                                          <h6>Genre : </h6>
+                                          <h5>{movie.genre}</h5>
+                                       </div> */}
+                                       <div className="container-movie-info__runtime">
+                                          <h6>Runtime : </h6>
+                                          <h5>{` ${movie.runtime} Mins`}</h5>
+                                       </div>
+                                       <div className="container-movie-info__realeased">
+                                          <h6>Released date</h6>
+                                          <p>{` ${getDate(movie.released)} `}</p>
+                                       </div>
+                                       <div className="container-movie-info__button-detail">
+                                          <Link to={`/details/${movie_id}`}><button className=""> Show Detaile </button></Link>
+                                       </div>
+                                    </>
+                                    }
                                  </Row>
                               </Container>
                            </Col>
+
                         </Row>
                      </Container>
                   </Row>
                </Container>
+               </div>
             </div>
          </TapMovieStyle>
       </Fragment>
    )
 }
 
+MovieTap.propTypes = {
+   cinrmaName: propTypes.string, 
+   cinemaArea: propTypes.string
+}
+
 const TapMovieStyle = styled.div`
+
    .tapMovie{
       height: 20rem;
       background: linear-gradient( to bottom , rgb(175, 160, 132) , rgba(58,52,36,1) );
@@ -94,11 +122,31 @@ const TapMovieStyle = styled.div`
       height: 20rem;
    }
 
+   .container-movie-info__genre, .container-movie-info__realeased, .container-movie-info__button-detail
+   , .container-movie-info__runtime{
+      color: grey;
+      position: relative;
+      top: -3rem;
+      margin: 0rem 2rem;
+   }
+
+   .container-movie-info__Cinema{
+      display: flex;
+      flex-direction: column;
+      color: #ffff;
+      padding: 0rem 1rem;
+   }
+
+   /* ------------ box-image ----------- */
    .container-img__image{
+      display: flex;
+      justify-content: center;
+      margin: 0rem 3rem;
+      background-color: #C9B898;
       width: 20rem;
       position: relative;
       top: -6rem;
-      left: 5rem;
+      align-items: center;
       box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;   
    }
 
@@ -108,8 +156,9 @@ const TapMovieStyle = styled.div`
       font-weight: bold;
       position: relative;
       text-shadow: 5px 5px #967959;
-      border-bottom: #C9B898 2px solid;
       top: -6rem;
+      height: 6rem;
+      overflow-y: scroll;
    }
 
    .container-movie-info h1:hover{
@@ -117,60 +166,56 @@ const TapMovieStyle = styled.div`
       top: -6.1rem;
    }
 
-   .container-movie-info__genre, .container-movie-info__realeased, .container-movie-info__button-detail{
+   /* ------------ box-content ----------- */
+
+   .container-movie-info > *:not(h1){
+      padding: 0rem 3rem;
+   }
+
+   .Cinema__cinemaName, .Cinema__cinemaArea{
       position: relative;
       top: -5rem
    }
 
-   .container-movie-info__genre{
-      display: flex;
+   .Cinema__cinemaName > h6,  .Cinema__cinemaArea > h6 {
+      padding: 1rem 2rem;
+   }
+   .Cinema__cinemaName{
+      height: 3rem;
+      background-color: #967959;
       align-items: center;
-      margin-left: 3rem;
+   }
+   .Cinema__cinemaArea{
+      height: 3rem;
+      background-color: #C9B898;
+   }
+   .container-movie-info__runtime{
+      display: flex;
    }
 
-   .container-movie-info__genre h5{
-      background-color: rgb(175, 160, 132);
-      border-radius: 10px;
-      margin-top: 0.2rem;
-      margin-left: 1rem;
-      padding-left: 0.5rem;
-      width: 7rem;
-      color: #ffff;
-   }
-
-   .container-movie-info__realeased{
-      margin-top: 1rem;
-      margin-left: 3rem;
+   .container-movie-info__runtime h6, .container-movie-info__runtime h5{
+      font-size: 1rem;
    }
 
    .container-movie-info__realeased h6{
-      border-bottom: 3px solid #967959;
-      margin-right: 20rem;
-   }
-   .container-movie-info__realeased p{
-      color: grey;
-      padding-left: 1.2rem;
+      margin-right: 5rem;
+      border-bottom: #967959 solid 2px;
    }
 
-   .container-movie-info__button-detail{
-      margin-left: 3rem;
-   }
    .container-movie-info__button-detail button{
-      width: 20rem;
-      height: 3rem;
-      border: 0;
-      background-color: #C9B898;
+      border: 0rem;
       color: #ffff;
-   }
-   .container-movie-info__button-detail button:hover{
-      font-weight: bold;
-      background-color: #967959;
+      background-color: #C9B898;
+      height: 3rem;
    }
 
-   .box-container-row{
-      display: flex;
-      flex-wrap: wrap;
-   }
+ 
+   
+
+ 
+
+
+
 
 
    @media only screen and (max-width: 1100px) {
@@ -223,13 +268,6 @@ const TapMovieStyle = styled.div`
       }
 
    }
-
-
-   }
-
-
-   
-
 
 `
 

@@ -51,6 +51,14 @@ const HomePage=()=>{
       return d > now;
    }
 
+   const returnData= async ()=>{
+      await movies.filter(movie => { 
+       return checkDate(movie.released) === true                            
+       })
+
+      console.log(movies);
+   }
+
    useEffect(() =>{
       AOS.init();
       AOS.refresh();
@@ -76,7 +84,6 @@ const HomePage=()=>{
                         <img src={"https://pbs.twimg.com/media/FDUbC-WUcAECL-m?format=jpg&name=4096x4096"} alt="img3"/>
                   </div>
 
-
                </Carousel>
                <Tap/>
 
@@ -88,14 +95,22 @@ const HomePage=()=>{
                   <Row className="carousel___body" data-aos='fade-up' data-aos-duration="1000">
                      <CarouselCard responsive={responsive}>
                         {
-                           movies.map((item, idx) => {
-                              return ( 
-                                 <div key={idx}>
-                                    <CardHomePage title={item.name} image={item.image} released={item.released} runtime={item.runtime}/>
-                                 </div>
-                              )
-                              }
-                           )
+                         movies.filter(movie => { 
+                           return checkDate(movie.released) === false                            
+                           }).map((item, idx) => {
+                                return ( 
+                                      <CardHomePage 
+                                         key={idx}
+                                         title={item.name} 
+                                         image={item.image} 
+                                         released={item.released} 
+                                         runtime={item.runtime}
+                                         movie_id={item._id} 
+                                         genre={item.genre}
+                                      />
+                                )
+                                }
+                             )
                         }
                      </CarouselCard>
                   </Row>
@@ -105,16 +120,24 @@ const HomePage=()=>{
                   <Row className="carousel___body" data-aos='fade-up' data-aos-duration="1000">
                      <CarouselCard responsive={responsive}>
                         {
-                         movies.filter(movie => {    
+                        
+                         movies.filter(movie => { 
                          return checkDate(movie.released) === true                            
                          }).map((item, idx) => {
                               return ( 
-                                 <div key={idx}>
-                                    <CardHomePage title={item.name} image={item.image} released={item.released} runtime={item.runtime}/>
-                                 </div>
+                                    <CardHomePage 
+                                       key={idx}
+                                       title={item.name} 
+                                       image={item.image} 
+                                       released={item.released} 
+                                       runtime={item.runtime}
+                                       movie_id={item._id} 
+                                       genre={item.genre}
+                                    />
                               )
                               }
                            )
+
                         }
                      </CarouselCard>
                   </Row>

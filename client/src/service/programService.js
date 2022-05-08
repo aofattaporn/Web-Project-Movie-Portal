@@ -4,6 +4,10 @@ const getProgramByDate =(body)=>{
    return axios.post('http://localhost:4000/programs/datetime', {date: body});
 }
 
+const getProgramById =(id)=>{
+   return axios.get(`http://localhost:4000/programs/${id}`);
+}
+
 // use from FinfByCinemas page
 
 const getMoviesShowtime =(body)=>{
@@ -29,6 +33,8 @@ const getProgramsByMovie =(body)=>{
 }
 
 
-const serviceProgram = {getProgramByDate, createProgram, getMoviesShowtime, getThearter, getProgramsShowtime, getProgramsByMovie}
+const serviceProgram = {
+   getProgramByDate, createProgram, getMoviesShowtime, getThearter, getProgramsShowtime, getProgramsByMovie,
+   getProgramById}
 
 export default serviceProgram;

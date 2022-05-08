@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Fragment } from "react"
-import { Container, Col, Row, Form, FloatingLabel } from "react-bootstrap";
-import serviceCinemas from "../../../service/cienemaService";
+import { Container, Col, Row, Form, FloatingLabel } from "react-bootstrap"
+import serviceCinemas from "../../../service/cienemaService"
 import styled from 'styled-components'
+import swal from "sweetalert"
+
 
 const CreateCinema = ()=>{
 
@@ -23,8 +25,16 @@ const CreateCinema = ()=>{
       }
 
       serviceCinemas.createCinema(newCinema)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+      .then((res) =>{ 
+         console.log(res)
+         if(res.status === 200){
+            swal("Add Program Success!", "You clicked the button!", "success");
+         }
+      })
+      .catch((err) => {
+         console.log(err);
+         swal("Add Program fail!", "You clicked the button!", "error")
+      });
    
    }
 

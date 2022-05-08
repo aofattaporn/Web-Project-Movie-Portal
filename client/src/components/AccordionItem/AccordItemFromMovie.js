@@ -10,29 +10,8 @@ const AccordItemFromMovie = (props) => {
 
    const { cinemas } = props;
 
-   const [allCinemas, setAllCinemas] = useState([]);
- 
-   const pushCinema=(newCinema)=>{
-      console.log(newCinema);
-      if(newCinema === null){
-         setAllCinemas([]);
-      }
-      else{
-         setAllCinemas([...allCinemas, newCinema]);
-      }
-   }
+   // console.log(cinemas);
 
-
-   const getCinema = async (cinemas) =>{
-      await cinemas.forEach(element => {
-         serviceCinemas.getCinemasById(element)
-         .then((res)=>{pushCinema(res.data)})
-      });
-   }
-
-   useEffect(()=>{
-      getCinema(cinemas);
-   }, [cinemas])
 
    const area = ["Bangkok", "Central", "North", "West", "NorthEast", "South", "East"];
 
@@ -43,15 +22,9 @@ const AccordItemFromMovie = (props) => {
          {
             area.map((zone, index) => {
                return (
-                  <Accordion.Item key={index} eventKey={index}>
+                  <Accordion.Item className="Accordion-item" key={index} eventKey={index}>
                      <Accordion.Header>{zone}</Accordion.Header>
                      <Accordion.Body>
-                        {
-                           allCinemas.filter(y => y.cinemaArea === zone).map((x, idx) =>{
-                              return (<h1 key={idx}>{x.cinemaName}</h1>)
-                           })
-                        }
-
                      </Accordion.Body>
                   </Accordion.Item>
                )
@@ -62,7 +35,10 @@ const AccordItemFromMovie = (props) => {
 }
 
 const AccordionItemFromMovvieStyle = styled.div`
-
+   margin-top: 5rem;
+   .Accordion-item{
+      margin-bottom: 2rem;
+   }
 `
 
 AccordItemFromMovie.propTypes ={
