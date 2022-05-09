@@ -22,7 +22,8 @@ const getProgramById =(req, res)=>{
          console.log(err);
       }
       else{
-         res.json(program);
+         console.log(program)
+         res.status(200).json(program);
       }
    })
 }
@@ -185,22 +186,52 @@ const createProgram = async(req, res)=>{
    const newData = {
       date : new Date(req.body.date), 
       theater: parseInt(req.body.theater),
-      seats: req.body.seats,
+      seats: [
+         { type: "A1" , price: 220, available:  Boolean(true) },
+         { type: "A2" , price: 220, available:  Boolean(true) },
+         { type: "A3" , price: 220, available:  Boolean(false) },
+         { type: "A4" , price: 220, available:  Boolean(false) },
+         { type: "A5" , price: 220, available:  Boolean(false) },
+
+         { type: "B1" , price: 120, available:  Boolean(false) },
+         { type: "B2" , price: 120, available:  Boolean(false) },
+         { type: "B3" , price: 120, available:  Boolean(false) },
+         { type: "B4" , price: 120, available:  Boolean(false) },
+         { type: "B5" , price: 120, available:  Boolean(false) },
+
+         { type: "C1" , price: 120, available:  Boolean(false) },
+         { type: "C2" , price: 120, available:  Boolean(false) },
+         { type: "C3" , price: 120, available:  Boolean(false) },
+         { type: "C4" , price: 120, available:  Boolean(false) },
+         { type: "C5" , price: 120, available:  Boolean(false) },
+
+         { type: "D1" , price: 120, available:  Boolean(false) },
+         { type: "D2" , price: 120, available:  Boolean(false) },
+         { type: "D3" , price: 120, available:  Boolean(false) },
+         { type: "D4" , price: 120, available:  Boolean(false) },
+         { type: "D5" , price: 120, available:  Boolean(false) },
+
+         { type: "E1" , price: 120, available:  Boolean(false) },
+         { type: "E2" , price: 120, available:  Boolean(false) },
+         { type: "E3" , price: 120, available:  Boolean(false) },
+         { type: "E4" , price: 120, available:  Boolean(false) },
+         { type: "E5" , price: 120, available:  Boolean(false) },
+      ],
       cinema: ObjectId(req.body.cinema),
       movies: ObjectId(req.body.movies),
    }
 
    console.log(newData);
 
-   try{
+   Program.create(newData, (err, program)=>{
+      if(err){
+         console.log(err);
+         res.status(400).json({"msg": "create fials" })
+      }else{
+         res.status(200).json(program);
+      }
+   })
 
-   
-      res.json( await new Program(newData).save());
-      
-   }catch(err) {
-      res.status(400).send("create faile");
-      console.log(err);
-   }
 }
 
 const updateProgramById =(req, res)=>{

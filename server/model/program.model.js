@@ -8,8 +8,9 @@ var programSchema = new mongoose.Schema({
     seats: [     
       {
          type: { type: String },
-         price: { type: Number, default: 120 }, 
-         status: {tpye: Boolean, default: false}
+         price: { type: Number, default: 120 },
+         available: {type: Boolean}
+         
       }   
    ],
      

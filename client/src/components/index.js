@@ -1,9 +1,7 @@
-import Accordion from "./Accordion/Accordion";
 import AccorrdionItem from "./AccordionItem/AccordItemCinemas";
 import BoxShowTime from "./BoxShowTime/BoxShowTime";
 import Button from "./Button/SignIn"
 import Card from "./Card/Card";
-// import Carousal from "./Carousel/CarouselMovies";
 import ListTheater from "./List/ListTheater";
 import DetailsTap from "./Tap/DetailsTap"
 import Nav from "./Nav/Nav";
@@ -18,7 +16,7 @@ import AccordItemFromMovie from "./AccordionItem/AccordItemFromMovie"
 
 
 const components = {
-   Accordion, AccorrdionItem, BoxShowTime, Button, Card, Nav,
+   AccorrdionItem, BoxShowTime, Button, Card, Nav,
    SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap,
    AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap
 }

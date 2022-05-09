@@ -33,17 +33,11 @@ const BookingPage = ()=>{
       .catch((err) => {console.log(err)})
    }
 
-   // get Program by id 
-   const getProgramById =(program_id)=>{
-      serviceProgram.getProgramById(program_id)
-      .then((response)=>{setProgram(response.data)})
-      .catch((err)=>{console.log(err)})
-   }
 
    const getAllData = async ()=>{
       await getMovieById(movie_id);
       await getCinemaById(cinema_id);
-      await getProgramById(program_id)
+      // await getProgramById(program_id)
    }
 
    useEffect(()=>{
@@ -57,7 +51,7 @@ const BookingPage = ()=>{
 
             <components.MovieTap cinemaName={cinema.cinemaName} cinemaArea={cinema.cinemaArea} ></components.MovieTap>
 
-            <components.BookingChairsTap theater={progam.theater} seats={progam.seats}></components.BookingChairsTap>
+            <components.BookingChairsTap theater={progam.theater} program_id={program_id}></components.BookingChairsTap>
 
          </BookingPageStyle>
       </Fragment>
