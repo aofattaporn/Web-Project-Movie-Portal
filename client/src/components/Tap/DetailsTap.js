@@ -52,9 +52,9 @@ const DetailsTap = () =>{
                            <h1>d</h1>
                         </Col>
                         <Col className="container-3" md="7">
-                           {/* <video className="video"  height="500" controls > */}
-                              {/* <source src="http://localhost:4000/video/default.mp4" type="video/mp4"/> */}
-                           {/* </video> */}
+                           <video className="video"  height="500" controls >
+                              <source src="http://localhost:4000/video/default.mp4" type="video/mp4"/>
+                           </video>
                         </Col>
                      </Row>
                   </Container>

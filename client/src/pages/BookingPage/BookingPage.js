@@ -51,7 +51,7 @@ const BookingPage = ()=>{
 
             <components.MovieTap cinemaName={cinema.cinemaName} cinemaArea={cinema.cinemaArea} ></components.MovieTap>
 
-            <components.BookingChairsTap theater={progam.theater} program_id={program_id}></components.BookingChairsTap>
+            <components.BookingChairsTap cinemaName={cinema.cinemaName} cinemaArea={cinema.cinemaArea} theater={progam.theater} program_id={program_id} movie={movie.name}></components.BookingChairsTap>
 
          </BookingPageStyle>
       </Fragment>

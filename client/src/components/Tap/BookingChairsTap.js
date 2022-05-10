@@ -2,19 +2,21 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 import { Col, Container, Row } from "react-bootstrap";
 import EventSeatIcon from '@mui/icons-material/EventSeat';
-import serviceProgram from "../../service/programService";
 import CheckIcon from '@mui/icons-material/Check';
 import PersonIcon from '@mui/icons-material/Person';
+import ChairIcon from '@mui/icons-material/Chair';
+import serviceProgram from "../../service/programService";
 import { useState } from "react";
 import { useEffect } from "react";
 
 const BookingChairsTap = (props) =>{
 
-   const { theater, program_id } = props;
+   const { theater, program_id, movie, cinemaName, cinemaArea } = props;
 
    const [program, setProgram] = useState([]);
    const [seats, setSeats] = useState([]);
    const [seatsReserve, setSeatsReserve] = useState([]);
+   const [priceReserve, setPriceReserve] = useState(0);
 
 
 
@@ -34,22 +36,51 @@ const BookingChairsTap = (props) =>{
       return seatsReserve.includes(type);
    }
 
-   const removeSeatsReserve =(type)=>{
-      return setSeatsReserve(seatsReserve.filter(item => item !== type));
-   }
    
    const onClickSelect =(type)=>{
       return setSeatsReserve([...seatsReserve, type]);
    }
 
+   const onClickSummaryPrice =(price)=>{
+      return setPriceReserve(priceReserve + price);
+   }
+
+   const removeSeatsReserve =(type)=>{
+      return setSeatsReserve(seatsReserve.filter(item => item !== type));
+   }
+
+   const removePriceReserve =(price)=>{
+      return setPriceReserve(priceReserve - price);
+   }
+
+   const getNumberSeat = (index)=>{
+      return (<h5>{zones[index]}</h5>);
+   }
+
    const getSeatIcon = (index)=>{
+         getNumberSeat(index)
          return seats.map((item, idx) =>{
             if((zones[index] == (item.type).substring(0, 1))){
                if(!item.available){
                   if(checkClick(item.type)){
-                     return (<button onClick={()=>{removeSeatsReserve(item.type)}}><CheckIcon className="icon"></CheckIcon></button>)
+                     return (
+                     <button onClick={
+                        ()=>{removeSeatsReserve(item.type)
+                           removePriceReserve(item.price)}}>
+                           <CheckIcon className="icon icon--check"></CheckIcon></button>
+                     )
                   }else{
-                     return (<button onClick={()=>{onClickSelect(item.type)}}><EventSeatIcon className="icon"></EventSeatIcon></button>)
+                     if(item.price <= 120){
+                        return (<button onClick={
+                           ()=>{onClickSelect(item.type) 
+                           onClickSummaryPrice(item.price)}}>
+                              <EventSeatIcon className="icon icon--seat"></EventSeatIcon></button>)
+                     }else{
+                        return (<button onClick={
+                           ()=>{onClickSelect(item.type) 
+                           onClickSummaryPrice(item.price)}}>
+                              <ChairIcon className="icon icon--seat"></ChairIcon></button>)
+                     }
                   }
                }else{
                   return (<button><PersonIcon className="icon--avaliable"></PersonIcon></button>)
@@ -58,6 +89,15 @@ const BookingChairsTap = (props) =>{
                return null
             }
          })
+   }
+
+   const dateFormat=(date)=>{
+      const d = new Date(date);
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+      ]
+
+      return `${d.getDate()} ${monthNames[d.getMonth()]} ${d.getFullYear()}`
    }
 
   useEffect(()=>{
@@ -72,7 +112,6 @@ const BookingChairsTap = (props) =>{
    return (
    <BookingChairsTapStyle>
       <Container>
-
          {/* ---------------- box-header --------------------- */}
          <Row > 
             <Col md="2"></Col>
@@ -82,7 +121,13 @@ const BookingChairsTap = (props) =>{
                   <h1>{program.theater}</h1>
                </div>
                <div className="booking-header__detailes">
-                  <div>
+                  <div className="booking-header__detailes__type1">
+                     <EventSeatIcon className="Icon"></EventSeatIcon>
+                     <h5>120 Bath</h5>
+                  </div>
+                  <div className="booking-header__detailes__type2">
+                     <ChairIcon className="Icon"></ChairIcon>
+                     <h5>220 Bath</h5>
                   </div>
                </div>
             </Col>
@@ -91,7 +136,8 @@ const BookingChairsTap = (props) =>{
 
          {/* ---------------- box-main --------------- */}
          <Row className="bookink-content">
-            <Col md="8">
+            {/* ---------------- box-left -------------------------- */}
+            <Col md="12" xl="8">
                {/* ---------------- box-main --------------- */}
                <div  className="booking-map">
                   <div className="booking-map__content">
@@ -99,44 +145,18 @@ const BookingChairsTap = (props) =>{
                         <h2>SCREEN</h2>
                      </div>
                      <div className="booking-map__content__chair">
-                        
-            
                         <Container fluid className="booking-map__content__chair__zone">
                            <Row>
-                              <Col   className="booking-map__content__chair__zone1" xs="1">
+                              <Col   className="booking-map__content__chair__zone2 mt-5 text-center" xs="12">
                                  {
-                                    zones.map((item) => {
-                                       return <h5>{item}</h5>
-                                    })
-                                 }
-                              </Col>
-                              <Col   className="booking-map__content__chair__zone2 mt-5" xs="10">
-                                 <div className="flex-row">
-                                    {  getSeatIcon(4) }
-                                 </div>
-                                 <div className="flex-row">
-                                    {  getSeatIcon(3) }
-                                 </div>                                 
-                                 <div className="flex-row">
-                                    {  getSeatIcon(2) }
-
-                                 </div>                                 
-                                 <div className="flex-row">
-                                    {  getSeatIcon(1) }
-                                 </div>                                 
-                                 <div className="flex-row">
-                                    {  getSeatIcon(0) }
-                                 </div>
-                                 {
-                                    seatsReserve.map((item)=> { 
-                                       return <h1>{item}</h1>
-                                    })
-                                 }
-                              </Col>
-                              <Col  className="booking-map__content__chair__zone3" xs="1">
-                                 {
-                                    zones.map((item) => {
-                                       return <h5>{item}</h5>
+                                    zones.map((item, index) => {
+                                       return (
+                                          <div className="flex-row">
+                                             <h4 className="zone">{zones[zones.length - (index + 1)]}</h4>
+                                             {  getSeatIcon(zones.length - (index + 1)) }
+                                             <h4 className="zone">{zones[zones.length - (index + 1)]}</h4>
+                                          </div>
+                                       )
                                     })
                                  }
                               </Col>
@@ -146,8 +166,51 @@ const BookingChairsTap = (props) =>{
                   </div>
                </div>
             </Col>
-            <Col md="4">
-               <div  className="booking-confirm">
+
+            {/* ---------------- box-right -------------------------- */}
+            <Col md="12" xl="4">
+               <div className="booking-confirm">
+                  
+                  <div className="booking-confirm__movie">
+                     <h1>{movie}</h1>
+                     <p>{dateFormat(program.date)}</p>
+                     <p>{ new Date(program.date).getHours() + " : " + new Date(program.date).getMinutes()}</p>
+                  </div>
+
+                  <div className="booking-confirm__cinema">
+                     <h5>{cinemaName}</h5>
+                     <p>{`theater ${program.theater}`}</p>
+                  </div>
+
+                  <div className="booking-confirm__seats">
+                     <h3>SELECT SEATS</h3>
+                     <div>
+                        {
+                           seatsReserve.length > 0 ? 
+                           seatsReserve.map(item => { return  <h4>{item} </h4> }) : 
+                           <h4> - </h4>
+                        }
+                     </div>
+                     <h3>Price</h3>
+                     <div>
+                        {
+                           priceReserve > 0 ? 
+                           <h4>{priceReserve} </h4> : 
+                           <h4> 0 </h4>
+                        }
+                     </div>
+
+                     <div className="booking-confirm__botton">
+                     {
+                        seatsReserve.length != 0 ? 
+                        <button className="booking-confirm__botton--sucsess">Continue</button> : 
+                        <button className="booking-confirm__botton--unsucess">Continue</button>
+                     }
+                     </div>
+                  </div>
+
+
+
                </div>
             </Col>
          </Row>
@@ -160,7 +223,10 @@ const BookingChairsTap = (props) =>{
 
 BookingChairsTap.propTypes = {
    theater: propTypes.number,
-   program_id: propTypes.string
+   program_id: propTypes.string,
+   movie: propTypes.string,
+   cinemaName: propTypes.string, 
+   cinemaArea: propTypes.string
 }
 
 
@@ -189,7 +255,6 @@ const BookingChairsTapStyle = styled.div`
    height: 8rem;
 }
 
-
 .booking-map{
    background-color:  #1E1E1E;
    height: 40rem;
@@ -198,6 +263,31 @@ const BookingChairsTapStyle = styled.div`
    display: flex;
    flex-wrap: wrap;
 }
+
+.booking-header__detailes{
+   display: flex;
+   margin: 0rem auto;
+   justify-content: center;
+   align-items: flex-end;
+   color: #1E1E1E;
+}
+
+.booking-header__detailes__type1, .booking-header__detailes__type2{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.booking-header__detailes__type1 .Icon,  .booking-header__detailes__type2 .Icon{
+   color: #1E1E1E;
+   font-size: 4rem;
+   margin: 1rem 4rem;
+   
+}
+
+
+/* ---------------- booking-selecting-seats --------------------- */
 
 .booking-map__content{
    height: 100%;
@@ -221,66 +311,108 @@ const BookingChairsTapStyle = styled.div`
    margin-top: 3rem;
 }
 
-.booking-map__content__chair__zone1, .booking-map__content__chair__zone3{
-   /* background-color: #555; */
-   margin-top: 2rem;
-   height: 100%;
-}
-.booking-map__content__chair__zone1 h5, .booking-map__content__chair__zone3 h5{
-   color: #BDAD8E;
-   margin-top: 1.8rem;
-}
-
 .booking-map__content__chair__zone2{
    height: 100%;
+   align-self: center;
 }
-
-
 
 .booking-map__content__chair__zone2 button {
    background-color: transparent;
    border: 0;
 }
-
 .icon{
    font-size: 2.5rem;
    color: #ffff;
 }
-
-.icon:hover{
+.icon--seat:hover{
    color: #C9B898;
 }
-
+.icon--check{
+   color: green;
+}
 .icon--avaliable{
    font-size: 2.5rem;
    color: #BDAD8E;
-   cursor: text;
+   cursor: default;
 }
-
 .flex-row{
+   color: green;
    display: flex;
    justify-content: center;
 }
-
 .flex-row > button{
+   color: green;
    margin: 0.3rem 1.5rem;
 }
-
+.zone{
+   color: rgb(151, 121, 89);
+   margin: 1rem 3rem;
+}
 
 .booking-map__content__chair__zone2 button:hover{
     color: #C9B898;
 }
 
+/* ---------------- booking-confirm-booking --------------------- */
+
 .booking-confirm{
    background-color: #F2E6D1;
    height: 40rem;
-   margin-top: 5rem
-   /* margin-left: 1rem; */
+   margin-top: 5rem;
+   padding: 3rem;
+}
+
+.booking-confirm__cinema{
+   margin-top: 2rem;
+}
+
+.booking-confirm__seats{
+   background-color: #1E1E1E;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   color: #ffff;
+   padding: 2rem;
+   height: auto;
+   width: 100%;
+}
+
+.booking-confirm__seats div {
+   display: flex;
+}
+.booking-confirm__seats div h4{
+   margin: 0rem 0.4rem;
+   color: rgb(151, 121, 89);
+}
+
+.booking-confirm__botton {
+   width: 100%;
+   margin-top: 2rem;
+}
+
+.booking-confirm__botton button{
+   width: 100%;
+   height: 4rem;
+}
+.booking-confirm__botton--unsucess{
+   background-color: #C9B898;
+   font-weight: bold;
+   color: #ffff;
+   border: 0;
+   cursor: default;
+}
+
+.booking-confirm__botton--sucsess{
+   background-color: rgba(151, 121, 89, 100);
+   font-weight: bold;
+   color: #ffff;
+   border: 0;
 }
 
 
-@media only screen and (max-width: 1250px) {
-  /* For mobile phones: */
+/* @media only screen and (max-width: 1250px) {
+
   .icon{
    font-size: 1.5rem;
    color: #ffff;
@@ -300,10 +432,9 @@ const BookingChairsTapStyle = styled.div`
       cursor: text;
    }
   
-}
-
+} */
+/* 
 @media only screen and (max-width: 700px) {
-  /* For mobile phones: */
   .icon{
    font-size: 1.2rem;
    color: #ffff;
@@ -318,7 +449,7 @@ const BookingChairsTapStyle = styled.div`
       cursor: text;
    }
   
-}
+} */
 
 
 `
