@@ -44,7 +44,7 @@ const ListTheater = (props) =>{
                {/* // map */}
                {
                   program.map((item) => {
-                     return ( <Link to={`/booking/${item._id}/${item.movies}/${item.cinema}`}><button className="showtime-button">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
+                     return ( <Link to={`/booking/${item._id}`}><button className="showtime-button">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
                   })
                }
             </Col>

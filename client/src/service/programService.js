@@ -32,9 +32,15 @@ const getProgramsByMovie =(body)=>{
    return axios.post(`http://localhost:4000/programs/movie/${body.movie_id}/showtime`, {date: body});
 }
 
+// use in Booking page
+const getAllDataByProgramId = (id)=>{
+   console.log(id)
+   return axios.get(`http://localhost:4000/programs/${id}/all`);
+}
+
 
 const serviceProgram = {
    getProgramByDate, createProgram, getMoviesShowtime, getThearter, getProgramsShowtime, getProgramsByMovie,
-   getProgramById}
+   getProgramById, getAllDataByProgramId}
 
 export default serviceProgram;

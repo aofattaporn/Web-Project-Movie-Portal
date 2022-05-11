@@ -12,18 +12,7 @@ import { useCallback } from "react";
  
 const MovieTap = (props) =>{
 
-   const {movie_id} = useParams();
-
-   const { cinemaName, cinemaArea } = props;
-
-   // manage state in component 
-   const [movie, setMovie] = useState({});
-
-   const getMovieById = useCallback(()=>{
-      serviceMovie.getMovieById(movie_id)
-      .then((res) => {setMovie(res.data)})
-      .catch((err) => alert(err));
-   }, [movie_id])
+   const { movie, cinema} = props;
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -35,8 +24,7 @@ const MovieTap = (props) =>{
       AOS.init();
       AOS.refresh();
       window.scrollTo(0, 0);
-      getMovieById();
-   }, [getMovieById]);
+   }, []);
 
    return (
       <Fragment>
@@ -50,28 +38,32 @@ const MovieTap = (props) =>{
 
                            <Col lg="4" md="5" sm="12">
                               <div className="box-container__img">
-                                 <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} />
+                                 { movie 
+                                    ? <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} />
+                                    : <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`https://i.mydramalist.com/vK4lp_5f.jpg`} />
+                                 }
                               </div>
                            </Col>
                            
                            <Col lg="8" md="7" sm="12" className="box-container__content">
                               <Container fluid>
                                  <Row className="container-movie-info">
-                                    <h1>{movie.name}</h1>
+                                    { movie ? <h1>{movie.name}</h1> : <></>}
+                                    {/* <h1>{movie.name}</h1> */}
                                     {/* -------------- check cenema -------------------- */}
                                     {
-                                       (!cinemaArea && !cinemaName) ? <></> : 
+                                       (!movie && !cinema) ? <></> : 
                                     <>
                                        <div className="container-movie-info__Cinema">
                                           <div className="Cinema__cinemaName">
-                                             <h6>{cinemaName}</h6>
+                                             <h6>{cinema.cinemaName}</h6>
                                           </div>
                                           <div className="Cinema__cinemaArea">
-                                             <h6>{cinemaArea}</h6>
+                                             <h6>{cinema.cinemaArea}</h6>
                                           </div>
                                        </div>
-{/*                                     
-                                       <div className="container-movie-info__genre">
+                                    
+                                       {/* <div className="container-movie-info__genre">
                                           <h6>Genre : </h6>
                                           <h5>{movie.genre}</h5>
                                        </div> */}
@@ -84,7 +76,7 @@ const MovieTap = (props) =>{
                                           <p>{` ${getDate(movie.released)} `}</p>
                                        </div>
                                        <div className="container-movie-info__button-detail">
-                                          <Link to={`/details/${movie_id}`}><button className=""> Show Detaile </button></Link>
+                                          <Link to={`/details/${movie._id}`}><button className=""> Show Detaile </button></Link>
                                        </div>
                                     </>
                                     }
@@ -104,8 +96,8 @@ const MovieTap = (props) =>{
 }
 
 MovieTap.propTypes = {
-   cinrmaName: propTypes.string, 
-   cinemaArea: propTypes.string
+   cinema: propTypes.object, 
+   movie: propTypes.object
 }
 
 const TapMovieStyle = styled.div`
@@ -208,14 +200,6 @@ const TapMovieStyle = styled.div`
       background-color: #C9B898;
       height: 3rem;
    }
-
- 
-   
-
- 
-
-
-
 
 
    @media only screen and (max-width: 1100px) {

@@ -75,6 +75,7 @@ const HomePage=()=>{
                      <img src={require("../../assets/images/ads/test.png")} alt="img3"/>
                   </div>
                   <div>
+                     
                      <img src={"https://i0.wp.com/theallapps.com/wp-content/uploads/1500x500.jpeg?w=1500&ssl=1"} alt="img3"/>
                   </div>
                   <div> 

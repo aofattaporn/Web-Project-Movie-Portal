@@ -1,5 +1,7 @@
 let Program = require('../model/program.model');
 let Cinema = require('../model/cinema.model');
+let Movie = require('../model/movie.model');
+
 
 ObjectId = require('mongodb').ObjectID;
 
@@ -22,8 +24,43 @@ const getProgramById =(req, res)=>{
          console.log(err);
       }
       else{
-         console.log(program)
-         res.status(200).json(program);
+         Cinema.findById(program.cinema, (err, cinema)=>{
+            if(err){
+               console.log(err);
+            }else{
+               // program.push(cinema)
+               // cinema.push(program)
+               
+               console.log({program, cinema})
+               res.status(200).json(program);
+
+
+            }
+         })
+      }
+   })
+}
+
+const getProgramByIdAlldata =(req, res)=>{
+   Program.findById(req.params.id, (err, program)=>{
+      if(err){
+         console.log(err);
+      }
+      else{
+         Cinema.findById(program.cinema, (err, cinema)=>{
+            if(err){
+               console.log(err);
+            }else{
+               Movie.findById(program.movies, (err, movie)=>{
+                  if(err){
+                     console.log(err);
+                  }else{
+                     console.log({...program, ...cinema, movie});
+                     res.status(200).json({program, cinema, movie});
+                  }
+               })
+            }
+         })
       }
    })
 }
@@ -269,6 +306,7 @@ const deleteProgramById =(req, res)=>{
 module.exports = {
    getPrograms,
    getProgramById,
+   getProgramByIdAlldata,
    getProgramByDate,
    getProgramByDateAndCinema,
    getCinemasShowTime,

@@ -8,12 +8,12 @@ import ChairIcon from '@mui/icons-material/Chair';
 import serviceProgram from "../../service/programService";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 const BookingChairsTap = (props) =>{
 
-   const { theater, program_id, movie, cinemaName, cinemaArea } = props;
+   const { program, cinema, movie } = props;
 
-   const [program, setProgram] = useState([]);
    const [seats, setSeats] = useState([]);
    const [seatsReserve, setSeatsReserve] = useState([]);
    const [priceReserve, setPriceReserve] = useState(0);
@@ -23,20 +23,18 @@ const BookingChairsTap = (props) =>{
    const zones = ['A', 'B', 'C', 'D', 'E'];
    
    // get Program by id 
-   const getProgramById =(program_id)=>{
-         serviceProgram.getProgramById(program_id)
-         .then((response)=>{
-            setProgram(response.data)
-            setSeats(response.data.seats)
-         })
-         .catch((err)=>{console.log(err)})
-   }
+   const functionsetSeats = useCallback(async ()=>{
+      if(program !== undefined){
+         await setSeats(program.seats)
+      }else{
+         await setSeats([])
+      }
+   }, [program])
 
    const checkClick=(type)=>{
       return seatsReserve.includes(type);
    }
 
-   
    const onClickSelect =(type)=>{
       return setSeatsReserve([...seatsReserve, type]);
    }
@@ -101,12 +99,12 @@ const BookingChairsTap = (props) =>{
    }
 
   useEffect(()=>{
-     getProgramById(program_id);
   }, [])
 
   useEffect(()=>{
+      functionsetSeats();
       console.log(seatsReserve);
-   }, [seatsReserve])
+   }, [seatsReserve, functionsetSeats])
 
 
    return (
@@ -118,7 +116,9 @@ const BookingChairsTap = (props) =>{
             <Col md="8" className="booking-header">
                <div className="booking-header__theater-number">
                   <h6>theater</h6>
-                  <h1>{program.theater}</h1>
+                  
+                  {program? <h1>{program.theater}</h1>: <></>}
+
                </div>
                <div className="booking-header__detailes">
                   <div className="booking-header__detailes__type1">
@@ -172,14 +172,20 @@ const BookingChairsTap = (props) =>{
                <div className="booking-confirm">
                   
                   <div className="booking-confirm__movie">
-                     <h1>{movie}</h1>
-                     <p>{dateFormat(program.date)}</p>
-                     <p>{ new Date(program.date).getHours() + " : " + new Date(program.date).getMinutes()}</p>
+                     {
+                        movie && program ? 
+                        <>
+                           {/* <h1>{movie}</h1> */}
+                           {/* <p>{dateFormat(program.date)}</p> */}
+                           {/* <p>{ new Date(program.date).getHours() + " : " + new Date(program.date).getMinutes()}</p> */}
+                        </>
+                     :  <></>}
                   </div>
 
                   <div className="booking-confirm__cinema">
-                     <h5>{cinemaName}</h5>
-                     <p>{`theater ${program.theater}`}</p>
+                     {cinema? <h5>{cinema.cinemaName}</h5> : <></>}
+                     {program? <p>{`theater ${program.theater}`}</p> : <></>}
+                     
                   </div>
 
                   <div className="booking-confirm__seats">
@@ -222,11 +228,9 @@ const BookingChairsTap = (props) =>{
 }
 
 BookingChairsTap.propTypes = {
-   theater: propTypes.number,
-   program_id: propTypes.string,
-   movie: propTypes.string,
-   cinemaName: propTypes.string, 
-   cinemaArea: propTypes.string
+   program: propTypes.object, 
+   cinema: propTypes.object, 
+   movie: propTypes.object
 }
 
 

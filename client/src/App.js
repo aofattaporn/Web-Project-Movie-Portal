@@ -31,7 +31,7 @@ function App() {
             <Route path='/movies/:movie_id' element={ <page.FindByMovie/>}></Route>
 
             <Route path='/details/:movie_id' element={ <page.DetailsPage/>}></Route>
-            <Route path='/booking/:program_id/:movie_id/:cinema_id' element={ <page.BookingPage/>}></Route>
+            <Route path='/booking/:program_id' element={ <page.BookingPage/>}></Route>
 
             {/* ------------------ admin -------------------------------------- */}
             <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>

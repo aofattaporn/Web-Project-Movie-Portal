@@ -9,6 +9,7 @@ import SliderMovies from "./Slider/SliderMovies";
 import Tap from "./Tap/Tap";
 import ProgramTap from "./Tap/ProgramTap";
 import MovieTap from "./Tap/MovieTap";
+import MovieTapSkeleton from "./Skeleton/BookingChairsTapSkeleton";
 import NoMovie from "./Handle/NoMovie";
 import BookingChairsTap from "./Tap/BookingChairsTap";
 import Footer from "./Footer/Footer";
@@ -18,7 +19,7 @@ import AccordItemFromMovie from "./AccordionItem/AccordItemFromMovie"
 const components = {
    AccorrdionItem, BoxShowTime, Button, Card, Nav,
    SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap,
-   AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap
+   AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap, MovieTapSkeleton
 }
 
 export default components;

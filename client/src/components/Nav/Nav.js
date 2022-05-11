@@ -22,18 +22,20 @@ const Navigation=()=>{
    <NavigationBar> 
       <Navbar className='nav ps-5'  expand="lg" variant="dark">
          <Container fluid>
-            <Navbar.Brand className='fw-5 pt-2 nav__band'><h1>XTra</h1></Navbar.Brand>
+            <Navbar.Brand className='fw-5 pt-2 nav__band'>
+               <Link className='pt-2 me-4 nav__link mt-2' to={'/'}> <img src={require("../../assets/icons/logo2.png")} alt="img3" width={"100rem"}/> </Link>
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
 
       {/*------------------------------------------- Collaps --------------------------------------------------------------- */}
 
                <Navbar.Collapse id="navbarScroll">
                   <Nav className="me-auto my-2 my-lg-0 " style={{ maxHeight: '100px' }} navbarScroll >
-                     <Link className='pt-2 me-4 ms-3 nav__link' to={'/'}> HOME </Link>
-                     <Link className='pt-2 me-4 nav__link' to={'/movies'}> MOVIES </Link>
-                     <Link className='pt-2 me-4 nav__link' to={'/cinemas'}> CINEMAS </Link>
-                     <Link className='pt-2 me-4 nav__link' to={'/promotions'}> PROMOTIONS </Link>
-                     <NavDropdown className='Dropdown' variant="dark" title="Dropdown" id="basic-nav-dropdown">
+                     <Link className='pt-2 me-4 nav__link mt-2' to={'/'}> HOME </Link>
+                     <Link className='pt-2 me-4 nav__link mt-2' to={'/movies'}> MOVIES </Link>
+                     <Link className='pt-2 me-4 nav__link mt-2' to={'/cinemas'}> CINEMAS </Link>
+                     <Link className='pt-2 me-4 nav__link mt-2' to={'/promotions'}> PROMOTIONS </Link>
+                     <NavDropdown className='Dropdown mt-2' variant="dark" title="Dropdown" id="basic-nav-dropdown">
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createmovie'}> Create Movies </Link></NavDropdown.Item>
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createCinema'}> Create Cinemas </Link></NavDropdown.Item>
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createProgram'}> Create programs </Link></NavDropdown.Item>
