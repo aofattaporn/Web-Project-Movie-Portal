@@ -5,10 +5,10 @@ import EventSeatIcon from '@mui/icons-material/EventSeat';
 import CheckIcon from '@mui/icons-material/Check';
 import PersonIcon from '@mui/icons-material/Person';
 import ChairIcon from '@mui/icons-material/Chair';
-import serviceProgram from "../../service/programService";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
+import { Link } from "react-router-dom";
 
 const BookingChairsTap = (props) =>{
 
@@ -18,9 +18,7 @@ const BookingChairsTap = (props) =>{
    const [seatsReserve, setSeatsReserve] = useState([]);
    const [priceReserve, setPriceReserve] = useState(0);
 
-
-
-   const zones = ['A', 'B', 'C', 'D', 'E'];
+   const zones = ["A", "B", "C", "D", "E"];
    
    // get Program by id 
    const functionsetSeats = useCallback(async ()=>{
@@ -58,7 +56,7 @@ const BookingChairsTap = (props) =>{
    const getSeatIcon = (index)=>{
          getNumberSeat(index)
          return seats.map((item, idx) =>{
-            if((zones[index] == (item.type).substring(0, 1))){
+            if((zones[index] === (item.type).substring(0, 1))){
                if(!item.available){
                   if(checkClick(item.type)){
                      return (
@@ -94,7 +92,6 @@ const BookingChairsTap = (props) =>{
       const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
       ]
-
       return `${d.getDate()} ${monthNames[d.getMonth()]} ${d.getFullYear()}`
    }
 
@@ -115,10 +112,15 @@ const BookingChairsTap = (props) =>{
             <Col md="2"></Col>
             <Col md="8" className="booking-header">
                <div className="booking-header__theater-number">
-                  <h6>theater</h6>
-                  
-                  {program? <h1>{program.theater}</h1>: <></>}
-
+               {program? 
+                  <>
+                     <h6>theater</h6>
+                     <h1>{program.theater}</h1>
+                  </>
+                  : 
+                  <>
+                  </> 
+               }
                </div>
                <div className="booking-header__detailes">
                   <div className="booking-header__detailes__type1">
@@ -175,9 +177,9 @@ const BookingChairsTap = (props) =>{
                      {
                         movie && program ? 
                         <>
-                           {/* <h1>{movie}</h1> */}
-                           {/* <p>{dateFormat(program.date)}</p> */}
-                           {/* <p>{ new Date(program.date).getHours() + " : " + new Date(program.date).getMinutes()}</p> */}
+                           <h1>{movie.name}</h1>
+                           <p>{dateFormat(program.date)}</p>
+                           <p>{ new Date(program.date).getHours() + " : " + new Date(program.date).getMinutes()}</p>
                         </>
                      :  <></>}
                   </div>
@@ -207,21 +209,19 @@ const BookingChairsTap = (props) =>{
                      </div>
 
                      <div className="booking-confirm__botton">
-                     {
-                        seatsReserve.length != 0 ? 
-                        <button className="booking-confirm__botton--sucsess">Continue</button> : 
-                        <button className="booking-confirm__botton--unsucess">Continue</button>
-                     }
+                        {
+                           seatsReserve.length !== 0 ? 
+                           <Link to={`payment`} 
+                              state={{seatsReserve: seatsReserve, priceReserve: priceReserve}} 
+                              className="booking-confirm__botton--sucsess" >
+                           <button className="booking-confirm__botton--sucsess">Continue</button></Link>: 
+                           <button className="booking-confirm__botton--unsucess">Continue</button>
+                        }
                      </div>
                   </div>
-
-
-
                </div>
             </Col>
          </Row>
-
-
       </Container>
    </BookingChairsTapStyle>
    )
@@ -410,6 +410,7 @@ const BookingChairsTapStyle = styled.div`
 .booking-confirm__botton--sucsess{
    background-color: rgba(151, 121, 89, 100);
    font-weight: bold;
+   width: 100%;
    color: #ffff;
    border: 0;
 }

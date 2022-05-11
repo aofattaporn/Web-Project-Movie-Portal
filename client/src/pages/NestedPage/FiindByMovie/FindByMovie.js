@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import serviceProgram from "../../../service/programService";
 import { useEffect } from "react";
 import { useCallback } from "react";
-import serviceCinemas from "../../../service/cienemaService";
+import serviceMovies from "../../../service/movieService";
 
 
 const FindByMovie =()=>{
@@ -18,6 +18,7 @@ const FindByMovie =()=>{
    const [dateSelect, setDateSelect] = useState("");
    const [dateSelectNext, setDateSelectNext] = useState("");
    const [cinemas, setCinemas] = useState([]);
+   const [movie, setMovie] = useState({});
 
    const dateFormat=(date)=>{
       const d = new Date(date);
@@ -45,8 +46,6 @@ const FindByMovie =()=>{
       //    console.log("abaha");
       // }
 
-      
-
       const dateSet = await {
          movie_id: movie_id,
          start: dateSelect,
@@ -55,12 +54,13 @@ const FindByMovie =()=>{
 
       await serviceProgram.getProgramsByMovie(dateSet)
       .then((res) => {
-         console.log(res)
+         // console.log(res.data)
          console.log(setCinemas(res.data))
       })
       .catch((err) => {console.log(err)})
 
    }, [ movie_id, dateSelect, dateSelectNext])
+
 
    const selectedDay = (val) =>{
                                      
@@ -84,12 +84,26 @@ const FindByMovie =()=>{
       getCinemasByMovie();
    }, [getCinemasByMovie])
 
+   useEffect(()=>{
+      const getMovieById = () =>{
+         serviceMovies.getMovieById(movie_id)
+         .then((response)=>{setMovie(response.data)})
+         .catch((err)=> {console.log(err)})
+      }
+
+      getMovieById();
+   }, [movie_id])
+
 
    return (
    <Fragment>
       <FindByMovieStyle>
          <div className="fincinemas"> 
-         <components.MovieTap></components.MovieTap>
+         <components.MovieTap
+            movie={movie}
+         >
+
+         </components.MovieTap>
 
          <div className="findbycinemas__date">
                <header className="findbycinemas__date__head">
@@ -122,8 +136,7 @@ const FindByMovie =()=>{
 
                      </Accordion>
                   </Col>
-                  <Col  md="1"></Col>
-
+                  <Col md="1"></Col>
                </Row>
             </Container>
          </section>

@@ -14,12 +14,14 @@ import NoMovie from "./Handle/NoMovie";
 import BookingChairsTap from "./Tap/BookingChairsTap";
 import Footer from "./Footer/Footer";
 import AccordItemFromMovie from "./AccordionItem/AccordItemFromMovie"
+import BuyTap from "./BuyTap/Buy";
+import Timer from "./Timer/Timer";
 
 
 const components = {
    AccorrdionItem, BoxShowTime, Button, Card, Nav,
-   SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap,
-   AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap, MovieTapSkeleton
+   SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap, BuyTap,
+   AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap, MovieTapSkeleton, Timer
 }
 
 export default components;

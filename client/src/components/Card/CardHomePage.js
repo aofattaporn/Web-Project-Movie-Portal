@@ -50,7 +50,8 @@ const CardHomePage =(props)=>{
 const CardHomepageStyle = styled.div`
 
 .card-container{
-   /* margin-top: 5rem; */
+   border: 0;
+
    width: 14rem;
    height: 5rem;
    height: auto;

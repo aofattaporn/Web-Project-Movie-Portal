@@ -1,18 +1,15 @@
-import { useState } from "react";
 import { useEffect } from "react";
 import { Fragment } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import styled from "styled-components";
 import propTypes from "prop-types"
-import serviceMovie from "../../service/movieService";
 import 'aos'
 import AOS from "aos";
-import { useCallback } from "react";
- 
+
 const MovieTap = (props) =>{
 
-   const { movie, cinema} = props;
+   const { movie, cinema } = props;
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -52,7 +49,7 @@ const MovieTap = (props) =>{
                                     {/* <h1>{movie.name}</h1> */}
                                     {/* -------------- check cenema -------------------- */}
                                     {
-                                       (!movie && !cinema) ? <></> : 
+                                    (!cinema) ? <></> : 
                                     <>
                                        <div className="container-movie-info__Cinema">
                                           <div className="Cinema__cinemaName">
@@ -62,23 +59,33 @@ const MovieTap = (props) =>{
                                              <h6>{cinema.cinemaArea}</h6>
                                           </div>
                                        </div>
-                                    
-                                       {/* <div className="container-movie-info__genre">
+                                       </>
+                                    }
+                                    {
+
+                                    (cinema && !movie) ? 
+                                       <div className="container-movie-info__genre">
                                           <h6>Genre : </h6>
                                           <h5>{movie.genre}</h5>
-                                       </div> */}
-                                       <div className="container-movie-info__runtime">
-                                          <h6>Runtime : </h6>
-                                          <h5>{` ${movie.runtime} Mins`}</h5>
-                                       </div>
-                                       <div className="container-movie-info__realeased">
-                                          <h6>Released date</h6>
-                                          <p>{` ${getDate(movie.released)} `}</p>
-                                       </div>
-                                       <div className="container-movie-info__button-detail">
-                                          <Link to={`/details/${movie._id}`}><button className=""> Show Detaile </button></Link>
-                                       </div>
-                                    </>
+                                       </div> : 
+                                       <></> 
+                                    }
+                                    { (movie) ? 
+                                       <>
+                                          <div className="container-movie-info__runtime">
+                                             <h6>Runtime : </h6>
+                                             <h5>{` ${movie.runtime} Mins`}</h5>
+                                          </div>
+                                          <div className="container-movie-info__realeased">
+                                             <h6>Released date</h6>
+                                             <p>{` ${getDate(movie.released)} `}</p>
+                                          </div>
+                                          <div className="container-movie-info__button-detail">
+                                             <Link to={`/details/${movie._id}`}><button className=""> Show Detaile </button></Link>
+                                          </div> 
+                                       </>: 
+                                       
+                                       <></>
                                     }
                                  </Row>
                               </Container>
@@ -112,6 +119,14 @@ const TapMovieStyle = styled.div`
       top: 10rem;
       background-color: #ffff;
       height: 20rem;
+   }
+
+   .container-movie-info__genre{
+      display: flex;
+   }
+
+   .container-movie-info__genre h6{
+      margin-right: 1rem;
    }
 
    .container-movie-info__genre, .container-movie-info__realeased, .container-movie-info__button-detail
@@ -229,6 +244,10 @@ const TapMovieStyle = styled.div`
 
       .container-movie-info__genre, .container-movie-info__realeased, .container-movie-info__button-detail{
          left: 0rem;
+      }
+
+      .container-movie-info__runtime{
+         display: flex;
       }
 
       .container-movie-info{

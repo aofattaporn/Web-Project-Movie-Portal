@@ -2,7 +2,6 @@ import {Route, Routes} from 'react-router-dom';
 import React from 'react';
 import page from './pages/index';
 import components from './components';
-import Nav from './components/Nav/Nav'
 import './App.css';
 import 'aos'
 import { useState } from 'react';
@@ -32,6 +31,8 @@ function App() {
 
             <Route path='/details/:movie_id' element={ <page.DetailsPage/>}></Route>
             <Route path='/booking/:program_id' element={ <page.BookingPage/>}></Route>
+            <Route path='/booking/:program_id/payment' element={ <page.PayMentPage/>}></Route>
+
 
             {/* ------------------ admin -------------------------------------- */}
             <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>

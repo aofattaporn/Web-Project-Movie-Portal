@@ -12,19 +12,17 @@ const BookingPage = ()=>{
 
    // manage state
    const [data, setData] = useState({});
-
-
+   
    const getAllData = (id)=>{
       serviceProgram.getAllDataByProgramId(id)
       .then((response)=>{setData(response.data)})
       .catch(err => {console.log(err)})
    }
 
-
    useEffect(()=>{
       getAllData(program_id);
 
-   }, [])
+   }, [program_id])
  
    return (
       <Fragment>

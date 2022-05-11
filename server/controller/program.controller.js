@@ -28,13 +28,7 @@ const getProgramById =(req, res)=>{
             if(err){
                console.log(err);
             }else{
-               // program.push(cinema)
-               // cinema.push(program)
-               
-               console.log({program, cinema})
                res.status(200).json(program);
-
-
             }
          })
       }
@@ -55,7 +49,6 @@ const getProgramByIdAlldata =(req, res)=>{
                   if(err){
                      console.log(err);
                   }else{
-                     console.log({...program, ...cinema, movie});
                      res.status(200).json({program, cinema, movie});
                   }
                })

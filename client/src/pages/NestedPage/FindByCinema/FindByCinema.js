@@ -122,7 +122,8 @@ const FindByCinema =()=>{
             
 
             {
-             moviesShow.length !== 0  ? 
+
+             moviesShow.length !== 0  ?                        
                moviesShow.map((item, idx) => {
                   return (<components.BoxShowTime 
                      key={idx}

@@ -64,6 +64,8 @@ h1{
    margin: 0 auto;
    background-color: transparent;
    margin-bottom: 3rem;
+   border: 0;
+
 
 }
 
