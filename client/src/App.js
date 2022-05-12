@@ -20,7 +20,7 @@ function App() {
           <Routes>
 
             {/* ------------------ main-page -------------------------------- */}
-            <Route path='/' exact element={ <page.HomePage/> }></Route>
+            <Route path='/'  element={ <page.HomePage/> }></Route>
             <Route path='/movies' element={ <page.MoviePage/>}></Route>
             <Route path='/cinemas' element={ <page.CinemasPage/>}></Route>
             <Route path='/promotions' element={ <page.PromotionsPage/>}></Route>
@@ -35,9 +35,9 @@ function App() {
 
 
             {/* ------------------ admin -------------------------------------- */}
-            <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
+            {/* <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
             <Route path='/createCinema' element={ <page.CreateCinema/>}></Route>
-            <Route path='/createProgram' element={ <page.CreateProgram/>}></Route>
+            <Route path='/createProgram' element={ <page.CreateProgram/>}></Route> */}
 
           </Routes>
           

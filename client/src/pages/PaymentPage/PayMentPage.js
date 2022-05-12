@@ -10,8 +10,6 @@ const PayMentPage = () =>{
    const { state } = useLocation();
    const {program_id}  = useParams();
 
-   console.log(state);
-
    // manage state
    const [data, setData] = useState({});
    
@@ -25,21 +23,27 @@ const PayMentPage = () =>{
       getAllData(program_id);
    }, [program_id])
 
-   console.log(state);
  
    return (
       <Fragment>
          <PayMentPageStyle>
-            <components.MovieTap  
-               cinema={data.cinema} 
-               movie={data.movie} >
-            </components.MovieTap>
+            {
+               (data.cinema && data.movie && state.seatsReserve && state.priceReserve) ?
+               <>
+                  <components.MovieTap  
+                     cinema={data.cinema} 
+                     movie={data.movie} >
+                  </components.MovieTap>
                
-            <components.BuyTap
-               seatsReserve= {state.seatsReserve}
-               priceReserve= {state.priceReserve}
-            >
-            </components.BuyTap>
+                  <components.BuyTap
+                     seatsReserve= {state.seatsReserve}
+                     priceReserve= {state.priceReserve}
+                  >
+                  </components.BuyTap>
+            </> : 
+            <>
+            </>
+            }
  
          </PayMentPageStyle>
       </Fragment>

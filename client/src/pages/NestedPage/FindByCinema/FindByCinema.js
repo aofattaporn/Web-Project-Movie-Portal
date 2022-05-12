@@ -46,17 +46,17 @@ const FindByCinema =()=>{
 
   const getProgramByDate =  useCallback(async ()=>{
 
-      // if(dateSelect === "" && dateSelectNext===""){
-      //    let date_select = new Date();
-      //    let today = date_select.setDate(new Date().getDate() - parseInt(1));
-      //    let tommorrow = date_select.setDate(new Date().getDate() );
+      if(dateSelect === '' && dateSelectNext=== ''){
+         let date_select = new Date();
+         let today = date_select.setDate(new Date().getDate());
+         let tommorrow = date_select.setDate(new Date().getDate() + parseInt(1));
             
-      //    today = new Date(today).toISOString();
-      //    tommorrow = new Date(tommorrow).toISOString();
+         today = new Date(today).toISOString();
+         tommorrow = new Date(tommorrow).toISOString();
 
-      //    setDateSelect(today);
-      //    setDateSelectNext(tommorrow);
-      // }
+         setDateSelect(today);
+         setDateSelectNext(tommorrow);
+      }
      
      const dateSet = {
          cinema_id: cinema_id,
@@ -113,7 +113,6 @@ const FindByCinema =()=>{
                <DatePicker
                      getSelectedDay={selectedDay}
                      endDate={100}
-                     selectDate={new Date("2020-04-30")}
                      labelFormat={"MMMM"}
                      color={"#ffff"} 
                      >

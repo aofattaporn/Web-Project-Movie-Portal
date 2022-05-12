@@ -7,9 +7,6 @@ const BuyTap = (props) =>{
 
    const {seatsReserve, priceReserve} = props
 
-   console.log(seatsReserve)
-   console.log(priceReserve)
-
    return (
       <BuyTapStyle>
          <Container>

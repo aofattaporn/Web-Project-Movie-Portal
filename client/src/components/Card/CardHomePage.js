@@ -13,36 +13,37 @@ const CardHomePage =(props)=>{
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
    }
    
-   const { movie_id , title, image, released, runtime, genre } = props;
+   const { movie } = props;
 
-   console.log(props);
 
    return (
       <CardHomepageStyle> 
+         { movie ? 
          <Card className="card-container">
             {/*---- header -----------------------------------*/}
-            <Link to={`/movies/${movie_id}`}>
+            <Link to={`/movies/${movie._id}`}>
                <div className='card__header'>
-                  <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`} />
+                  <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} />
                </div>
             </Link>
 
             {/*---- card-body -----------------------------------*/}
             <Card.Body className='card__text'>
                <ListGroup>
-                  <ListGroupItem className='card__text__releas'><p>{getDate(released)}</p></ListGroupItem>
+                  <ListGroupItem className='card__text__releas'><p>{getDate(movie.released)}</p></ListGroupItem>
                </ListGroup>
             </Card.Body>
-            <ListGroupItem className='card__text__title'><h5>{title}</h5></ListGroupItem>
+            <ListGroupItem className='card__text__title'><h5>{movie.name}</h5></ListGroupItem>
             <div className='card__footer'>
                <div className='card__footer__runtime text-center'>
-                  <p>{`${runtime} minute`}</p>
+                  <p>{`${movie.runtime} minute`}</p>
                </div>
                <div className='card__footer__gener text-center'>
-                  <p>{`${genre}`}</p>
+                  <p>{`${movie.genre}`}</p>
                </div>
              </div>
          </Card>
+          :  <></> }
       </CardHomepageStyle>
    )
 }
@@ -157,11 +158,12 @@ h1{
 `
 
 CardHomePage.propTypes ={
-   title: propTypes.string,
-   image: propTypes.string, 
-   released: propTypes.string,
-   runtime: propTypes.string,
-   movie_id: propTypes.string
+   movie: propTypes.object,
+   // title: propTypes.string,
+   // image: propTypes.string, 
+   // released: propTypes.string,
+   // runtime: propTypes.string,
+   // movie_id: propTypes.string
 }
 
 export default CardHomePage;

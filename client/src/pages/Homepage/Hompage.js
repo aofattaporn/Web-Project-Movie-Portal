@@ -74,7 +74,7 @@ const HomePage=()=>{
                   <div>
                      <img src={require("../../assets/images/ads/test.png")} alt="img3"/>
                   </div>
-                  <div>
+                  {/* <div>
                      
                      <img src={"https://i0.wp.com/theallapps.com/wp-content/uploads/1500x500.jpeg?w=1500&ssl=1"} alt="img3"/>
                   </div>
@@ -83,7 +83,7 @@ const HomePage=()=>{
                   </div>
                   <div>
                         <img src={"https://pbs.twimg.com/media/FDUbC-WUcAECL-m?format=jpg&name=4096x4096"} alt="img3"/>
-                  </div>
+                  </div> */}
 
                </Carousel>
                <Tap/>
@@ -99,17 +99,7 @@ const HomePage=()=>{
                          movies.filter(movie => { 
                            return checkDate(movie.released) === false                            
                            }).map((item, idx) => {
-                                return ( 
-                                      <CardHomePage 
-                                         key={idx}
-                                         title={item.name} 
-                                         image={item.image} 
-                                         released={item.released} 
-                                         runtime={item.runtime}
-                                         movie_id={item._id} 
-                                         genre={item.genre}
-                                      />
-                                )
+                                return ( <CardHomePage  key={idx} movie={item} /> )
                                 }
                              )
                         }
@@ -126,15 +116,7 @@ const HomePage=()=>{
                          return checkDate(movie.released) === true                            
                          }).map((item, idx) => {
                               return ( 
-                                    <CardHomePage 
-                                       key={idx}
-                                       title={item.name} 
-                                       image={item.image} 
-                                       released={item.released} 
-                                       runtime={item.runtime}
-                                       movie_id={item._id} 
-                                       genre={item.genre}
-                                    />
+                                    <CardHomePage  key={idx} movie={item} />
                               )
                               }
                            )

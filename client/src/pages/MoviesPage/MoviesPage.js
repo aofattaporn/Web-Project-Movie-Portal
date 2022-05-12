@@ -55,9 +55,10 @@ const MoviesPage=()=>{
 
    // when on initial 
    useEffect(() => {
+      getMovies();
       AOS.init();
       AOS.refresh();
-      getMovies();
+      
       
     }, []);
 
@@ -84,6 +85,8 @@ const MoviesPage=()=>{
       <Fragment>
          <MoviePageStyle> 
                {/* get all movies now showing  */}
+            { movies ?  
+            <>
                <Container  fluid="sm">
                   <div className="header">
                      <h3 className="header__title">Movie show</h3>
@@ -98,12 +101,10 @@ const MoviesPage=()=>{
                      data-aos-duration="1000"
                      >
                         {
+                           movies ? 
                            movies.filter(movie => {
-                              
                               return checkDate(movie.released) !== true
-                              
                            }).map((item, index) => {      
-                              console.log(item);
                               return <Col  key={index} xs='6' sm='6' md='3'>
                                  <CardMovie 
                                  title={item.name} 
@@ -112,9 +113,12 @@ const MoviesPage=()=>{
                                  runtime={item.runtime} 
                                  movie_id={item._id}
                                  genre={item.genre}
-                                 /></Col>
+                                 />
+                                 
+                                 </Col>
                            })
-                        }
+                        
+                        : <></>}
                   </Row>
                </Container>
 
@@ -128,18 +132,29 @@ const MoviesPage=()=>{
                   data-aos-duration="1000"
                   className="moviescontainer">
                         {
+                           movies ? 
                            movies.filter(movie => {
-                              return checkDate(movie.released) === true
-                           }).map((item, index) => {   
-                              console.log(item);   
-                              return (
-                                 <Col key={index} xs='6' sm='6' md='3'>
-                                    <CardMovie title={item.name} image={item.image} runtime={item.runtime} genre={item.genre} movie_id={item._id} />
-                                 </Col> )
+                              
+                              return checkDate(movie.released) !== false
+                              
+                           }).map((item, index) => {      
+                              return <Col  key={index} xs='6' sm='6' md='3'>
+                                 <CardMovie 
+                                 title={item.name} 
+                                 image={item.image} 
+                                 released={item.released} 
+                                 runtime={item.runtime} 
+                                 movie_id={item._id}
+                                 genre={item.genre}
+                                 />
+                                 
+                                 </Col>
                            })
-                        }
+                        
+                        : <></>}
                   </Row>
-               </Container>
+               </Container> </>: <></>
+            }
          </MoviePageStyle>
       </Fragment>
    )
