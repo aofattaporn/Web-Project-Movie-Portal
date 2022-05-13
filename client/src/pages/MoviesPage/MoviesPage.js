@@ -59,7 +59,6 @@ const MoviesPage=()=>{
       AOS.init();
       AOS.refresh();
       
-      
     }, []);
 
    // when on Click 
@@ -101,7 +100,7 @@ const MoviesPage=()=>{
                      data-aos-duration="1000"
                      >
                         {
-                           movies ? 
+                         
                            movies.filter(movie => {
                               return checkDate(movie.released) !== true
                            }).map((item, index) => {      
@@ -118,7 +117,7 @@ const MoviesPage=()=>{
                                  </Col>
                            })
                         
-                        : <></>}
+                    }
                   </Row>
                </Container>
 

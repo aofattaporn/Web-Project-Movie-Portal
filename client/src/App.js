@@ -35,9 +35,9 @@ function App() {
 
 
             {/* ------------------ admin -------------------------------------- */}
-            {/* <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
+            <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
             <Route path='/createCinema' element={ <page.CreateCinema/>}></Route>
-            <Route path='/createProgram' element={ <page.CreateProgram/>}></Route> */}
+            <Route path='/createProgram' element={ <page.CreateProgram/>}></Route>
 
           </Routes>
           

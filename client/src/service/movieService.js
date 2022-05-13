@@ -5,8 +5,6 @@ const getMovies =()=>{
 }
 
 const getMovieById =(id)=>{
-   console.log('--------------');
-   console.log(id);
    return axios.get(`http://localhost:4000/movies/${id}`);
 }
 

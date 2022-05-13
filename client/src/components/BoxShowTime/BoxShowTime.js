@@ -6,38 +6,20 @@ import serviceMovies from "../../service/movieService";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useCallback } from "react";
-import serviceProgram from "../../service/programService";
-import ListTheater from "../List/ListTheater";
+import components from "../index";
 import 'aos'
 import AOS from "aos";
 
 const BoxShowTime =(props)=>{
 
-   const { movie_id, cinema_id, today, tommorrow } = props;
+   const { movie_id, program } = props;
    
    const [movie, setMovie] = useState({});
-   const [theater, setTheater] = useState([]);
 
    const getMovie = useCallback(()=>{
       serviceMovies.getMovieById(movie_id)
       .then(res => {
          setMovie(res.data);
-      })
-      .catch(err => {
-         console.log(err);
-      })
-
-      const dateSet = {
-         cinema_id: cinema_id,
-         movie_id: movie_id,
-         start: today,
-         end: tommorrow
-     }
-
-      serviceProgram.getThearter(dateSet)
-      .then(res => {
-         setTheater(res.data);
-         console.log(res.data);
       })
       .catch(err => {
          console.log(err);
@@ -50,43 +32,54 @@ const BoxShowTime =(props)=>{
       getMovie();
    },[getMovie]);
 
-
    return (
       <Fragment>
          <BoxShowTimeStlye>
-
-            
-               <Container fluid="md" className="showtime"                         
-                        data-aos='fade-up'
-                        data-aos-duration="1000"  >
+               <Container fluid="md" className="showtime"  >
                   <Container >
                      <Row className="showtime__box">
                         <Col className="showtime__container" sm="3">
                            <div className="showtime__container">
-                              <img className='showtime__container__img' variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} alt="showtim img" />
+                              { movie.image ? 
+                                 <img className='showtime__container__img'                         
+                                 // data-aos='fade-up'
+                                 // data-aos-duration="500"      
+                                 variant="top" 
+                                 src={`http://localhost:4000/image/poster/${movie.image}`} 
+                                 alt="showtim img" /> :
+                                 // <img className='showtime__container__img' variant="top" src={`https://i.mydramalist.com/vK4lp_5f.jpg`} alt="showtim img" />
+                                 <></>
+                              }
                            </div>
                         </Col>
                         <Col className="title" sm="9">
                            <Container>
                               <Row className="title__movie mb-4">
-                                 <h1>{movie.name}</h1>
+                                 {movie.name ? <h1>{movie.name}</h1> : <></>}
                               </Row>
+                              <Row>
+
                                  {
-                                    theater.map((item, idx) => {
-                                       return (
-                                          <Row key={idx}>
-                                             <ListTheater 
-                                            
-                                                theater={item}
-                                                movie_id={movie_id}
-                                                cinema_id={cinema_id}
-                                                today={today} 
-                                                tommorrow={tommorrow}                                                                              
-                                             />
-                                          </Row>
-                                       );
-                                    })
+                                    (program) ? 
+                                    program.filter(x => x.movies === movie_id)
+                                    .map(item => item.theater.toString())
+                                    .filter((value, index, self) => self.indexOf(value) === index)
+                                    .map((theater, idx) => 
+                                       { 
+                                          return (
+                                          <components.ListTheater
+                                             key={idx}
+                                             program={program}
+                                             movie_id={movie_id}
+                                             theater={theater.toString()}
+                                          >
+                                          </components.ListTheater> 
+                                          )
+                                       })
+                                    :
+                                    <h1>Jello world</h1>
                                  }
+                              </Row>
                            </Container>
                         </Col>
                      </Row>
@@ -156,10 +149,7 @@ const BoxShowTimeStlye = styled.div`
 
 BoxShowTime.propTypes ={
    movie_id: propTypes.string,
-   program_id: propTypes.string,
-   cinema_id: propTypes.string,
-   today: propTypes.string,
-   tommorrow: propTypes.string
+   program: propTypes.array
 }
 
 

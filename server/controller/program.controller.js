@@ -63,6 +63,7 @@ const getProgramByDate =(req, res)=>{
    let start = new Date(req.body.date.start);
    let end = new Date(req.body.date.end);
 
+
    Program.find({"date": {$gte: start, $lt: end}}, (err, program)=>{
       if(err){
          console.log(err);
@@ -79,15 +80,16 @@ const getProgramByDateAndCinema =(req, res)=>{
    let start = new Date(req.body.date.start);
    let end = new Date(req.body.date.end);
 
-   Program.find({"cinema": ObjectId(cinema_id) ,"date": {$gte: start, $lt: end}}, (err, program)=>{
-      if(err){
-         console.log(err);
-      }
-      else{
-         res.status(200).json(program);
-      }
-   })
-
+   if(req.body.date.start !== '' && req.body.date.end !== ''){
+      Program.find({"cinema": ObjectId(cinema_id) ,"date": {$gte: start, $lt: end}}, (err, program)=>{
+         if(err){
+            console.log(err);
+         }
+         else{
+            res.status(200).json(program);
+         }
+      })
+   }
 }
 
 const getCinemasShowTime = async (req, res)=>{
@@ -96,36 +98,16 @@ const getCinemasShowTime = async (req, res)=>{
    let start = new Date(req.body.date.start);
    let end = new Date(req.body.date.end);
 
-   Program.distinct("cinema", 
-   
-   {"movies": ObjectId(movie_id) ,"date": {$gte: start, $lt: end}}, (err, program)=>{
-      if(err){
-         console.log(err);
-      }
-      else{
-
-         if(program.length === 0){
-            res.status(200).json([]);
-         }else{
-
-            const cinemas = [];
-
-            program.forEach( (element, index) => {
-               Cinema.findById(element, (err, cinema) => {
-                  if(err){
-                     console.log(err);
-                  }
-                  else if(cinemas.length !== program.length){
-                     cinemas.push(cinema);
-                     if(cinemas.length == program.length){
-                        res.status(200).json(cinemas);
-                     }
-                  }
-               })
-            });
+   if(req.body.date.start !== '' && req.body.date.end !== ''){
+      Program.find( {"movies": ObjectId(movie_id) ,"date": {$gte: start, $lt: end}}, (err, program)=>{
+         if(err){
+            console.log(err);
          }
-      }
-   })
+         else{
+            res.status(200).json(program);
+         }
+      })
+   }
 
 
 

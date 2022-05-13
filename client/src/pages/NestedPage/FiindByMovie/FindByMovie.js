@@ -8,18 +8,19 @@ import serviceProgram from "../../../service/programService";
 import { useEffect } from "react";
 import { useCallback } from "react";
 import serviceMovies from "../../../service/movieService";
-
+import serviceCinemas from "../../../service/cienemaService";
 
 const FindByMovie =()=>{
 
    const { movie_id } = useParams();
 
    // manage state
-   const [dateSelect, setDateSelect] = useState("");
-   const [dateSelectNext, setDateSelectNext] = useState("");
-   const [cinemas, setCinemas] = useState([]);
+   const [dateSelect, setDateSelect] = useState('');
+   const [dateSelectNext, setDateSelectNext] = useState('');
    const [movie, setMovie] = useState({});
-
+   const [cinemas, setCinemas] = useState([]);
+   const [program, setProgram] = useState([]);
+ 
    const dateFormat=(date)=>{
       const d = new Date(date);
       const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -27,40 +28,6 @@ const FindByMovie =()=>{
       ]
       return `${d.getDate()} ${monthNames[d.getMonth()]} ${d.getFullYear()}`
    }
-
-   const getCinemasByMovie = useCallback( async ()=>{
-
-      // if(dateSelect === "" && dateSelectNext===""){
-      //    let date_select = new Date();
-      //    let today = date_select.setDate(new Date().getDate() - parseInt(1));
-      //    let tommorrow = date_select.setDate(new Date().getDate() );
-            
-      //    // today = new Date(today).toISOString();
-      //    // tommorrow = new Date(tommorrow).toISOString();
-
-      //    console.log(today);
-      //    console.log(tommorrow);
-
-      //    setDateSelect(today);
-      //    setDateSelectNext(tommorrow);
-      //    console.log("abaha");
-      // }
-
-      const dateSet = await {
-         movie_id: movie_id,
-         start: dateSelect,
-         end: dateSelectNext
-      }
-
-      await serviceProgram.getProgramsByMovie(dateSet)
-      .then((res) => {
-         // console.log(res.data)
-         console.log(setCinemas(res.data))
-      })
-      .catch((err) => {console.log(err)})
-
-   }, [ movie_id, dateSelect, dateSelectNext])
-
 
    const selectedDay = (val) =>{
                                      
@@ -79,6 +46,34 @@ const FindByMovie =()=>{
 
    };
 
+   const getCinemasByMovie = useCallback( async ()=>{
+
+      if( dateSelect === '' && dateSelectNext === '' ){
+         let today = new Date().setHours(0,0,0,0);
+         let tommorrow = new Date().setHours(24,0,0,0);
+         
+         today = new Date(today).toISOString();
+         tommorrow = new Date(tommorrow).toISOString();
+
+         setDateSelect(today);
+         setDateSelectNext(tommorrow);
+      }
+
+      const dateSet = await {
+         movie_id: movie_id,
+         start: dateSelect,
+         end: dateSelectNext
+      }
+
+      await serviceProgram.getProgramsByMovie(dateSet)
+      .then((response) => {
+         setProgram(response.data)
+      })
+      .catch((err) => {console.log(err)})
+
+   }, [ movie_id, dateSelect, dateSelectNext])
+
+
    // useEffect for reenduring component
    useEffect(()=>{
       getCinemasByMovie();
@@ -87,12 +82,26 @@ const FindByMovie =()=>{
    useEffect(()=>{
       const getMovieById = () =>{
          serviceMovies.getMovieById(movie_id)
-         .then((response)=>{setMovie(response.data)})
+         .then((response)=>{
+            setMovie(response.data)
+         })
          .catch((err)=> {console.log(err)})
       }
 
       getMovieById();
    }, [movie_id])
+
+   // serviceCinemas
+   useEffect(()=>{
+      const getCinemas = () =>{
+         serviceCinemas.getCinemas()
+         .then((response)=> {
+            setCinemas(response.data)
+         })
+         .catch((err)=> {console.log(err)})
+      }
+      getCinemas();
+   }, [])
 
 
    return (
@@ -102,7 +111,6 @@ const FindByMovie =()=>{
          <components.MovieTap
             movie={movie}
          >
-
          </components.MovieTap>
 
          <div className="findbycinemas__date">
@@ -128,12 +136,12 @@ const FindByMovie =()=>{
                      <Accordion               
                      defaultActiveKey={'0'}                  
                      >
+                     {
+                        cinemas && program ? 
+                        <components.AccordItemFromMovie cinemas={cinemas} program={program} movie_id={movie_id}></components.AccordItemFromMovie> : 
+                        <></>
 
-                        {
-                           cinemas.map((item, index) => {return (<h1 key={index}>{item.cinemaName}</h1>)})
-                        }
-                     <components.AccordItemFromMovie cinemas={cinemas}></components.AccordItemFromMovie>
-
+                     }                        
                      </Accordion>
                   </Col>
                   <Col md="1"></Col>

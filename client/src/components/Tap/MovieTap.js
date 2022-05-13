@@ -35,7 +35,7 @@ const MovieTap = (props) =>{
 
                            <Col lg="4" md="5" sm="12">
                               <div className="box-container__img">
-                                 { movie 
+                                 { movie
                                     ? <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} />
                                     : <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`https://i.mydramalist.com/vK4lp_5f.jpg`} />
                                  }

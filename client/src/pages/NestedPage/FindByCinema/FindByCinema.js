@@ -16,14 +16,16 @@ const FindByCinema =()=>{
    let { cinema_id } = useParams();
 
    const [cinemas, setCinemas] = useState({});
-   const [dateSelect, setDateSelect] = useState("");
-   const [dateSelectNext, setDateSelectNext] = useState("");
-   const [moviesShow, setMoviesShow] = useState([]);
+   const [dateSelect, setDateSelect] = useState('');
+   const [dateSelectNext, setDateSelectNext] = useState('');
+   const [program, setProgram] = useState([]);
 
+   // get select day 
    const selectedDay = (val) =>{
-                                     
+                         
       console.log(val);
       let date_select = new Date(val);
+
       let today = date_select.setDate(new Date(val).getDate() );
       let tommorrow = date_select.setDate(new Date(val).getDate() + parseInt(1));
          
@@ -33,51 +35,55 @@ const FindByCinema =()=>{
       setDateSelect(today);
       setDateSelectNext(tommorrow);
 
-  };
+   };
 
   const dateFormat=(date)=>{
       const d = new Date(date);
       const monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-      ]
+      "July", "August", "September", "October", "November", "December" ]
 
       return `${d.getDate()} ${monthNames[d.getMonth()]} ${d.getFullYear()}`
    }
 
+   const getCinemas = useCallback(()=>{
+      serviceCinemas.getCinemasById(cinema_id)
+      .then((res)=> {
+         setCinemas(res.data)
+      })}, [cinema_id]);
+
   const getProgramByDate =  useCallback(async ()=>{
 
-      if(dateSelect === '' && dateSelectNext=== ''){
-         let date_select = new Date();
-         let today = date_select.setDate(new Date().getDate());
-         let tommorrow = date_select.setDate(new Date().getDate() + parseInt(1));
-            
+      if( dateSelect === '' && dateSelectNext === '' ){
+         let today = new Date().setHours(0,0,0,0);
+         let tommorrow = new Date().setHours(24,0,0,0);
+         
          today = new Date(today).toISOString();
          tommorrow = new Date(tommorrow).toISOString();
+
+         console.log(today);
+         console.log(tommorrow);
 
          setDateSelect(today);
          setDateSelectNext(tommorrow);
       }
+
+      
      
-     const dateSet = {
+      const dateSet = {
          cinema_id: cinema_id,
          start: dateSelect,
          end: dateSelectNext
      }
+     console.log(dateSet);
 
      // get movies showtime check 
-     await serviceProgram.getMoviesShowtime(dateSet)
+     await serviceProgram.getProgramByDate(dateSet)
      .then((res) => {
-         setMoviesShow(res.data);
+      setProgram(res.data);
      })
 
 
   }, [dateSelect, dateSelectNext, cinema_id]);
-
-  const getCinemas = useCallback(()=>{
-   serviceCinemas.getCinemasById(cinema_id)
-   .then((res)=> {
-      setCinemas(res.data)
-   })}, [cinema_id]);
 
    // when 
    useEffect(()=>{
@@ -122,20 +128,18 @@ const FindByCinema =()=>{
 
             {
 
-             moviesShow.length !== 0  ?                        
-               moviesShow.map((item, idx) => {
-                  return (<components.BoxShowTime 
-                     key={idx}
-                     movie_id={item} 
-                     cinema_id={cinema_id}
-                     today={dateSelect}
-                     tommorrow={dateSelectNext}
-                     />)
-               }) : 
-
-               <div>
-                  <components.NoMovie/>
-               </div>
+               (program) ? 
+                  program.map(item => item.movies)
+                  .filter((value, index, self) => self.indexOf(value) === index)
+                  .map((movie_item, idx) => {
+                     return (
+                        <components.BoxShowTime key={idx} movie_id={movie_item} program={program} program2={program}></components.BoxShowTime>
+                     )}
+                  )
+               : 
+                  <div>
+                     <components.NoMovie/>
+                  </div>
             }
          </FindByCinemaStyle>
       </Fragment>

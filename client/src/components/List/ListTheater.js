@@ -9,48 +9,67 @@ import { useState } from "react";
 
 const ListTheater = (props) =>{
 
-   const { theater, movie_id, cinema_id, today, tommorrow } = props;
-
-   const [program, setProgram] = useState([]);
-
-   const getProgramByTheater=()=>{
-
-      const dateSet = {
-         theater: theater,
-         movie_id: movie_id,
-         cinema_id: cinema_id,
-         start: today,
-         end: tommorrow
-      }
-
-      serviceProgram.getProgramsShowtime(dateSet)
-      .then((res) => setProgram(res.data))
-      .catch((err) => console.log(err));
-   }
+   const { program, movie_id, cinema_id, theater } = props;
 
    useEffect(()=>{
-      getProgramByTheater();
    }, [])
-   
 
    return (
       <ListTheaterStyle>
       <Row className="list-theater">
             <Col className="list-theater__title" md="2">
-               <h6>{`theater : ${theater}`}</h6>
+               { theater > 0 ? (<h6>{`theater : ${theater}`}</h6>) : <h1></h1>}
             </Col>
+         { !cinema_id ?    
+         
             <Col className="container-showtime" md="9">
-
-               {/* // map */}
                {
-                  program.map((item) => {
-                     return ( <Link to={`/booking/${item._id}`}><button className="showtime-button">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
-                  })
+                  (program && movie_id && theater && !cinema_id ) ? 
+                  
+                  program.filter(fil => (fil.theater.toString() === theater && fil.movies === movie_id))
+                  .map((item, idx) => {
+         
+                      if( new Date(item.date).getHours() < new Date().getHours() ){
+                        return (<button key={idx} className="showtime-button--unsecess">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
+                      }else{
+                        return (<Link key={idx} to={`/booking/${item._id}`}><button className="showtime-button--success">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
+                      }
+                   }) 
+                  : <></>
+                  
                }
             </Col>
+
+            : 
+
+            <Col className="container-showtime" md="9">
+               {
+                  (program && movie_id && theater && !cinema_id ) ? 
+                  
+                  program.filter(fil => (fil.theater.toString() === theater && fil.movies === movie_id))
+                  .map((item, idx) => {
+         
+                      if( new Date(item.date).getHours() < new Date().getHours() ){
+                        return (<button key={idx} className="showtime-button--unsecess">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
+                      }else{
+                        return (<Link key={idx} to={`/booking/${item._id}`}><button className="showtime-button--success">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
+                      }
+                   }) 
+                  : <></>
+                  
+               }
+            </Col>
+
+         }
       </Row>
       </ListTheaterStyle>  
    )
+}
+
+ListTheater.propTypes ={
+   program: propTypes.array,
+   movie_id:  propTypes.string,
+   theater: propTypes.string
 }
 
 const ListTheaterStyle = styled.div`
@@ -73,7 +92,7 @@ const ListTheaterStyle = styled.div`
       flex-wrap: wrap;
    }
 
-   .showtime-button{
+   .showtime-button--success{
       background-color: #C9B898;
       color: #fff;
       border: 0;
@@ -81,20 +100,24 @@ const ListTheaterStyle = styled.div`
       margin: 0rem 1rem;
    }
 
-   .showtime-button:hover{
+   .showtime-button--unsecess{
+      background-color: #DEDEDE;
+      color: #ffff;
+      border: 0;
+      border-radius: 5px;
+      margin: 0rem 1rem;
+   }
+
+   .showtime-button--unsecess:hover{
+      cursor: default;
+   }
+
+   .showtime-button--success:hover{
       background-color: rgb(151, 121, 89);
       font-weight: bold;
    }
 
 `; 
 
-ListTheater.propTypes ={
-   theater: propTypes.number,
-   movie_id: propTypes.string,
-   program_id: propTypes.string,
-   cinema_id: propTypes.string,
-   today: propTypes.string,
-   tommorrow: propTypes.string
-}
 
 export default ListTheater;
