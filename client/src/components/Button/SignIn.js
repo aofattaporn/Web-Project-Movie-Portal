@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useState } from "react";
-import { Button, Col, Container, Form, Modal, Row  } from "react-bootstrap"
+import { Button, Col, Container, Form, Modal, Row , FloatingLabel } from "react-bootstrap"
 import  axios  from "axios"
 import styled from "styled-components";
 import { AuthContext } from "../../App";
@@ -161,18 +161,21 @@ const SignInButton=()=>{
                <Col lg='8'>
                      <Form className="mt-5 mb-5" onSubmit={handleLogIn}>
 
-                        <Form.Group className="form__group" >
-                           <Form.Label className="form__label" >Email Name</Form.Label>
-                           <Form.Control className="form__field" name="email_Login" type="email"></Form.Control>
+                        <Form.Group>
+                           <FloatingLabel controlId="floatingInput" label="Email" className="mb-3">
+                              <Form.Control type="text" name="email_Login" placeholder="Cinema Name"/>
+                           </FloatingLabel> 
                         </Form.Group>
-                        <Form.Group className="form__group" >
-                           <Form.Label className="form__label" >Password</Form.Label>
-                           <Form.Control className="form__field" name="password_Login" type="text"></Form.Control>
+                        
+                        <Form.Group>
+                           <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
+                              <Form.Control type="text" name="password_Login" placeholder="Cinema Name"/>
+                           </FloatingLabel> 
                         </Form.Group>
 
-                     <Container className="text-center">
-                        <button className="Modal__Body__Button mt-5">Log In</button>
-                     </Container>
+                        <Container className="text-center">
+                           <button className="Modal__Body__Button mt-5">Log In</button>
+                        </Container>
                      </Form>
                </Col>
                <Col lg='2'></Col>
@@ -191,86 +194,6 @@ const SignInButton=()=>{
 
 
 const ButtonSignStyle = styled.div`
-
-   .button-logout, .button-signIn, .button-logIn{
-      width: 5rem;
-      height: 2rem;
-      border-radius: 0px;
-      border: none;
-      background-color: #BDAD8E;
-      color: #ffff;
-   }
-
-   .button-logout:hover, .button-signIn:hover, .button-logIn:hover, .button-signIn:hover:active{
-      background-color:  #967959;
-      border: 0px;
-   }
-   
-
-   .button-signIn{
-      margin-right: 1rem;
-   }
-
-   .modalheader{
-      background-color: #BDAD8E;
-   }
-
-   .modalheader__tile{
-      text-align: center;
-      color: rgb(255, 255, 255);
-      justify-content: center;
-   }
-
-   .Modal__Body__Button{
-      background-color: #BDAD8E;
-      color: rgb(255, 255, 255);
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      border: none;
-      width: 15rem;
-      height: 3rem;
-   }
-
-   /* input style  */
-
-   .form__group{
-      padding: 15px 0 0;
-   }
-
-   .form__field{
-      border: 0;
-      border-bottom: 2px solid #17130a7e;
-      outline: none;
-      font-size: 1.3rem;
-      padding: 7px 0;
-      color: #BDAD8E;
-      background: transparent;
-      transition: border-color 0.2s;
-   }
-   .form__field::placeholder{
-      color: transparent;
-   }
-   .form__field-shown ~ .form__label{
-      font-size: 1.3rem;
-      cursor: text;
-      top: 20px;
-   }
-
-   *:focus{
-      outline: none;
-   }
-
-   .form__label {
-      top: 0;
-      display: block;
-      transition: 0.2s;
-      font-size: 1rem;
-      color: #3e3e3c;
-   }
-
-   .modal__footer{
-      background-color: #BDAD8E;
-      height: 50px;
-   }
 
 
 `;

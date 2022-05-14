@@ -8,7 +8,7 @@ const { Fragment } = require("react")
 
 const BookingPage = ()=>{
 
-   const {program_id}  = useParams();
+   const { program_id }  = useParams();
 
    // manage state
    const [data, setData] = useState({});

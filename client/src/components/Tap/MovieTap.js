@@ -46,7 +46,6 @@ const MovieTap = (props) =>{
                               <Container fluid>
                                  <Row className="container-movie-info">
                                     { movie ? <h1>{movie.name}</h1> : <></>}
-                                    {/* <h1>{movie.name}</h1> */}
                                     {/* -------------- check cenema -------------------- */}
                                     {
                                     (!cinema) ? <></> : 

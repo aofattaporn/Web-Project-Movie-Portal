@@ -8,7 +8,9 @@ use('MoviePortal');
 
 // db.movies.find({}).sort({name : -1} );
 // db.movies.find({}).sort({name : 1} );
-db.programs.find({})
+// db.programs.find({})
 
 // db.programs.distinct("movies");
-// db.programs.find()
+db.movies.find({"name": /.*Bat.*/})
+
+// db.users.find({"name": /Bat/});

@@ -67,7 +67,7 @@ const AccordItemFromMovie = (props) => {
                                           <components.ListTheater
                                              key={idx}
                                              program={program}
-                                             cinema={x._id}
+                                             cinema_id={x._id}
                                              movie_id={movie_id}
                                              theater={theater.toString()}
                                           >

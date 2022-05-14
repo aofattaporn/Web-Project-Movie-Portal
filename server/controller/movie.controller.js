@@ -38,6 +38,41 @@ const getMovie =(req, res) => {
    })
 }
 
+
+function toCamelCase(str){
+   return str.split('').map(function(word,index){
+     // If it is the first word make sure to lowercase all the chars.
+     if(index == 0){
+       return word.toUpperCase();
+     }
+     // If it is not the first word only upper case the first char and lowercase the rest.
+     return word.charAt(0).toLowerCase() + word.slice(1).toLowerCase();
+   }).join('');
+ }
+const getMovieByKeyword =(req, res) => {
+   let key = req.params.key;
+   key = key.trim();
+
+   let upper = key.toUpperCase();
+   let lower = key.toLowerCase();
+   let camel = toCamelCase(key);
+
+   console.log(upper);
+   console.log(lower);
+   console.log(camel);
+
+   Movie.find( {$or: [{"name": {$regex: '.*' + upper + '.*'}}, {"name": {$regex: '.*' + lower + '.*'}}, {"name": {$regex: '.*' + camel + '.*'}}]} , (err, movie)=>{
+      if(err){
+         console.log(err);
+      }
+      else{
+         res.json(movie);
+      }
+   })
+}
+
+
+
 const getMovieById =(req, res) => {
    Movie.findById( ObjectId(req.params.id)  ,(err, movie) =>{
       if(err){
@@ -115,5 +150,6 @@ module.exports = {
    updateMovieById,
    deleteMovies,
    deleteMovieById,
-   testUpload
+   testUpload,
+   getMovieByKeyword
 }

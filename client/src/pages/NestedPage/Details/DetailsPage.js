@@ -5,6 +5,7 @@ const DetailsPage =()=>{
    return (
       <Fragment>
          <components.DetailsTap></components.DetailsTap>
+         <components.CommentTap></components.CommentTap>
       </Fragment>
    )
 }

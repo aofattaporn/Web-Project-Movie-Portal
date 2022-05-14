@@ -9,6 +9,7 @@ const {
    updateMovieById,
    deleteMovies,
    deleteMovieById,
+   getMovieByKeyword,
 
    testUpload
 
@@ -18,6 +19,8 @@ const {
 routerMovie.post('/upload', upload.single('image'), testUpload);
 
 routerMovie.get('/', getMovie);
+
+routerMovie.get('/keyword/:key', getMovieByKeyword);
 
 routerMovie.get('/:id', getMovieById);
 

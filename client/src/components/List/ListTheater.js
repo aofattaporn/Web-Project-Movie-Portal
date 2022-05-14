@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import {Col, Row} from "react-bootstrap";
 import propTypes from "prop-types";
-import serviceProgram from "../../service/programService";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { useState } from "react";
 
 
 const ListTheater = (props) =>{
@@ -28,12 +26,20 @@ const ListTheater = (props) =>{
                   
                   program.filter(fil => (fil.theater.toString() === theater && fil.movies === movie_id))
                   .map((item, idx) => {
-         
-                      if( new Date(item.date).getHours() < new Date().getHours() ){
+                      if(new Date(item.date).getHours() < new Date().getHours()){
                         return (<button key={idx} className="showtime-button--unsecess">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
-                      }else{
+                      }else if(new Date(item.date).getHours() === new Date().getHours()){
+                         if(new Date(item.date).getMinutes() < new Date().getMinutes()){
+                           return (<button key={idx} className="showtime-button--unsecess">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
+                         }else{
+                           return (<Link key={idx} to={`/booking/${item._id}`}><button className="showtime-button--success">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
+                         }
+                      }
+                      else{
                         return (<Link key={idx} to={`/booking/${item._id}`}><button className="showtime-button--success">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
                       }
+
+
                    }) 
                   : <></>
                   
@@ -44,14 +50,20 @@ const ListTheater = (props) =>{
 
             <Col className="container-showtime" md="9">
                {
-                  (program && movie_id && theater && !cinema_id ) ? 
+                  (program && movie_id && theater && cinema_id ) ? 
                   
-                  program.filter(fil => (fil.theater.toString() === theater && fil.movies === movie_id))
+                  program.filter(fil => (fil.theater.toString() === theater && fil.movies === movie_id && fil.cinema === cinema_id))
                   .map((item, idx) => {
-         
-                      if( new Date(item.date).getHours() < new Date().getHours() ){
+                     if(new Date(item.date).getHours() < new Date().getHours()){
                         return (<button key={idx} className="showtime-button--unsecess">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
-                      }else{
+                      }else if(new Date(item.date).getHours() === new Date().getHours()){
+                         if(new Date(item.date).getMinutes() < new Date().getMinutes()){
+                           return (<button key={idx} className="showtime-button--unsecess">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button>)
+                         }else{
+                           return (<Link key={idx} to={`/booking/${item._id}`}><button className="showtime-button--success">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
+                         }
+                      }
+                      else{
                         return (<Link key={idx} to={`/booking/${item._id}`}><button className="showtime-button--success">{ new Date(item.date).getHours() + " : " + new Date(item.date).getMinutes()}</button></Link> )
                       }
                    }) 
@@ -77,6 +89,7 @@ const ListTheaterStyle = styled.div`
       margin-bottom: 1rem;
       border-bottom: 4px solid rgba(0, 0, 0, 0.15);
       padding: 1rem;
+      margin: 1rem;
    }
 
    .list-theater__title{

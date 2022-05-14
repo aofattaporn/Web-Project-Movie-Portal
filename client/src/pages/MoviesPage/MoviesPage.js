@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 import { Col, Container, Row } from "react-bootstrap";
-import CardMovie from "../../components/Card/Card";
+// import CardMovie from "../../components/Card/Card";
+import components from "../../components";
 import serviceMovies from "../../service/movieService";
 import styled from "styled-components";
 import "aos/dist/aos.css";
@@ -8,27 +9,41 @@ import { useEffect } from "react";
 import { useState } from "react";
 import 'aos'
 import AOS from "aos";
+import { useLocation } from "react-router-dom";
+import { useCallback } from "react";
 
 const MoviesPage=()=>{
 
+   const { state } = useLocation();
+
    const [movies, setMovies] = useState([]);
+   const [keyword, setKeyword] = useState("");
    const [sort, setSort] = useState('');
 
-   const getMovies =()=>{
-      serviceMovies.getMovies()
-      .then((response) => { 
-         setMovies(response.data)
-      });
-   }
+   const getMovies = useCallback(()=>{
+
+      if(!state){
+         serviceMovies.getMovies()
+         .then((response) => { 
+            setMovies(response.data)
+            setKeyword("");
+         });
+      }
+      else{
+         serviceMovies.getMovieByKeyword(state)
+         .then((response) => { 
+            setMovies(response.data)
+            setKeyword(response.data);
+         });
+      }
+   }, [state])
 
    const sortByCharacterASC = async () => {
-      
       if(sort !== "by ASC" ){
          let temp = movies.sort((a,b)=> (a.name > b.name ? -1 : 1))
          await setMovies([]);
          await setMovies(temp);
          await setSort("by ASC");
-
       }
    };
 
@@ -52,14 +67,14 @@ const MoviesPage=()=>{
       }
    }
    
-
    // when on initial 
    useEffect(() => {
       getMovies();
       AOS.init();
       AOS.refresh();
+
       
-    }, []);
+    }, [getMovies]);
 
    // when on Click 
    useEffect(()=>{     
@@ -87,6 +102,8 @@ const MoviesPage=()=>{
             { movies ?  
             <>
                <Container  fluid="sm">
+                  {keyword !== "" ? <h6 className="search"> SEARCH BY KEYWORD : <span>{state}</span></h6> : <></>}
+                  <div>
                   <div className="header">
                      <h3 className="header__title">Movie show</h3>
                      <section className="header__filter">
@@ -95,29 +112,30 @@ const MoviesPage=()=>{
                         <button className="header__filter__button" onClick={sortByDateReleas}> Released </button>
                      </section>
                   </div>
+                  </div>
                   <Row  className="moviescontainer"
                      data-aos='fade-up'
                      data-aos-duration="1000"
                      >
-                        {
-                         
+                     {
+                        movies.filter(movie2 => { return checkDate(movie2.released) !== true}).length > 0  ?
                            movies.filter(movie => {
                               return checkDate(movie.released) !== true
-                           }).map((item, index) => {      
-                              return <Col  key={index} xs='6' sm='6' md='3'>
-                                 <CardMovie 
-                                 title={item.name} 
-                                 image={item.image} 
-                                 released={item.released} 
-                                 runtime={item.runtime} 
-                                 movie_id={item._id}
-                                 genre={item.genre}
-                                 />
-                                 
+                           }).map((item, index) => {  
+                              return <Col key={index} xs='6' sm='6' md='3'>
+                                 <components.Card 
+                                    title={item.name} 
+                                    image={item.image} 
+                                    released={item.released} 
+                                    runtime={item.runtime} 
+                                    movie_id={item._id}
+                                    genre={item.genre}
+                                 />                                
                                  </Col>
-                           })
-                        
-                    }
+                           })  
+                        : 
+                        <components.NoMovie></components.NoMovie>
+                     }
                   </Row>
                </Container>
 
@@ -130,27 +148,26 @@ const MoviesPage=()=>{
                   data-aos='fade-up'
                   data-aos-duration="1000"
                   className="moviescontainer">
-                        {
-                           movies ? 
-                           movies.filter(movie => {
-                              
-                              return checkDate(movie.released) !== false
-                              
-                           }).map((item, index) => {      
-                              return <Col  key={index} xs='6' sm='6' md='3'>
-                                 <CardMovie 
+                     {
+                        movies.filter(movie2 => { return checkDate(movie2.released) !== false}).length > 0  ?
+                        movies.filter(movie => {
+                           return checkDate(movie.released) !== false
+                        }).map((item, index) => {  
+                           return <Col key={index} xs='6' sm='6' md='3'>
+                              <components.Card 
                                  title={item.name} 
                                  image={item.image} 
                                  released={item.released} 
                                  runtime={item.runtime} 
                                  movie_id={item._id}
                                  genre={item.genre}
-                                 />
-                                 
-                                 </Col>
-                           })
-                        
-                        : <></>}
+                              />                                
+                              </Col>
+                        })  
+                     : 
+                        <components.NoMovie></components.NoMovie>
+                  
+                     }
                   </Row>
                </Container> </>: <></>
             }
@@ -161,6 +178,21 @@ const MoviesPage=()=>{
 
 
 const MoviePageStyle = styled.div`
+
+   .search{
+      color: #ffff;
+      position: relative;
+      bottom: -2rem;
+      border-bottom: solid 2px #BDAD8E;
+      width: 20rem;
+   }
+
+   .search span {
+      color: rgb(151, 121, 89);
+      font-weight: bolder;
+      font-size: 2rem;
+   } 
+   
 
    /* ------------------------- container-fram ------------------------- */
 
