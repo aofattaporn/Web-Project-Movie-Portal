@@ -1,15 +1,20 @@
 const express = require("express");
 const routerUser = express.Router();
 const auth = require('../../middleware/auth');
+const uploadImage = require('../../middleware/uploadfile');
 require("dotenv").config();
 
 
 const { getUsers, 
    getUserById, 
    createUser, 
+   updateUser,
    deleteUsers,
    registerUser,
-   loginUser} = require('../../controller/user.controller');
+   uploadeProfile,
+   loginUser,
+   getUserByToken
+} = require('../../controller/user.controller');
 
 // public routes
 routerUser.post('/register', registerUser);
@@ -17,7 +22,13 @@ routerUser.post('/register', registerUser);
 routerUser.post('/login', loginUser);
 
 // private routes
-routerUser.get('/', getUsers)
+routerUser.get('/', getUsers) 
+
+routerUser.get('/token', auth, getUserByToken)
+
+routerUser.put('/update', auth, updateUser); 
+
+routerUser.put('/uploadeProfile', auth, uploadImage.single('image'), uploadeProfile);
 
 routerUser.get('/:id', auth, getUserById);
 

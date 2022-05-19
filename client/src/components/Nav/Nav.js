@@ -1,16 +1,17 @@
 import {Navbar, NavDropdown, Nav, Container, Form, FormControl, Button} from 'react-bootstrap';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignInButton from '../Button/SignIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 import { useContext } from 'react';
-import { AuthContext } from '../../App';
+import { AuthContext, UserContext } from '../../App';
 import { useState } from 'react';
  
 const Navigation=()=>{
 
    const {auth, setAuth} = useContext(AuthContext);
+   const {user, setUser} = useContext(UserContext);
    const navigate = useNavigate();
    const [ search, setSearch ] = useState("");
 
@@ -20,17 +21,10 @@ const Navigation=()=>{
       setAuth(null);
    }
 
-
    const onChangeSearch = (event) =>{
       event.preventDefault();
       setSearch(event.target.value);
    }
-
-   const submitSearch = (event)=>{
-      event.preventDefault();
-      setSearch("");
-   }
-   
 
    return (
 
@@ -58,28 +52,20 @@ const Navigation=()=>{
                   </Nav>
                   <Nav>
 
-                  <Form className="search d-flex me-5 mb-2">
+                  <Form className="search d-flex  mb-2">
                      <FormControl
-                        type="search"
-                        placeholder="typing movie name"
-                        className="bar me-2"
-                        aria-label="Search"
+                        type={"search"}
+                        placeholder={"typing movie name"}
+                        className={"bar"}
+                        aria-label={"Search"}
                         onChange={onChangeSearch}
                         value={search}
                      />
-                     <Link to={'/movies'} state={search} ><Button><FontAwesomeIcon className='icon-search' icon={faSearch}></FontAwesomeIcon></Button></Link>
+                     <Link to={'/movies'} state={search} ><Button><FontAwesomeIcon className='icon-searc2 mt-2' icon={faSearch}></FontAwesomeIcon></Button></Link>
                   </Form>
+                  <div> <SignInButton/> </div> 
 
-                     {
-                        !auth ?  
-                        
-                        ( <div> <SignInButton/> </div> ) : 
-                         <div> 
-                            <button className='button-logout' onClick={handleLogout}>Log out</button>
-                         </div>
-                     }
-                     
-
+      
                   </Nav>
                </Navbar.Collapse>
          </Container>
@@ -92,9 +78,8 @@ const Navigation=()=>{
 const NavigationBar = styled.div`
 
    .nav{
-   background-color: #17130A;
+      background-color: #17130A;
    }
-   
 
    /* ------------------ nav-logo ------------------------------- */
 
@@ -188,6 +173,10 @@ const NavigationBar = styled.div`
       color: #BDAD8E;
    }
 
+   .basic-nav-dropdown{
+      background-color: transparent;
+   }
+
 
 
    /* ------------------ nav-dropdown-admin ------------------------------- */
@@ -201,10 +190,8 @@ const NavigationBar = styled.div`
    }
 
    .button-logout{
-      width: 5rem;
+      width: 100%;
       height: 2rem;
-      border-radius: 13px;
-      border: none;
       background-color: #BDAD8E;
       color: #ffff;
    }

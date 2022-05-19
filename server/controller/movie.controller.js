@@ -38,7 +38,6 @@ const getMovie =(req, res) => {
    })
 }
 
-
 function toCamelCase(str){
    return str.split('').map(function(word,index){
      // If it is the first word make sure to lowercase all the chars.
@@ -57,10 +56,6 @@ const getMovieByKeyword =(req, res) => {
    let lower = key.toLowerCase();
    let camel = toCamelCase(key);
 
-   console.log(upper);
-   console.log(lower);
-   console.log(camel);
-
    Movie.find( {$or: [{"name": {$regex: '.*' + upper + '.*'}}, {"name": {$regex: '.*' + lower + '.*'}}, {"name": {$regex: '.*' + camel + '.*'}}]} , (err, movie)=>{
       if(err){
          console.log(err);
@@ -70,8 +65,6 @@ const getMovieByKeyword =(req, res) => {
       }
    })
 }
-
-
 
 const getMovieById =(req, res) => {
    Movie.findById( ObjectId(req.params.id)  ,(err, movie) =>{

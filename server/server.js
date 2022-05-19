@@ -1,21 +1,20 @@
-const express = require('express'), 
-      app = express(),
-      bodyParser = require('body-parser'),
-      cors = require('cors'),
-      fixCORS = require('./middleware/fixCORS'),
-      mongoose = require('mongoose'),
-      PORT = 4000;
-      logger = require('./logger');
-      seed = require('./seed');
+const express       = require('express'), 
+      app           = express(),
+      bodyParser    = require('body-parser'),
+      cors          = require('cors'),
+      fixCORS       = require('./middleware/fixCORS'),
+      mongoose      = require('mongoose'),
+      PORT          = 4000,
+      upload        = require('./middleware/uploadfile');
+      logger        = require('./logger'),
+      seed          = require('./seed');
 
-// create schema 
-const userRoutes = require('./api/route/user.routes'),
-      cinemaRoutes = require('./api/route/cinema.routes'),
-      movieRoutes = require('./api/route/movie.routes'),
-      programRoutes = require('./api/route/program.routes');
-
-const upload = require('./middleware/uploadfile');
-
+// create Routes  
+const userRoutes    = require('./api/route/user.routes'),
+      cinemaRoutes  = require('./api/route/cinema.routes'),
+      movieRoutes   = require('./api/route/movie.routes'),
+      programRoutes = require('./api/route/program.routes'),
+      reserveRoutes = require('./api/route/reserve.routes');
 
 
 // connecting mongos 
@@ -42,6 +41,7 @@ app.use('/users', userRoutes);
 app.use('/cinemas', cinemaRoutes);
 app.use('/movies', movieRoutes);
 app.use('/programs', programRoutes);
+app.use('/reserves', reserveRoutes);
 
 
 // create server 

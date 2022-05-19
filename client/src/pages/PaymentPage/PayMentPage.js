@@ -5,6 +5,7 @@ import serviceProgram from "../../service/programService";
 import components from "../../components";
 import styled from "styled-components";
 
+
 const PayMentPage = () =>{
 
    const { state } = useLocation();
@@ -31,13 +32,16 @@ const PayMentPage = () =>{
                (data.cinema && data.movie && state.seatsReserve && state.priceReserve) ?
                <>
                   <components.MovieTap  
-                     cinema={data.cinema} 
-                     movie={data.movie} >
+                     cinema      ={data.cinema} 
+                     movie       ={data.movie} >
                   </components.MovieTap>
                
                   <components.BuyTap
-                     seatsReserve= {state.seatsReserve}
-                     priceReserve= {state.priceReserve}
+                     program      = {data.program} 
+                     cinema       = {data.cinema} 
+                     movie        = {data.movie}
+                     seatsReserve = {state.seatsReserve}
+                     priceReserve = {state.priceReserve}
                   >
                   </components.BuyTap>
             </> : 

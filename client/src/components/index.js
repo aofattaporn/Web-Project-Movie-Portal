@@ -18,11 +18,13 @@ import AccordItemFromMovie from "./AccordionItem/AccordItemFromMovie"
 import BuyTap from "./BuyTap/Buy";
 import Timer from "./Timer/Timer";
 import CommentTap from "./Tap/CommentTap";
+import ModalProfileImage from "./Modal/ModalProfileImage"
+
 
 
 const components = {
    AccorrdionItem, BoxShowTime, Button, Card, Nav, CommentTap,
-   SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap, BuyTap,
+   SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap, BuyTap, ModalProfileImage,
    AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap, MovieTapSkeleton, Timer
 }
 

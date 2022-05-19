@@ -1,11 +1,50 @@
 import { Container, Row, Col, Form, FloatingLabel} from "react-bootstrap";
 import propTypes from "prop-types";
 import styled from "styled-components";
+import serviceReserve from "../../service/reserveService";
+import { AuthContext } from "../../App";
 import components from "..";
+import { useContext } from "react";
+// import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+
 
 const BuyTap = (props) =>{
 
-   const {seatsReserve, priceReserve} = props
+   let navigate = useNavigate();
+   const { auth, setAuth } = useContext(AuthContext);
+   const {seatsReserve, priceReserve, program, cinema, movie} = props;
+   
+   const createReserve = () =>{
+
+      let newReserve = {
+         program_id: program._id,
+        date : program.date,
+        theater: program.theater,
+        cinemaName: cinema.cinemaName,
+        moviesName: movie.name,
+        moviesImage: movie.image,
+        boughtTime: new Date().toISOString(),
+        seats: seatsReserve,
+        totalPrice: priceReserve
+      }
+
+      console.log(newReserve);
+      
+
+      // check auth
+      if(auth){
+         serviceReserve.createReserve(newReserve, auth)
+         .then((response)=>{ console.log("s") })
+         .catch((err)=> { console.log(err) })
+         return  navigate('/')
+      }else{
+         return  navigate('/')
+      }
+         
+
+   }
+
 
    return (
       <BuyTapStyle>
@@ -80,7 +119,7 @@ const BuyTap = (props) =>{
                      </div>
 
                      <div className="buy-container__main__button">
-                        <button>{`PAY ( ${priceReserve} ) BTH`}</button>
+                        <button onClick={createReserve}>{`PAY ( ${priceReserve} ) BTH`}</button>
                      </div>
 
                      

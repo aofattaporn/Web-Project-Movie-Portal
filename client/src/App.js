@@ -8,14 +8,17 @@ import { useState } from 'react';
 import { createContext } from 'react';
 
 export const AuthContext = createContext();
+export const UserContext = createContext();
 
 function App() {
 
-  const [auth, setAuth] = useState(localStorage.getItem("user"));
+  const [auth, setAuth] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(localStorage.getItem("user"));
 
   return (
       <div className="App">
         <AuthContext.Provider value={{auth, setAuth}}>
+        <UserContext.Provider value={{user, setUser}} > 
           <components.Nav/>
           <Routes>
 
@@ -33,17 +36,20 @@ function App() {
             <Route path='/booking/:program_id' element={ <page.BookingPage/>}></Route>
             <Route path='/booking/:program_id/payment' element={ <page.PayMentPage/>}></Route>
 
-
             {/* ------------------ admin -------------------------------------- */}
             <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
             <Route path='/createCinema' element={ <page.CreateCinema/>}></Route>
             <Route path='/createProgram' element={ <page.CreateProgram/>}></Route>
 
+            {/* ------------------ user -------------------------------------- */}
+            <Route path='/profile' element={<page.Protected isLoggedIn={auth}><page.ProfilePage></page.ProfilePage></page.Protected>}></Route>
+            <Route path='/favorite' element={<page.Protected isLoggedIn={auth}><page.FavoritePage></page.FavoritePage></page.Protected>}></Route>
+
+
           </Routes>
           
           <components.Footer/>
-
-          
+        </UserContext.Provider>
         </AuthContext.Provider>
       </div>
   );

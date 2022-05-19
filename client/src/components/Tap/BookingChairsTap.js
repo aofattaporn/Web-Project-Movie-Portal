@@ -5,10 +5,8 @@ import EventSeatIcon from '@mui/icons-material/EventSeat';
 import CheckIcon from '@mui/icons-material/Check';
 import PersonIcon from '@mui/icons-material/Person';
 import ChairIcon from '@mui/icons-material/Chair';
-import { useState } from "react";
-import { useEffect } from "react";
-import { useCallback } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Link, Navigate} from "react-router-dom";
 
 const BookingChairsTap = (props) =>{
 

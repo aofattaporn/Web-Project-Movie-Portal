@@ -1,0 +1,83 @@
+
+   .button-logout, .button-signIn, .button-logIn{
+      width: 5rem;
+      height: 2rem;
+      border-radius: 0px;
+      border: none;
+      background-color: #BDAD8E;
+      color: #ffff;
+   }
+
+   .button-logout:hover, .button-signIn:hover, .button-logIn:hover, .button-signIn:hover:active{
+      background-color:  #967959;
+      border: 0px;
+   }
+   
+
+   .button-signIn{
+      margin-right: 1rem;
+   }
+
+   .modalheader{
+      background-color: #BDAD8E;
+   }
+
+   .modalheader__tile{
+      text-align: center;
+      color: rgb(255, 255, 255);
+      justify-content: center;
+   }
+
+   .Modal__Body__Button{
+      background-color: #BDAD8E;
+      color: rgb(255, 255, 255);
+      /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      border: none;
+      width: 15rem;
+      height: 3rem;
+   }
+
+   /* input style  */
+
+   .form__group{
+      padding: 15px 0 0;
+   }
+
+   .form__field{
+      border: 0;
+      border-bottom: 2px solid #17130a7e;
+      outline: none;
+      font-size: 1.3rem;
+      padding: 7px 0;
+      color: #BDAD8E;
+      background: transparent;
+      transition: border-color 0.2s;
+   }
+   .form__field::placeholder{
+      color: transparent;
+   }
+   .form__field-shown ~ .form__label{
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+   }
+
+   *:focus{
+      outline: none;
+   }
+
+   .form__label {
+      top: 0;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: #3e3e3c;
+   }
+
+   .modal__footer{
+      background-color: #BDAD8E;
+      height: 50px;
+   }
+
+

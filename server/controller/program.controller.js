@@ -199,8 +199,8 @@ const createProgram = async(req, res)=>{
       date : new Date(req.body.date), 
       theater: parseInt(req.body.theater),
       seats: [
-         { type: "A1" , price: 220, available:  Boolean(true) },
-         { type: "A2" , price: 220, available:  Boolean(true) },
+         { type: "A1" , price: 220, available:  Boolean(false) },
+         { type: "A2" , price: 220, available:  Boolean(false) },
          { type: "A3" , price: 220, available:  Boolean(false) },
          { type: "A4" , price: 220, available:  Boolean(false) },
          { type: "A5" , price: 220, available:  Boolean(false) },

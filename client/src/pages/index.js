@@ -16,12 +16,18 @@ import CreateCinema from './Admin/CreateCinema/CreateCinema';
 import CreateMovie from './Admin/CreateMovie/CreateMovie';
 import CreateProgram from './Admin/CreateProgram/CreateProgram';
 
+// -------------- User --------------------------
+import ProfilePage from './ProfilePage/ProfilePage';
+import FavoritePage from './FavoritePage/FavoritePage';
+
+import Protected from './Protected/Protected';
 
 
 const page ={
    CinemasPage, HomePage, MoviePage, PromotionsPage,
    FindByCinema, FindByMovie, DetailsPage, 
-   CreateCinema, CreateMovie, CreateProgram, BookingPage, PayMentPage
+   CreateCinema, CreateMovie, CreateProgram, BookingPage, PayMentPage, 
+   ProfilePage, FavoritePage, Protected
 }
 
 export default page;

@@ -55,9 +55,7 @@ const CreateMovie=()=>{
          setFileImg(file) 
          setFileImgURl(reader.result) 
       }
-
       reader.readAsDataURL(file)
-
    }
 
 
