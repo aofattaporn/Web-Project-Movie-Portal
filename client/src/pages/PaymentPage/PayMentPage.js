@@ -5,7 +5,6 @@ import serviceProgram from "../../service/programService";
 import components from "../../components";
 import styled from "styled-components";
 
-
 const PayMentPage = () =>{
 
    const { state } = useLocation();

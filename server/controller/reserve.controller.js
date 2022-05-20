@@ -9,7 +9,16 @@ const getReserves =(req, res) => {
       if(err){
          console.log(err);
       }else{
-         console.log("dfdsdf")
+         res.status(200).json(reserve);
+      }
+   })
+}
+
+const getReservesById =(req, res) => {
+   Reserve.find( {user_id: ObjectId(req.tokenData.user_id)}  ,(err, reserve)=>{
+      if(err){
+         console.log(err);
+      }else{
          res.status(200).json(reserve);
       }
    })
@@ -17,11 +26,11 @@ const getReserves =(req, res) => {
 
 const createReserve =(req, res) => {
    // req.tokenData.user_id,
-   console.log(req.tokenData);
+   console.log(req.tokenData.user_id);
 
    let newReserve = {
       user_id: ObjectId(req.tokenData.user_id),
-      program_id: ObjectId(req.body.program_id),
+      user_name: req.tokenData.username,
       date : req.body.date,
       theater: req.body.theater,
       cinemaName: req.body.cinemaName,
@@ -38,7 +47,6 @@ const createReserve =(req, res) => {
       if(err){
          console.log(err);
       }else{
-         res.status(200).json(reserve);
          Program.findById(req.body.program_id, (err, program)=>{
             if(err){
                console.log(err);
@@ -51,22 +59,34 @@ const createReserve =(req, res) => {
                         { $set: { "seats.$.available" : true}  },  (err, seat)=>{
                            if(err){
                               console.log(err);
-                           }else{
-                              res.json(seat.type)
                            }
                         })
                      }
                   })
                });
+               res.status(200).json(reserve);
             }
          })
       }
    })
 }
 
+const deleteAllReserve =(req, res) => {
+   Reserve.deleteMany((err, reserve)=>{
+      if(err){
+         console.log(err);
+      }else{
+         res.json(reserve);
+      }
+   })
+}
+
+
 
 
 module.exports = {
    getReserves,
-   createReserve
+   getReservesById,
+   createReserve,
+   deleteAllReserve
 }

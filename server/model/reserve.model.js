@@ -1,13 +1,11 @@
 var mongoose = require('mongoose');
 
 var reserveSchema = new mongoose.Schema({
-    user: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        },
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'  
     },
-
+    user_name: String,
     date : { type: Date, default: Date.now}, 
     theater: Number,
     cinemaName: String,

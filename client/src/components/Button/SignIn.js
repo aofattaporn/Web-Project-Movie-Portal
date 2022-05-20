@@ -138,6 +138,7 @@ const SignInButton=()=>{
        <div className="d-flex justify-content-start align-items-center"> 
           <NavDropdown className='Dropdown test mt-2 dropdown' variant="dark" title={user} id="basic-nav-dropdown">
                <Link to={"/profile"}><button className='button-logout'>Profile</button></Link>
+               <Link to={"/history"}><button className='button-logout'>Booking</button></Link>
                <Link to={"/favorite"}><button className='button-logout'>Favorite</button></Link>
                <button className='button-logout' onClick={handleLogout}>Log out</button>
           </NavDropdown>

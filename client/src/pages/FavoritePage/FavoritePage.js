@@ -9,18 +9,11 @@ const { Fragment } = require("react")
 
 const FavoritePage = () =>{
 
-   const { auth, setAuth } = useContext(AuthContext);
-
-   {
-      !auth ? <Navigate to={'/'}></Navigate> : <></>
-   }
-
    
    return (
       <Fragment>
          <FavoritePageStyle>
             <h1>Hello Favorite</h1>
-            
          </FavoritePageStyle>
       </Fragment>
    )

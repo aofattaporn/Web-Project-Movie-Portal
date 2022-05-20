@@ -19,13 +19,14 @@ import BuyTap from "./BuyTap/Buy";
 import Timer from "./Timer/Timer";
 import CommentTap from "./Tap/CommentTap";
 import ModalProfileImage from "./Modal/ModalProfileImage"
-
+import CardReserve from "./Card/CardReserve"
 
 
 const components = {
    AccorrdionItem, BoxShowTime, Button, Card, Nav, CommentTap,
    SliderMovies, Tap, ListTheater, NoMovie, Footer, MovieTap, BuyTap, ModalProfileImage,
-   AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap, MovieTapSkeleton, Timer
+   AccordItemFromMovie, DetailsTap, ProgramTap, BookingChairsTap, MovieTapSkeleton, Timer,
+   CardReserve
 }
 
 export default components;

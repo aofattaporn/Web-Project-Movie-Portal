@@ -63,6 +63,8 @@ const HomePage=()=>{
       AOS.init();
       AOS.refresh();
       getAllMovies();
+      window.scrollTo(0, 0);
+
     },[])
 
    return(

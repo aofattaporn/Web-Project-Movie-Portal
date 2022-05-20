@@ -3,12 +3,15 @@ const routerReserve = express.Router();
 const auth = require('../../middleware/auth');
 
 
-const { getReserves, createReserve } = require('../../controller/reserve.controller');
+const { getReserves, getReservesById, createReserve, deleteAllReserve } = require('../../controller/reserve.controller');
 
-routerReserve.get('/', getReserves);
+routerReserve.get('/all', getReserves);
 
-routerReserve.post('/create',auth, createReserve)
+routerReserve.get('/', auth, getReservesById);
 
+routerReserve.post('/create', auth, createReserve)
+
+routerReserve.delete('/', deleteAllReserve);
 
 
 module.exports = routerReserve;

@@ -44,7 +44,7 @@ function App() {
             {/* ------------------ user -------------------------------------- */}
             <Route path='/profile' element={<page.Protected isLoggedIn={auth}><page.ProfilePage></page.ProfilePage></page.Protected>}></Route>
             <Route path='/favorite' element={<page.Protected isLoggedIn={auth}><page.FavoritePage></page.FavoritePage></page.Protected>}></Route>
-
+            <Route path='/history' element={<page.Protected isLoggedIn={auth}><page.HistoryPage></page.HistoryPage></page.Protected>}></Route>
 
           </Routes>
           

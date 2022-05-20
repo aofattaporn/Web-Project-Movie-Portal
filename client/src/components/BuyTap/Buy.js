@@ -5,7 +5,6 @@ import serviceReserve from "../../service/reserveService";
 import { AuthContext } from "../../App";
 import components from "..";
 import { useContext } from "react";
-// import { Navigate } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
 
 
@@ -18,7 +17,7 @@ const BuyTap = (props) =>{
    const createReserve = () =>{
 
       let newReserve = {
-         program_id: program._id,
+        program_id: program._id,
         date : program.date,
         theater: program.theater,
         cinemaName: cinema.cinemaName,
@@ -35,7 +34,7 @@ const BuyTap = (props) =>{
       // check auth
       if(auth){
          serviceReserve.createReserve(newReserve, auth)
-         .then((response)=>{ console.log("s") })
+         .then((response)=>{ console.log(response.data) })
          .catch((err)=> { console.log(err) })
          return  navigate('/')
       }else{
