@@ -5,6 +5,7 @@ const express       = require('express'),
       fixCORS       = require('./middleware/fixCORS'),
       mongoose      = require('mongoose'),
       PORT          = 4000,
+      path         = require('path');
       upload        = require('./middleware/uploadfile');
       logger        = require('./logger'),
       seed          = require('./seed');
@@ -18,7 +19,7 @@ const userRoutes    = require('./api/route/user.routes'),
 
 
 // connecting mongos 
-mongoose.connect('mongodb://127.0.0.1:27017/MoviePortal', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://Attaporn1840:Aof.026449013@web-movie-portal.ahueb.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', ()=>{
@@ -43,7 +44,13 @@ app.use('/movies', movieRoutes);
 app.use('/programs', programRoutes);
 app.use('/reserves', reserveRoutes);
 
+if(process.env.NODE_ENV === 'production'){
+   app.use(express.static(path.join(__dirname, '../build')))
 
+   app.get("*", (req, res)=>{
+      res.sendFile(path.join(__dirname, "../build/index.html"))
+   })
+}
 // create server 
 app.listen(PORT, ()=> {
    console.log("Server is running on Port: " + PORT);
