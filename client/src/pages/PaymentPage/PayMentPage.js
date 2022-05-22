@@ -13,6 +13,7 @@ const PayMentPage = () =>{
    // manage state
    const [data, setData] = useState({});
    
+   
    const getAllData = (id)=>{
       serviceProgram.getAllDataByProgramId(id)
       .then((response)=>{setData(response.data)})
@@ -31,8 +32,8 @@ const PayMentPage = () =>{
                (data.cinema && data.movie && state.seatsReserve && state.priceReserve) ?
                <>
                   <components.MovieTap  
-                     cinema      ={data.cinema} 
-                     movie       ={data.movie} >
+                     cinema       =  {data.cinema} 
+                     movie        =  {data.movie} >
                   </components.MovieTap>
                
                   <components.BuyTap

@@ -10,6 +10,7 @@ const {
    deleteMovies,
    deleteMovieById,
    getMovieByKeyword,
+   getMovieByIdCheckLike,
 
    testUpload
 
@@ -23,6 +24,8 @@ routerMovie.get('/', getMovie);
 routerMovie.get('/keyword/:key', getMovieByKeyword);
 
 routerMovie.get('/:id', getMovieById);
+
+routerMovie.get('/:id/checkLike', getMovieByIdCheckLike);
 
 routerMovie.post('/create', createMovie);
 

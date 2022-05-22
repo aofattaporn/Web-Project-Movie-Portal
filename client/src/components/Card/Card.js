@@ -108,11 +108,8 @@ h1{
    color: white;
    font-weight: bolder;
    height: 3rem;
-   /* width: auto; */
    background-color: transparent;
    overflow-y: scroll;
-   /* overflow-x: scroll; */
-   /* width: 20rem; */
 
 }
 .card__text__title h3{
@@ -179,10 +176,7 @@ h1{
    }
 
    .card__text__title h2{
-
       font-size: 1.5rem;
-      
-   
    }
 
    .card__text__releas, .card__text__title, .card{
@@ -190,7 +184,6 @@ h1{
       background-color: transparent;
       color: #ffff;
    }
-
 
    .like{
       position: relative;

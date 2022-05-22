@@ -7,7 +7,13 @@ var userSchema = new mongoose.Schema({
     imageProfile: {type: String, default: null},
     phone: {type: String, default: null},
     isAdmin: {type: Boolean, default: false},
-    token: {type: String}
+    token: {type: String},
+    likes : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Liked',
+        }
+    ]
 });
 
 

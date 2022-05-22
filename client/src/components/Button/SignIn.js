@@ -202,40 +202,40 @@ const SignInButton=()=>{
    {/*------------------------------------------- Modal Login--------------------------------------------------------------- */}
 
          <Modal className="modal" show={showLog} onHide={()=>{setShowLog(false)}} animation={true} size='lg' fullscreen='md-down' centered >
-         <Modal.Header closeButton className="modalheader">
-            <Container>
-               <h1 className="modalheader__tile justify-content-center" >LOG IN</h1>
-            </Container>
-         </Modal.Header>
+            <Modal.Header closeButton className="modalheader">
+               <Container>
+                  <h1 className="modalheader__tile justify-content-center" >LOG IN</h1>
+               </Container>
+            </Modal.Header>
 
-         <Container>
-            <Row>
-               <Col lg='2'></Col>
-               <Col lg='8'>
-                     <Form className="mt-5 mb-5" onSubmit={handleLogIn}>
-                        <Form.Group>
-                           <FloatingLabel controlId="floatingInput" label="Email" className="mb-3">
-                              <Form.Control type="text" name="email_Login" placeholder="Cinema Name"/>
-                           </FloatingLabel> 
-                        </Form.Group>
-                        
-                        <Form.Group>
-                           <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
-                              <Form.Control type="text" name="password_Login" placeholder="Cinema Name" />
-                           </FloatingLabel> 
-                        </Form.Group>
-                        
-                        <Container className="text-center">
-                           <button className="Modal__Body__Button mt-5">Log In</button>
-                        </Container>
-                     </Form>
-               </Col>
-               <Col lg='2'></Col>
-            </Row>
-         </Container>
-         
-         <Modal.Footer className="modal__footer">
-         </Modal.Footer>
+            <Container>
+               <Row>
+                  <Col lg='2'></Col>
+                  <Col lg='8'>
+                        <Form className="mt-5 mb-5" onSubmit={handleLogIn}>
+                           <Form.Group>
+                              <FloatingLabel controlId="floatingInput" label="Email" className="mb-3">
+                                 <Form.Control type="text" name="email_Login" placeholder="Cinema Name"/>
+                              </FloatingLabel> 
+                           </Form.Group>
+                           
+                           <Form.Group>
+                              <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
+                                 <Form.Control type="text" name="password_Login" placeholder="Cinema Name" />
+                              </FloatingLabel> 
+                           </Form.Group>
+                           
+                           <Container className="text-center">
+                              <button className="Modal__Body__Button mt-5">Log In</button>
+                           </Container>
+                        </Form>
+                  </Col>
+                  <Col lg='2'></Col>
+               </Row>
+            </Container>
+            
+            <Modal.Footer className="modal__footer">
+            </Modal.Footer>
          </Modal>
 
    </ButtonSignStyle>

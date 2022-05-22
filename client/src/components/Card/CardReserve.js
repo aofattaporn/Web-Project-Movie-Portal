@@ -1,43 +1,99 @@
 import styled from 'styled-components';
-import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem, Modal, Button} from 'react-bootstrap';
 import propTypes from "prop-types";
 import { useEffect } from 'react';
+import { useState } from 'react';
+import 'aos'
+import AOS from "aos";
+import "./CardReserve.css";
 
 const CardReserve =(props)=>{
 
-   const {title, image, released,  movie_id} = props;
+   const { Reserve } = props;
+   const [show, setShow] = useState(false);
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);
-      return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
+      return ( d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
    }
 
-   useEffect(()=>{
-      getDate();
-   }, [title, image, released])
+   const getTime =(released)=>{
+      let d = new Date(released);
+      return ( d.getHours() + " : " + d.getMinutes());
+   }
+   useEffect(() => {
+      AOS.init();
+      AOS.refresh();
+
+      
+    }, []);
 
 
    return (
       <CardReserveStyle> 
-
+         { Reserve ?  
          <div  className='card mt-3 fade-up ' data-aos="fade-up" >
-
-            {/*----- header --------------------------- */}
             <div className='card__header'>
-               <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`} />
+            <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/>
+               {/* { Reserve ? <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/> : <></> } */}
             </div>
 
-            {/*-- card-body ----------------------------*/}
-            <Card.Body className='card__text'>
+=            <Card.Body className='card__text'>
                <ListGroup>
-                  <ListGroupItem className='card__text__releas'><p>{getDate(released)}</p></ListGroupItem>
+                  { Reserve ? <ListGroupItem className='card__text__releas'><p>{getDate(Reserve.date)}</p></ListGroupItem> : <></>}
                </ListGroup>
             </Card.Body>
 
             {/*-- footer ---------------------- */}
 
          </div>
+
+         : <></> }
+         {/* ------------ Modals --------------------------------------- */}
+
+         <Modal
+               show={show}
+               onHide={() => setShow(false)}
+               dialogClassName="modal-2w"
+               aria-labelledby="example-custom-modal-styling-title "
+            >
+            <Modal.Header closeButton className='ticket-header'>
+               <strong id="example-custom-modal-styling-title ticket-title" >
+                  [ My Ticket ] 
+               </strong>
+            </Modal.Header>
+            <Modal.Body className='ticket__body'>
+               <div className='imgae-container'>
+                  {Reserve ? <img className='ticket__img' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} /> : <></>}
+               </div>
+               <div>
+                  <div className='d-flex justify-content-between content' >
+                     <div>
+                        <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
+                        <h6>Movie : <span>{Reserve.moviesName}</span></h6>
+                           <div className='d-flex flex-column date'  >
+                              <h6>date : <span>{getDate(Reserve.date)}</span></h6>
+                              <h6>time : <span> {getTime(Reserve.date)}</span></h6>
+                           </div>
+                     </div>
+                     <div>
+                        <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
+                     </div>
+                  </div>
+                  <div className='content-2 mt-3'>
+
+                  </div>
+
+               </div>
+               
+
+            </Modal.Body>
+            
+         </Modal>
+         
+         
+
        </CardReserveStyle>
    )
 }
@@ -55,7 +111,6 @@ h1{
    background-color: transparent;
    margin-bottom: 3rem;
    border: 0;
-
 
 }
 
@@ -78,6 +133,7 @@ h1{
    height: auto;
 
 }
+
 .card__text__releas{
    font-size: 0.8rem;
    font-weight: bolder;
@@ -94,7 +150,6 @@ h1{
 
 }
 
-
 .card__text__title{
    border: 0;
    color: white;
@@ -107,8 +162,15 @@ h1{
    /* width: 20rem; */
 
 }
+
 .card__text__title h3{
    font-size: 1.5rem;
+}
+
+
+.ticket-header{
+   color: #C9B898;
+   background-color: #C9B898;
 }
 
 
@@ -151,23 +213,14 @@ h1{
       left: 3.5rem;
       bottom: 19rem;
    }
-
+   
  }
-
-
-
-
-
 
 `;
 
 
-// CardMovie.propTypes ={
-//    title: propTypes.string,
-//    images: propTypes.string, 
-//    released: propTypes.string,
-//    runtime: propTypes.string,
-//    movie_id: propTypes.string.isRequired
-// }
+CardReserve.propTypes ={
+   Reserve: propTypes.object
+}
 
 export default CardReserve;

@@ -1,0 +1,60 @@
+
+.ticket__body{
+   box-shadow: rgba(151, 121, 89, 0.25) 0px 14px 28px, rgba(151, 121, 89, 0.22) 0px 10px 10px;
+}
+
+.ticket__footer{
+   border-top: 0px;
+}
+
+.ticket-header, .ticket__body, .ticket__footer{
+   color: #ffff;
+   background-color: #17130A;   
+}
+
+.ticket-header strong{
+   color: rgb(151, 121, 89);
+}
+
+.ticket__body .imgae-container{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.ticket__body img{
+   height: 25rem;
+   margin: 1rem 0rem;
+}
+
+.ticket__body .content{
+   margin: 0rem 3.5rem;
+}
+
+span{
+   color: #C9B898;
+}
+
+.theater{
+   background-color: #C9B898;
+   /* color: #17130A; */
+   padding: 0.3rem 1.5rem;
+}
+
+.date{
+   border-top: #C9B898 2px solid;
+   padding-top: 0.5rem;
+}
+
+span h2{
+   font-size: 3.5rem;
+   color: #17130A;
+}
+
+
+.ticket__body .content-2{
+   margin-top: 1rem;
+   border-top: #C9B898 solid 2px;
+   margin: 0rem 3.5rem;
+}

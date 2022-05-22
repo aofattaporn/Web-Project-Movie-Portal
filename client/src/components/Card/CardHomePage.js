@@ -1,8 +1,9 @@
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import propTypes from "prop-types";
-
+import FlashMessage from 'react-flash-message'
 
 
 const CardHomePage =(props)=>{
@@ -15,10 +16,24 @@ const CardHomePage =(props)=>{
    
    const { movie } = props;
 
+   const showFlash =() =>{
+      console.log("Click")
+      return (
+         <>
+                  <h1>dfsdfsdf</h1>
+         <FlashMessage  className="flashMessage" duration={1000}>
+            <strong>I will disapper in 5 seconds!</strong>
+         </FlashMessage>
+         </>
+      )
+   }
+
 
    return (
       <CardHomepageStyle> 
          { movie ? 
+
+         
          <Card className="card-container">
             {/*---- header -----------------------------------*/}
             <Link to={`/movies/${movie._id}`}>
@@ -30,7 +45,8 @@ const CardHomePage =(props)=>{
             {/*---- card-body -----------------------------------*/}
             <Card.Body className='card__text'>
                <ListGroup>
-                  <ListGroupItem className='card__text__releas'><p>{getDate(movie.released)}</p></ListGroupItem>
+
+                  <ListGroupItem className='card__text__releas'><div> {getDate(movie.released)} <span><FavoriteIcon  onClick={showFlash}  className="like"></FavoriteIcon></span></div></ListGroupItem>
                </ListGroup>
             </Card.Body>
             <ListGroupItem className='card__text__title'><h5>{movie.name}</h5></ListGroupItem>
@@ -40,6 +56,7 @@ const CardHomePage =(props)=>{
                </div>
                <div className='card__footer__gener text-center'>
                   <p>{`${movie.genre}`}</p>
+                  
                </div>
              </div>
          </Card>
@@ -97,7 +114,9 @@ h1{
    align-items: center;
    border: 0;
    display: flex;
-   padding-top: 1.5rem;
+   align-items: center;
+   justify-content: space-between;
+   padding: 1rem;
    height: 1rem;
    font-size: 32px;
    font-size: 10px;
@@ -106,6 +125,16 @@ h1{
    border-bottom-left-radius: 10px ;
 
 }
+.card__text__releas span{
+   position: relative;
+   right: -2rem;
+}
+
+.like:hover{
+   color: #CC0000;
+   cursor: pointer;
+}
+
 .card__text__title{
    border: 0;
    color: white;
@@ -121,18 +150,6 @@ h1{
 
 /* ----------------- show thim and gerner ------------- */
 
-.like{
-   position: relative;
-   font-size: 32px;
-   color: #4d4d4d;
-   left: 4.5rem;
-   bottom: 23rem;
-}
-
-.like:active, .like:hover{
-   color: rgb(151, 121, 89);
-   cursor: pointer;
-}
 
 .card__footer{
    padding: 0rem 1rem;
@@ -153,6 +170,13 @@ h1{
 .card__footer__runtime p, .card__footer__gener p {
    font-size: 12px;
    font-weight: bold;
+}
+
+.flashMessage{
+   position: fixed;
+   right: 0;
+   top: 0;
+   background-color: #CC0000;
 }
 
 `

@@ -4,22 +4,25 @@ const express       = require('express'),
       cors          = require('cors'),
       fixCORS       = require('./middleware/fixCORS'),
       mongoose      = require('mongoose'),
-      PORT          = 4000,
-      path         = require('path');
+      path          = require('path');
       upload        = require('./middleware/uploadfile');
       logger        = require('./logger'),
-      seed          = require('./seed');
+      seed          = require('./seed'),
+      PORT          = 4000;
 
 // create Routes  
 const userRoutes    = require('./api/route/user.routes'),
       cinemaRoutes  = require('./api/route/cinema.routes'),
       movieRoutes   = require('./api/route/movie.routes'),
       programRoutes = require('./api/route/program.routes'),
-      reserveRoutes = require('./api/route/reserve.routes');
+      reserveRoutes = require('./api/route/reserve.routes'),
+      likeRoutes = require('./api/route/like.routes');
+
 
 
 // connecting mongos 
-mongoose.connect('mongodb+srv://Attaporn1840:Aof.026449013@web-movie-portal.ahueb.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
+// mongoose.connect('mongodb+srv://Attaporn1840:Aof.026449013@web-movie-portal.ahueb.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/MoviePortal', { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', ()=>{
@@ -43,6 +46,8 @@ app.use('/cinemas', cinemaRoutes);
 app.use('/movies', movieRoutes);
 app.use('/programs', programRoutes);
 app.use('/reserves', reserveRoutes);
+app.use('/like', likeRoutes);
+
 
 if(process.env.NODE_ENV === 'production'){
    app.use(express.static(path.join(__dirname, '../build')))

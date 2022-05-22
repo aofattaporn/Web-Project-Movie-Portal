@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const BuyTap = (props) =>{
 
    let navigate = useNavigate();
-   const { auth, setAuth } = useContext(AuthContext);
+   const { auth } = useContext(AuthContext);
    const {seatsReserve, priceReserve, program, cinema, movie} = props;
    
    const createReserve = () =>{

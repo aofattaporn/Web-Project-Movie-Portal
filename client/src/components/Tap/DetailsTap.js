@@ -1,24 +1,33 @@
-import { useState } from "react";
-import { useEffect } from "react";
-import { Fragment } from "react"
+import { useState, useEffect, useContext, Fragment } from "react";
+import { AuthContext } from "../../App";
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import serviceMovie from "../../service/movieService";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import 'aos'
 import AOS from "aos";
 import { useCallback } from "react";
  
 const DetailsTap = () =>{
 
+   const { auth } = useContext(AuthContext);
    const { movie_id } = useParams();
 
-   // manage state in component 
    const [movie, setMovie] = useState({});
+   const [like, setLike] = useState("unlike");
 
    const getMovieById = useCallback(()=>{
-      serviceMovie.getMovieById(movie_id)
-      .then((res) => {setMovie(res.data)})
+      serviceMovie.getMovieByIdCheckLike(movie_id)
+      .then((res) => {
+         setMovie(res.data.movie)
+         console.log(res.data.islike);
+         if(res.data.islike === "true"){
+            setLike("like")
+         }else{
+            setLike("unlike")
+         }
+      })
       .catch((err) => alert(err));
    }, [movie_id])
 
@@ -26,6 +35,14 @@ const DetailsTap = () =>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+ 1 )] + ' '+ d.getFullYear());
+   }
+
+   const likeMove = () =>{
+      if(like === "unlike"){
+         setLike("like")
+      }else if(like === "like"){
+         setLike("unlike")
+      }
    }
 
    useEffect(()=>{
@@ -51,7 +68,16 @@ const DetailsTap = () =>{
                            </div>
                         </Col>
                         <Col className="container-2" xl="3">
-                           <div className="container-movie-info__genre">
+                           {
+                              // console.log(like)
+                              like === "unlike" ? 
+                              <button onClick={likeMove}>Like this movie!! <span><FavoriteIcon className="like"></FavoriteIcon></span></button>
+                              : 
+                              <button onClick={likeMove}>Remove Like !! <span><FavoriteIcon className="unlike"></FavoriteIcon></span></button>
+
+                           } 
+
+                           <div className="container-movie-info__genre mt-4">
                               <h6>Genre : </h6>
                               <h5>{movie.genre}</h5>
                            </div> 
@@ -120,7 +146,29 @@ const DetailsTapStyle = styled.header`
       position: relative;
       top: -8rem;
    }
-   
+
+   .container-2 button{
+      border: 0;
+      box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+      color: #ffff;
+      background-color: #C9B898;
+
+   }
+
+   .like{
+      color: #ffff;
+   }
+   .unlike {
+      color: #B30000;
+   }
+
+   .container-2 button:hover{
+      position: relative;
+      top: -1px;
+      /* color: red; */
+
+   }
+
 
    .movie-name{
       position: relative;

@@ -17,7 +17,10 @@ const HistoryPage = () =>{
    const getMyProgram = (auth)=>{
       console.log(auth);
       serviceReserve.getMyReserve(auth)
-      .then((response)=>{ setAllReserve(response.data) })
+      .then((response)=>{
+          console.log(response.data)
+          setAllReserve(response.data)
+          })
       .catch((err)=> { console.log(err) } )
    }
 
@@ -33,8 +36,6 @@ const HistoryPage = () =>{
          <HistoryPageStyle>
          { allReserve ?  
             <>
-
-               {/* get all movies comming zoon  */}
                <Container >
                   <div className="header">
                      <h3 className="header__title">History Movie</h3>
@@ -47,7 +48,13 @@ const HistoryPage = () =>{
                         allReserve.map(((Reserve, index) => {
                            return (
                               <Col key={index} xs='6' sm='6' md='3'>
-                                 <components.CardReserve released={Reserve.date}  image={Reserve.moviesImage}></components.CardReserve>
+                                 {
+                                    Reserve ? 
+                                 <components.CardReserve 
+                                    Reserve   =   {Reserve}
+                                 ></components.CardReserve> : <></>
+                                 }
+
                               </Col>         
                               )
                         }))
@@ -84,6 +91,11 @@ const HistoryPageStyle = styled.div`
 
    .header__title{
       color: #BDAD8E;
+   }
+
+   .ticket-title{
+   color: #C9B898;
+   background-color: #C9B898;
    }
    
 

@@ -1,7 +1,10 @@
 let Movie = require('../model/movie.model');
+let User    = require('../model/user.model');
+let Like    = require('../model/like.model');
+
 const fs = require('fs');
 const path = require('path');
-const directory = 'public/image/poster'
+const directory = 'public/image/poster';
 ObjectId = require('mongodb').ObjectID;
 
 
@@ -72,7 +75,40 @@ const getMovieById =(req, res) => {
          console.log(err);
       }
       else{
-         res.json(movie);
+         res.status(200).json(movie);
+      }})
+}
+
+const getMovieByIdCheckLike =(req, res) => {
+   Movie.findById( ObjectId(req.params.id)  ,(err, movie) =>{
+      if(err){
+         console.log(err);
+      }
+      else{
+         User.findById( "628a8e764873b4b0d3edf2c6", (err, user) =>{
+            if(err){
+               console.log(err);
+            } 
+            else{
+               user.likes.forEach(element => {
+                  // console.log(element)
+                  Like.findById(element, (err, like)=>{
+                     if(err){
+                        console.log(err);
+                     }else{
+                        console.log(like.movies.id);
+                        console.log(ObjectId(req.params.id));
+                        if(like.movies.id.toString() === req.params.id){
+                           console.log("like");
+                           res.json({movie, islike: "true"})
+                        }else{
+                           res.json({movie, islike: "false"})
+                        }
+                     }
+                  })
+               });
+            }
+         })
       }
    });
 }
@@ -139,6 +175,7 @@ const deleteMovieById =(req, res)=>{
 module.exports = {
    getMovie,
    getMovieById,
+   getMovieByIdCheckLike,
    createMovie, 
    updateMovieById,
    deleteMovies,
