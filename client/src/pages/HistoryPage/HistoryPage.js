@@ -6,7 +6,10 @@ import  components  from "../../components/index";
 import { Col, Container, Row } from "react-bootstrap";
 import serviceReserve from "../../service/reserveService";
 import { useState, useEffect } from "react";
+import 'aos'
+import AOS from "aos";
 const { Fragment } = require("react");
+
 
 
 const HistoryPage = () =>{
@@ -28,13 +31,14 @@ const HistoryPage = () =>{
       if( auth !== undefined ){
          getMyProgram(auth);
       }
-      
+      AOS.init();
+      AOS.refresh();
    },[])
 
    return (
       <Fragment>
          <HistoryPageStyle>
-         { allReserve ?  
+         { allReserve.length > 0 ?  
             <>
                <Container >
                   <div className="header">
@@ -61,7 +65,16 @@ const HistoryPage = () =>{
                      }
 
                   </Row>
-               </Container> </>: <></>
+               </Container> </>: 
+               
+               <Container >
+                  <div className="header">
+                     <h3 className="header__title">History Movie</h3>
+                  </div>
+                  <Row >
+                     <components.NoMovie title={"No Movies Reserve"}></components.NoMovie>
+                  </Row>
+               </Container>
             } 
          </HistoryPageStyle>
       </Fragment>

@@ -182,12 +182,7 @@ h1{
 `
 
 CardHomePage.propTypes ={
-   movie: propTypes.object,
-   // title: propTypes.string,
-   // image: propTypes.string, 
-   // released: propTypes.string,
-   // runtime: propTypes.string,
-   // movie_id: propTypes.string
+   movie: propTypes.object
 }
 
 export default CardHomePage;

@@ -3,7 +3,6 @@ import Tap from "../../components/Tap/Tap";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import styled from "styled-components";
-// import components from "../../components";
 import {  Container, Row} from 'react-bootstrap';
 import serviceMovies from "../../service/movieService";
 import { useState } from "react";
@@ -50,15 +49,6 @@ const HomePage=()=>{
       let now = new Date(n);
       return d > now;
    }
-
-   const returnData= async ()=>{
-      await movies.filter(movie => { 
-       return checkDate(movie.released) === true                            
-       })
-
-      console.log(movies);
-   }
-
    useEffect(() =>{
       AOS.init();
       AOS.refresh();
@@ -76,17 +66,15 @@ const HomePage=()=>{
                   <div>
                      <img src={require("../../assets/images/ads/test.png")} alt="img3"/>
                   </div>
-                  {/* <div>
-                     
+                  <div>
                      <img src={"https://i0.wp.com/theallapps.com/wp-content/uploads/1500x500.jpeg?w=1500&ssl=1"} alt="img3"/>
                   </div>
                   <div> 
                      <img src={"https://cdn.cinemacloud.co.uk/imageFilm/1041_1_2.jpg"} alt="img3" />
                   </div>
                   <div>
-                        <img src={"https://pbs.twimg.com/media/FDUbC-WUcAECL-m?format=jpg&name=4096x4096"} alt="img3"/>
-                  </div> */}
-
+                     <img src={"https://pbs.twimg.com/media/FDUbC-WUcAECL-m?format=jpg&name=4096x4096"} alt="img3"/>
+                  </div>
                </Carousel>
                <Tap/>
 
@@ -98,12 +86,9 @@ const HomePage=()=>{
                   <Row className="carousel___body" data-aos='fade-up' data-aos-duration="1000">
                      <CarouselCard responsive={responsive}>
                         {
-                         movies.filter(movie => { 
+                           movies.filter(movie => { 
                            return checkDate(movie.released) === false                            
-                           }).map((item, idx) => {
-                                return ( <CardHomePage  key={idx} movie={item} /> )
-                                }
-                             )
+                           }).map((item, idx) => { return (<CardHomePage key={idx} movie={item}/>)})
                         }
                      </CarouselCard>
                   </Row>

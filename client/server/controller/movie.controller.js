@@ -80,34 +80,39 @@ const getMovieById =(req, res) => {
 }
 
 const getMovieByIdCheckLike =(req, res) => {
+   let flag = 0;
    Movie.findById( ObjectId(req.params.id)  ,(err, movie) =>{
       if(err){
          console.log(err);
       }
       else{
-         User.findById( "628a8e764873b4b0d3edf2c6", (err, user) =>{
+         User.findById( req.tokenData.user_id, async (err, user) =>{
             if(err){
                console.log(err);
             } 
-            else{
-               user.likes.forEach(element => {
-                  // console.log(element)
-                  Like.findById(element, (err, like)=>{
-                     if(err){
-                        console.log(err);
-                     }else{
-                        console.log(like.movies.id);
-                        console.log(ObjectId(req.params.id));
-                        if(like.movies.id.toString() === req.params.id){
-                           console.log("like");
-                           res.json({movie, islike: "true"})
-                        }else{
-                           res.json({movie, islike: "false"})
-                        }
-                     }
-                  })
-               });
-            }
+            else {
+                  if(user.likes.length != 0){
+                     await user.likes.forEach((element, idx) => {
+                        Like.findById( element, (err, like)=>{
+                           if(err){
+                              console.log(err);
+                           }else{
+                              if(like.movies.id.toString() === req.params.id){
+                                 flag++;
+                              }
+                              if(idx === user.likes.length - 1 && flag > 0 ){
+                                 res.status(200).json({movie, islike: "true"});
+                              }else if(idx === user.likes.length - 1 && flag === 0){
+                                 res.status(200).json({movie, islike: "false"});
+                              }
+                           }
+                        })
+                     });
+                  }
+                  else{
+                     res.json({movie, islike: "false"})
+                  }
+               }
          })
       }
    });
@@ -116,7 +121,6 @@ const getMovieByIdCheckLike =(req, res) => {
 const createMovie =(req, res) => {
 
    let movie = req.body;
-
    movie.released = new Date(req.body.released);
 
    Movie.create(movie, (err, movie)=>{

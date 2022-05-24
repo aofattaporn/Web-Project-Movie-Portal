@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, ListGroup, ListGroupItem, Modal, Button} from 'react-bootstrap';
+import { Card, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
 import propTypes from "prop-types";
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -9,7 +9,7 @@ import "./CardReserve.css";
 
 const CardReserve =(props)=>{
 
-   const { Reserve } = props;
+   const { Reserve, moviefav } = props;
    const [show, setShow] = useState(false);
 
    const getDate =(released)=>{
@@ -35,21 +35,31 @@ const CardReserve =(props)=>{
          { Reserve ?  
          <div  className='card mt-3 fade-up ' data-aos="fade-up" >
             <div className='card__header'>
-            <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/>
-               {/* { Reserve ? <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/> : <></> } */}
+               <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/>
+               { Reserve.moviesImage ? <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/> : <></> }
             </div>
-
-=            <Card.Body className='card__text'>
+           <Card.Body className='card__text'>
                <ListGroup>
                   { Reserve ? <ListGroupItem className='card__text__releas'><p>{getDate(Reserve.date)}</p></ListGroupItem> : <></>}
                </ListGroup>
             </Card.Body>
+         </div>
+         : <></> }
 
-            {/*-- footer ---------------------- */}
-
+         { moviefav ?  
+         <div  className='card mt-3 fade-up ' data-aos="fade-up" >
+            <div className='card__header'>
+               { moviefav.movies.image ? <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${moviefav.movies.image}`} /> : <></> }
+            </div>
+           <Card.Body className='card__text'>
+               <ListGroup>
+               { moviefav.movies.release ? <ListGroupItem className='card__text__releas'><p>{getDate(moviefav.movies.release)}</p></ListGroupItem> : <></>}
+               </ListGroup>
+            </Card.Body>
          </div>
 
          : <></> }
+
          {/* ------------ Modals --------------------------------------- */}
 
          <Modal
@@ -67,25 +77,72 @@ const CardReserve =(props)=>{
                <div className='imgae-container'>
                   {Reserve ? <img className='ticket__img' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} /> : <></>}
                </div>
-               <div>
-                  <div className='d-flex justify-content-between content' >
-                     <div>
-                        <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
-                        <h6>Movie : <span>{Reserve.moviesName}</span></h6>
-                           <div className='d-flex flex-column date'  >
-                              <h6>date : <span>{getDate(Reserve.date)}</span></h6>
-                              <h6>time : <span> {getTime(Reserve.date)}</span></h6>
-                           </div>
+               {
+                  Reserve ? 
+                  <div>
+                     <div className='d-flex justify-content-between content' >
+                        <div>
+                           <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
+                           <h6>Movie : <span>{Reserve.moviesName}</span></h6>
+                              <div className='d-flex flex-column date'  >
+                                 <h6>date : <span> {getDate(Reserve.date)}</span></h6>
+                                 <h6>time : <span> {getTime(Reserve.date)}</span></h6>
+                              </div>
+                        </div>
+                        <div>
+                           <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
+                        </div>
                      </div>
-                     <div>
-                        <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
+                     <div className='content-2 mt-3'>
                      </div>
                   </div>
-                  <div className='content-2 mt-3'>
+               : <></>
+               }
 
+                              {
+                  Reserve ? 
+                  <div>
+                     <div className='d-flex justify-content-between content' >
+                        <div>
+                           <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
+                           <h6>Movie : <span>{Reserve.moviesName}</span></h6>
+                              <div className='d-flex flex-column date'  >
+                                 <h6>date : <span>{getDate(Reserve.date)}</span></h6>
+                                 <h6>time : <span> {getTime(Reserve.date)}</span></h6>
+                              </div>
+                        </div>
+                        <div>
+                           <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
+                        </div>
+                     </div>
+                     <div className='content-2 mt-3'>
+                     </div>
                   </div>
+               : <></>
+               }
 
-               </div>
+               {
+                  Reserve ? 
+                  <div>
+                     <div className='d-flex justify-content-between content' >
+                        <div>
+                           <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
+                           <h6>Movie : <span>{Reserve.moviesName}</span></h6>
+                              <div className='d-flex flex-column date'  >
+                                 <h6>date : <span> {getDate(Reserve.date)} </span></h6>
+                                 <h6>time : <span> {getTime(Reserve.date)} </span></h6>
+                              </div>
+                        </div>
+                        <div>
+                           <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
+                        </div>
+                     </div>
+                     <div className='content-2 mt-3'>
+                     </div>
+                  </div>
+               : <></>
+               }
+               
                
 
             </Modal.Body>

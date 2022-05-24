@@ -27,7 +27,6 @@ const SignInButton=()=>{
       const email = email_SignUp.value;
       const password = password_SignUp.value;
       const name = name_SignUp.value;
-      const phoneNumber = phone;
 
       if(name === ""){
          swal(`name Eempty`, "You clicked the button!", "error")
@@ -89,9 +88,6 @@ const SignInButton=()=>{
       .then(response => {
          console.log(response)
          if(response.status === 201){
-            console.log(response.data)
-
-               console.log(response.data);
                swal("Login Success!", "Clicked to close window!", "success");
                localStorage.setItem("token", JSON.stringify(response.data.accesstoken));
                localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -114,12 +110,7 @@ const SignInButton=()=>{
    // onChange function 
    const onChangePhone = (event) =>{
       event.preventDefault();
-      const validatePhone = phone_Validate(event.target.value);
       setPhone(event.target.value);
-   }
-   // validate function 
-   const phone_Validate = (value) =>{
-      return value;
    }
 
    useEffect(()=>{

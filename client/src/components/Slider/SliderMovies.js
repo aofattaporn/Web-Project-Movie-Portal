@@ -1,18 +1,16 @@
-import { useState } from 'react';
 
 import './SliderMovies.css'
 import "react-multi-carousel/lib/styles.css";
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 import styled from 'styled-components';
 import CarouselCard from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useEffect } from 'react';
-import { useCallback } from 'react';
+
 
 
 const SliderMovies=(props)=>{
 
-  const {title, image, released, runtime, genre} = props;
+  // const {title, image, released, runtime, genre} = props;
 
   const responsive = {
     superLargeDesktop: {

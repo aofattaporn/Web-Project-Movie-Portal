@@ -3,14 +3,17 @@ import {FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {  faNotEqual } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-const NoMovie = () =>{
+const NoMovie = (props) =>{
+   const { title } = props;
    return (
       <NoMovieStyle> 
          <Container>
             <Row>
-               {/* <h1>dfdsfs</h1> */}
                <FontAwesomeIcon className="icon" icon={faNotEqual} />
-               <h1 className="text-center title"> [ NO MOVIES SHOWTIME ]</h1>
+               { title ? 
+                <h1 className="text-center title"> [ {title} ]</h1>:
+                <h1 className="text-center title"> [ NO MOVIES SHOWTIME ]</h1>
+               }
             </Row>
          </Container>
       </NoMovieStyle>

@@ -1,11 +1,15 @@
-import { useState, useEffect, useContext, Fragment } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../App";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import serviceMovie from "../../service/movieService";
+import serviceLike from "../../service/likeService";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'aos'
+import 'react-notifications/lib/notifications.css';
+
 import AOS from "aos";
 import { useCallback } from "react";
  
@@ -17,19 +21,28 @@ const DetailsTap = () =>{
    const [movie, setMovie] = useState({});
    const [like, setLike] = useState("unlike");
 
-   const getMovieById = useCallback(()=>{
-      serviceMovie.getMovieByIdCheckLike(movie_id)
-      .then((res) => {
-         setMovie(res.data.movie)
-         console.log(res.data.islike);
-         if(res.data.islike === "true"){
-            setLike("like")
-         }else{
-            setLike("unlike")
-         }
-      })
-      .catch((err) => alert(err));
-   }, [movie_id])
+   const getMovieById = useCallback((token)=>{
+
+      if(token){
+         serviceMovie.getMovieByIdCheckLike(token, movie_id)
+         .then((response) => {
+            setMovie(response.data.movie)
+            if(response.data.islike === "true"){
+               setLike("like")
+            }else{
+               setLike("unlike")
+            }
+         })
+         .catch((err) => alert(err));
+      }else{
+         serviceMovie.getMovieById(movie_id)
+         .then((response)=>{
+            setMovie(response.data)
+         })
+         .catch((err) => alert(err));
+      }
+
+   }, [auth, movie_id])
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -37,10 +50,31 @@ const DetailsTap = () =>{
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+ 1 )] + ' '+ d.getFullYear());
    }
 
-   const likeMove = () =>{
+   const likeMove = (token) =>{
       if(like === "unlike"){
+         const  moviesLike = {
+            "id": movie_id,
+            "name" : movie.name,
+            "image" : movie.image,
+            "release" :movie.released
+         }
+         serviceLike.createLike(token, moviesLike)
+         .then((response)=>{ 
+            console.log(response)
+            NotificationManager.success('', 'Poof! Added to Favorites!') })
+         .catch((err)=>{console.log(err)})
          setLike("like")
-      }else if(like === "like"){
+      }
+      
+      else if(like === "like"){
+         const  newData = {
+            "movieTd": movie_id,
+         }
+         serviceLike.removeLike(auth, newData)
+         .then((response)=>{ 
+            console.log(response)
+            NotificationManager.success('', 'Poof! Removed from Favorites!') })
+         .catch((err)=>{console.log(err)})
          setLike("unlike")
       }
    }
@@ -49,33 +83,37 @@ const DetailsTap = () =>{
       AOS.init();
       AOS.refresh();
       window.scrollTo(0, 0);
-      getMovieById();
+      getMovieById(auth);
    }, [getMovieById]);
 
 
    return (
          <DetailsTapStyle> 
             <div className="tapMovie">
+
                <div className="box-container">
                   <Container fluid>
                      <Row className="movie">
-                        <h3 className="movie-name">{movie.name}</h3>
+                        {movie ? <h3 className="movie-name">{movie.name}</h3> : <></>}
                      </Row>
                      <Row>
                         <Col className="container-1" xl="2">
                            <div className="container-img">
-                              <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} />
+                              {movie.image? <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} /> : <></>}
                            </div>
                         </Col>
                         <Col className="container-2" xl="3">
-                           {
-                              // console.log(like)
-                              like === "unlike" ? 
-                              <button onClick={likeMove}>Like this movie!! <span><FavoriteIcon className="like"></FavoriteIcon></span></button>
-                              : 
-                              <button onClick={likeMove}>Remove Like !! <span><FavoriteIcon className="unlike"></FavoriteIcon></span></button>
+                           { auth? 
+                              <div>
+                                 {
+                                 like === "unlike" ? 
+                                 <button onClick={()=>{likeMove(auth)}} >Like this movie!! <span><FavoriteIcon className="like"></FavoriteIcon></span></button>
+                                 : 
+                                 <button onClick={()=>{likeMove(auth)}} >Remove Like !! <span><FavoriteIcon className="unlike"></FavoriteIcon></span></button>
+                                 } 
 
-                           } 
+                              </div>
+                           : <></>}
 
                            <div className="container-movie-info__genre mt-4">
                               <h6>Genre : </h6>
@@ -103,6 +141,8 @@ const DetailsTap = () =>{
                               <source src="http://localhost:4000/video/default.mp4" type="video/mp4"/>
                            </video>
                         </Col>
+                        <NotificationContainer/>
+
                      </Row>
                   </Container>
                </div>
@@ -112,6 +152,7 @@ const DetailsTap = () =>{
                   <h1>SYNOPSIS</h1>
                   <main className="description">
                      <p>{movie.desc}</p>
+                     
                   </main>
                </Container>
             </div>

@@ -1,6 +1,8 @@
 const express = require("express");
 const routerMovie = express.Router();
 const upload = require('../../middleware/uploadfile');
+const auth = require('../../middleware/auth');
+
 const {   
 
    getMovie,
@@ -25,7 +27,7 @@ routerMovie.get('/keyword/:key', getMovieByKeyword);
 
 routerMovie.get('/:id', getMovieById);
 
-routerMovie.get('/:id/checkLike', getMovieByIdCheckLike);
+routerMovie.get('/:id/checkLike', auth, getMovieByIdCheckLike);
 
 routerMovie.post('/create', createMovie);
 

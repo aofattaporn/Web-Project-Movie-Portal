@@ -185,6 +185,10 @@ h1{
       color: #ffff;
    }
 
+   .card__text__releas{
+      font-size: 0.1rem;
+   }
+
    .like{
       position: relative;
       font-size: 24px;

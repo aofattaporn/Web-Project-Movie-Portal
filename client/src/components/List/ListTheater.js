@@ -16,7 +16,7 @@ const ListTheater = (props) =>{
       <ListTheaterStyle>
       <Row className="list-theater">
             <Col className="list-theater__title" md="2">
-               { theater > 0 ? (<h6>{`theater : ${theater}`}</h6>) : <h1></h1>}
+               { theater > 0 ? (<h6>{`theater : ${theater}`}</h6>) : <></>}
             </Col>
          { !cinema_id ?    
          

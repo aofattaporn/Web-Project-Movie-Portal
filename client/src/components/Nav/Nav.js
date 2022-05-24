@@ -1,25 +1,16 @@
 import {Navbar, NavDropdown, Nav, Container, Form, FormControl, Button} from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SignInButton from '../Button/SignIn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { AuthContext, UserContext } from '../../App';
+// import { useContext } from 'react';
+// import { AuthContext } from '../../App';
 import { useState } from 'react';
  
 const Navigation=()=>{
 
-   const {auth, setAuth} = useContext(AuthContext);
-   const {user, setUser} = useContext(UserContext);
-   const navigate = useNavigate();
    const [ search, setSearch ] = useState("");
-
-   const handleLogout = () => {
-      localStorage.removeItem("user");
-      console.log(localStorage.getItem("user"));
-      setAuth(null);
-   }
 
    const onChangeSearch = (event) =>{
       event.preventDefault();
@@ -43,7 +34,7 @@ const Navigation=()=>{
                      <Link className='pt-2 me-4 nav__link mt-2' to={'/'}> HOME </Link>
                      <Link className='pt-2 me-4 nav__link mt-2' to={'/movies'}> MOVIES </Link>
                      <Link className='pt-2 me-4 nav__link mt-2' to={'/cinemas'}> CINEMAS </Link>
-                     <Link className='pt-2 me-4 nav__link mt-2' to={'/promotions'}> PROMOTIONS </Link>
+                     {/* <Link className='pt-2 me-4 nav__link mt-2' to={'/promotions'}> PROMOTIONS </Link> */}
                      <NavDropdown className='Dropdown mt-2' variant="dark" title="Dropdown" id="basic-nav-dropdown">
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createmovie'}> Create Movies </Link></NavDropdown.Item>
                         <NavDropdown.Item ><Link className='pt-2 me-4 nav__admin' to={'/createCinema'}> Create Cinemas </Link></NavDropdown.Item>

@@ -1,20 +1,57 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Fragment } from "react"
 import { Col, Container, Image, Row } from "react-bootstrap";
 import {  Link } from "react-router-dom";
 import styled from "styled-components";
 import propTypes from "prop-types"
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import serviceLike from "../../service/likeService";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { AuthContext } from "../../App";
+
+
 import 'aos'
 import AOS from "aos";
+import { useState } from "react";
 
 const MovieTap = (props) =>{
 
    const { movie, cinema } = props;
+   const { auth } = useContext(AuthContext);
+   const [like, setLike] = useState("unlike");
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+ 1 )] + ' '+ d.getFullYear());
+   }
+
+   const likeMove = (token) =>{
+      if(like === "unlike"){
+         const  moviesLike = {
+            "id": movie._id,
+            "name" : movie.name,
+            "image" : movie.image
+         }
+         serviceLike.createLike(token, moviesLike)
+         .then((response)=>{ 
+            console.log(response)
+            NotificationManager.success('', 'Poof! Added to Favorites!') })
+         .catch((err)=>{console.log(err)})
+         setLike("like")
+      }
+      
+      else if(like === "like"){
+         const  newData = {
+            "movieTd":  movie._id,
+         }
+         serviceLike.removeLike(auth, newData)
+         .then((response)=>{ 
+            console.log(response)
+            NotificationManager.success('', 'Poof! Removed from Favorites!') })
+         .catch((err)=>{console.log(err)})
+         setLike("unlike")
+      }
    }
 
    useEffect(()=>{
@@ -32,7 +69,6 @@ const MovieTap = (props) =>{
                   <Row className="box-container">
                      <Container>
                         <Row className="box-container-row">
-
                            <Col lg="4" md="5" sm="12">
                               <div className="box-container__img">
                                  { movie
@@ -43,6 +79,8 @@ const MovieTap = (props) =>{
                            </Col>
                            
                            <Col lg="8" md="7" sm="12" className="box-container__content">
+                              <NotificationContainer/>
+
                               <Container fluid>
                                  <Row className="container-movie-info">
                                     { movie ? <h1>{movie.name}</h1> : <></>}
@@ -71,7 +109,15 @@ const MovieTap = (props) =>{
                                     }
                                     { (movie) ? 
                                        <>
-                                          <div className="container-movie-info__runtime">
+                                          <div className="container-movie-info__like">
+                                             {
+                                                like === "unlike" ? 
+                                                <button onClick={()=>{likeMove(auth)}} >Like this movie!! <span><FavoriteIcon className="like"></FavoriteIcon></span></button>
+                                                : 
+                                                <button onClick={()=>{likeMove(auth)}} >Remove Like !! <span><FavoriteIcon className="unlike"></FavoriteIcon></span></button>
+                                             } 
+                                          </div>
+                                          <div className="container-movie-info__runtime mt-4">
                                              <h6>Runtime : </h6>
                                              <h5>{` ${movie.runtime} Mins`}</h5>
                                           </div>
@@ -129,7 +175,7 @@ const TapMovieStyle = styled.div`
    }
 
    .container-movie-info__genre, .container-movie-info__realeased, .container-movie-info__button-detail
-   , .container-movie-info__runtime{
+   , .container-movie-info__runtime, .container-movie-info__like{
       color: grey;
       position: relative;
       top: -3rem;
@@ -267,6 +313,13 @@ const TapMovieStyle = styled.div`
 
       .container-movie-info__button-detail{
          margin-left: 0rem;
+      }
+
+      .container-movie-info__like button{
+         border: 0;
+         box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+         color: #ffff;
+         background-color: #C9B898;
       }
 
    }

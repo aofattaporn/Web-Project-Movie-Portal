@@ -6,7 +6,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import PersonIcon from '@mui/icons-material/Person';
 import ChairIcon from '@mui/icons-material/Chair';
 import { useState, useEffect, useCallback } from "react";
-import { Link, Navigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BookingChairsTap = (props) =>{
 

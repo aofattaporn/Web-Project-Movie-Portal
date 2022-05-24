@@ -14,6 +14,13 @@ var movieSchema = new mongoose.Schema({
    desc: { type: String, default: null},
    released: { type: Date, default: Date.now},
 
+   comments : [
+      {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Comment'
+      }
+   ]
+
 });
 
 

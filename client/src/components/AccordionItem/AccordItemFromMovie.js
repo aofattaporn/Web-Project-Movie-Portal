@@ -1,11 +1,8 @@
 import styled from "styled-components"
 import propTypes from "prop-types";
-import { Accordion, ListGroup } from "react-bootstrap"
-import { useEffect } from "react";
-import serviceCinemas from "../../service/cienemaService";
+import { Accordion } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
-import { useState } from "react";
 import components from "..";
 import NoMovie from "../Handle/NoMovie";
 import { ListItem } from "@mui/material";
@@ -36,7 +33,7 @@ const AccordItemFromMovie = (props) => {
             program.map(item => item.cinema)
             .filter((value, index, self) => self.indexOf(value) === index) 
             .map((element, idx1) => cinemas.filter(x => element === x._id).map((y) => 
-            area.filter((zone, idx) => zone === y.cinemaArea && zone != flag ).map( (z, idx2) => { 
+            area.filter((zone, idx) => zone === y.cinemaArea && zone !== flag ).map( (z, idx2) => { 
                flag = z;
                return ( 
                   <Accordion.Item className="Accordion-item" key={idx2} eventKey={idx1}>

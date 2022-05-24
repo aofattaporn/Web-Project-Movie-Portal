@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
 
-var likedSchema = new mongoose.Schema({
+var likeSchema = new mongoose.Schema({
     movies: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'movies'
         },
         name: String,
-        image: String
+        image: String,
+        release: String
     },
     date: {
         type: Date,
@@ -15,4 +16,4 @@ var likedSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Liked', likedSchema);
+module.exports = mongoose.model('Liked', likeSchema);

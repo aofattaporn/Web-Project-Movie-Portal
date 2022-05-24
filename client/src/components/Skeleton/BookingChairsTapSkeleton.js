@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useEffect } from "react";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import styled from "styled-components";
 import 'aos'
 import AOS from "aos";
@@ -9,11 +8,11 @@ import Skeleton from '@mui/material/Skeleton';
  
 const MovieTapSkeleton = (props) =>{
 
-   const getDate =(released)=>{
-      const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-      let d = new Date(released);
-      return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+ 1 )] + ' '+ d.getFullYear());
-   }
+   // const getDate =(released)=>{
+   //    const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+   //    let d = new Date(released);
+   //    return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+ 1 )] + ' '+ d.getFullYear());
+   // }
 
    useEffect(()=>{
       AOS.init();

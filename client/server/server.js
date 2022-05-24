@@ -16,7 +16,8 @@ const userRoutes    = require('./api/route/user.routes'),
       movieRoutes   = require('./api/route/movie.routes'),
       programRoutes = require('./api/route/program.routes'),
       reserveRoutes = require('./api/route/reserve.routes'),
-      likeRoutes = require('./api/route/like.routes');
+      reviewRoutes  = require('./api/route/review.routes'),
+      likeRoutes    = require('./api/route/like.routes');
 
 
 
@@ -47,7 +48,7 @@ app.use('/movies', movieRoutes);
 app.use('/programs', programRoutes);
 app.use('/reserves', reserveRoutes);
 app.use('/like', likeRoutes);
-
+app.use('/reviews', reviewRoutes);
 
 if(process.env.NODE_ENV === 'production'){
    app.use(express.static(path.join(__dirname, '../build')))

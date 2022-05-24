@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { Form, Modal, Button } from "react-bootstrap"
 import { useState } from 'react';
-import styled from 'styled-components';
 import UploadIcon from '@mui/icons-material/Upload';
 import serviceUser from '../../service/userService';
 
-
 const ModalProfileImage=()=> {
    const [show, setShow] = useState(false);
-   // const [image, seetImage] = useState("");
    const [fileImg, setFileImg] = useState({});
    const [fileImgURL, setFileImgURl] = useState(null); 
 
@@ -42,7 +39,6 @@ const ModalProfileImage=()=> {
    const handleShow = () => setShow(true);
  
    return (
-      // <ModalProfileImageStyle>
       <>
          <Button onClick={handleShow} className="button-prrofile">  <UploadIcon></UploadIcon> </Button>
          <>
@@ -76,16 +72,6 @@ const ModalProfileImage=()=> {
    );
  }
 
-const ModalProfileImageStyle =  styled.div`
-.image-prrofile{
-   width: 5rem;
-   cursor: pointer;
-}
-
-.image-preview{
-   object-fit: fill;
-}
-`;
 
 export default ModalProfileImage;
 

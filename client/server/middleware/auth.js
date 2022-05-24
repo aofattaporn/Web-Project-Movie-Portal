@@ -10,7 +10,6 @@ function validateToken(req, res, next) {
   
    if (token == null) return res.sendStatus(401);
 
- 
    jwt.verify(token, process.env.TOKEN_KEY, (err, decoded) => {
      if (err) return res.sendStatus(403);
      req.tokenData = decoded;

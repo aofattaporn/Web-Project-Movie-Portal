@@ -1,17 +1,11 @@
-import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
 
 const Protected = (props) => {
 
   const { isLoggedIn, children } = props;
 
-  const ExitPage= async()=>{
-    await timeout(100000);
-  //   await navigate('/');
-  }
 
 
   const timeout=(delay)=> {
@@ -22,11 +16,10 @@ const Protected = (props) => {
   const Progress = () =>{
     timeout(5000);
     return 
-    <>
-      <Box sx={{ display: 'flex' }}>
+      ( <Box sx={{ display: 'flex' }}>
         <CircularProgress />
-      </Box>
-    </>
+      </Box>)
+  
   }
 
   if (!isLoggedIn) {

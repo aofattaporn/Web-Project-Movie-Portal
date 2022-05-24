@@ -6,7 +6,7 @@ const logIn =(body)=>{
 }
 
 const getUserByToken = (token) =>{
-   return axios.get('http://localhost:4000/users/token', { headers: {"authorization" : `${token.split("\"")[1]}`} });
+   return axios.get('http://localhost:4000/users/token', { headers: {"authorization" : `${token.split("\"")[1]}`}} );
 }
 
 const updateUser = (token, body) =>{
