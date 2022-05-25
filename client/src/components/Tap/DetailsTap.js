@@ -102,7 +102,7 @@ const DetailsTap = () =>{
                               {movie.image? <Image data-aos='fade-up' data-aos-duration="800" className="container-img__image" variant="top" src={`http://localhost:4000/image/poster/${movie.image}`} /> : <></>}
                            </div>
                         </Col>
-                        <Col className="container-2" xl="3">
+                        <Col className="container-2 ps-5" xl="3">
                            { auth? 
                               <div>
                                  {

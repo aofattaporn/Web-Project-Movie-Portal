@@ -9,6 +9,7 @@ import { useCallback } from "react";
 import components from "../index";
 import 'aos'
 import AOS from "aos";
+import { Link } from "react-router-dom";
 
 const BoxShowTime =(props)=>{
 
@@ -50,6 +51,7 @@ const BoxShowTime =(props)=>{
                                  // <img className='showtime__container__img' variant="top" src={`https://i.mydramalist.com/vK4lp_5f.jpg`} alt="showtim img" />
                                  <></>
                               }
+                               <Link to={`/details/${movie._id}`}><button className="button-detail mt-3"> Show Detaile </button></Link>
                            </div>
                         </Col>
                         <Col className="title" sm="9">
@@ -136,6 +138,12 @@ const BoxShowTimeStlye = styled.div`
 
    .title__movie{
       box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 1px;
+   }
+
+   .button-detail{
+      background-color: #C9B898;
+      color: #ffff;
+      border: 0;
    }
 
 @media only screen and (max-width: 1200px) {

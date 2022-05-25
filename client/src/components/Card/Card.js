@@ -186,7 +186,7 @@ h1{
    }
 
    .card__text__releas{
-      font-size: 0.1rem;
+      font-size: 0.5rem;
    }
 
    .like{

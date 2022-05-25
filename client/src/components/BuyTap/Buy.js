@@ -6,6 +6,7 @@ import { AuthContext } from "../../App";
 import components from "..";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 
 const BuyTap = (props) =>{
@@ -34,14 +35,17 @@ const BuyTap = (props) =>{
       // check auth
       if(auth){
          serviceReserve.createReserve(newReserve, auth)
-         .then((response)=>{ console.log(response.data) })
+         .then((response)=>{ 
+            if(response.status === 200){
+               swal("Reserve Success!", "Click to homepage", "success");
+               navigate('/');
+            }
+          })
          .catch((err)=> { console.log(err) })
-         return  navigate('/')
       }else{
-         return  navigate('/')
+         swal("Please Login!", "Click to close", "error");
+         // return  navigate('/')
       }
-         
-
    }
 
 
@@ -108,20 +112,10 @@ const BuyTap = (props) =>{
                         
                      </div>
 
-                     <div className="buy-container__main__select-payment">
-                        <h2>Select to payment</h2>
-                        <div className="item">
-                           <div className="buy-container__main__select-payment__icon">
-                              <h1>SCB</h1>
-                           </div>
-                        </div>
-                     </div>
-
                      <div className="buy-container__main__button">
                         <button onClick={createReserve}>{`PAY ( ${priceReserve} ) BTH`}</button>
                      </div>
 
-                     
                   </main>
                </Col>
             </Row>

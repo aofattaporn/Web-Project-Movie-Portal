@@ -110,12 +110,6 @@ const MovieTap = (props) =>{
                                     { (movie) ? 
                                        <>
                                           <div className="container-movie-info__like">
-                                             {
-                                                like === "unlike" ? 
-                                                <button onClick={()=>{likeMove(auth)}} >Like this movie!! <span><FavoriteIcon className="like"></FavoriteIcon></span></button>
-                                                : 
-                                                <button onClick={()=>{likeMove(auth)}} >Remove Like !! <span><FavoriteIcon className="unlike"></FavoriteIcon></span></button>
-                                             } 
                                           </div>
                                           <div className="container-movie-info__runtime mt-4">
                                              <h6>Runtime : </h6>

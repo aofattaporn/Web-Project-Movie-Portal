@@ -128,7 +128,7 @@ const FindByCinema =()=>{
 
             {
 
-               (program) ? 
+                program.length > 0  ? 
                   program.map(item => item.movies)
                   .filter((value, index, self) => self.indexOf(value) === index)
                   .map((movie_item, idx) => {

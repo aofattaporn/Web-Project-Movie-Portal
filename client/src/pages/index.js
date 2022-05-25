@@ -1,7 +1,6 @@
 import CinemasPage from './CinemasPage/CinemasPage';
 import HomePage from './Homepage/Hompage';
 import MoviePage from './MoviesPage/MoviesPage';
-import PromotionsPage from './PromotionsPag/PromotionsPage';
 
 // -------------- nested page --------------------------
 import FindByCinema from './NestedPage/FindByCinema/FindByCinema';
@@ -15,20 +14,23 @@ import PayMentPage from './PaymentPage/PayMentPage';
 import CreateCinema from './Admin/CreateCinema/CreateCinema';
 import CreateMovie from './Admin/CreateMovie/CreateMovie';
 import CreateProgram from './Admin/CreateProgram/CreateProgram';
+import ViewUser from './Admin/ViewUser/ViewUser';
+
 
 // -------------- User --------------------------
 import ProfilePage from './ProfilePage/ProfilePage';
 import FavoritePage from './FavoritePage/FavoritePage';
 import HistoryPage from './HistoryPage/HistoryPage';
 
+import AdminPage from './Admin/AdminPage';
 import Protected from './Protected/Protected';
-
+import ProtectedForAdmin from './Protected/ProtectedForAdmin';
 
 const page ={
-   CinemasPage, HomePage, MoviePage, PromotionsPage,
-   FindByCinema, FindByMovie, DetailsPage, PayMentPage,
-   CreateCinema, CreateMovie, CreateProgram, BookingPage, 
-   ProfilePage, FavoritePage, Protected, HistoryPage
+   CinemasPage, HomePage, MoviePage,
+   FindByCinema, FindByMovie, DetailsPage, PayMentPage, ViewUser,
+   CreateCinema, CreateMovie, CreateProgram, BookingPage, AdminPage,
+   ProfilePage, FavoritePage, Protected, HistoryPage, ProtectedForAdmin
 }
 
 export default page;

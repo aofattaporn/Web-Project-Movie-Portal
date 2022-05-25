@@ -103,16 +103,17 @@ const registerUser= async (req, res)=>{
       // Encrypt user password 
       encrytedPassword = await bcrypt.hash(password, 10);
 
-      // mapping data 
+
       const user = await User.create({
          username, 
          email,
          password: encrytedPassword,
-         phone: phone
+         phone: phone,
+         isAdmin: Boolean(req.body.isAdmin)
       })
 
       // Create token 
-      const token = jwt.sign({ user_id: user._id, email, username: user.username }, process.env.TOKEN_KEY, { expiresIn: "1d", });
+      const token = jwt.sign({ user_id: user._id, email, username: user.username, isAdmin: user.isAdmin  }, process.env.TOKEN_KEY, { expiresIn: "1d", });
 
       // save user token 
       user.token = token; 
@@ -142,7 +143,7 @@ const loginUser= async (req, res)=>{
       if(user && (await bcrypt.compare(password, user.password))){
 
          // create token 
-         const token = jwt.sign({ user_id: user._id, email, username: user.username }, process.env.TOKEN_KEY, { expiresIn: "1d", });
+         const token = jwt.sign({ user_id: user._id, email, username: user.username, isAdmin: user.isAdmin  }, process.env.TOKEN_KEY, { expiresIn: "1d", });
 
          // save token 
          user.token = token; 

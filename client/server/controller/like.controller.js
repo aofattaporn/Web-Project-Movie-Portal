@@ -11,7 +11,7 @@ const getMyMovieLike =(req, res) => {
 
 const getMovieFavorite = (req, res)=>{
 
-   User.findById("628a8e764873b4b0d3edf2c6").populate(
+   User.findById(req.tokenData.user_id).populate(
       {  path : 'likes', 
          populate : { path: 'movies' }
       }).exec((err, user)=>{
@@ -76,13 +76,13 @@ const unLikeMovie = (req, res) => {
 } 
 
 const removeAllLike = (req, res)=>{
-   Like.remove((err, like)=>{
+   Like.deleteMany((err, like)=>{
       if(err){
          console.log(err);
       }else{
-         User.findOneAndUpdate(
-            { _id: "628a8e764873b4b0d3edf2c6"},
-            { $set: { likes: [] }},
+         User.updateOne(
+             {_id : "628d9bb16961232df8d0348c" }, 
+            { "$set": { "likes": [] }},
             (err, user)=>{
                if(err){
                   console.log(err)

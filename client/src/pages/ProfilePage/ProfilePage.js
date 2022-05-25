@@ -1,10 +1,11 @@
 
-import { Row, Col, Container, Image, Form, Modal, Button } from "react-bootstrap";
+import { Row, Col, Container, Image, Form, FloatingLabel, Modal, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useContext } from "react";
 import { AuthContext, UserContext } from "../../App";
 import { useState } from "react";
 import serviceUser from "../../service/userService";
+import components from "../../components";
 import UploadIcon from '@mui/icons-material/Upload';
 import { useEffect } from "react";
 import { useCallback } from "react";
@@ -18,7 +19,7 @@ const { Fragment } = require("react")
 const ProfilePage = () =>{
 
    const { auth, setAuth } = useContext(AuthContext);
-   const { setUser } = useContext(UserContext);
+   const { user, setUser } = useContext(UserContext);
 
    const [myuser, setMyUser] = useState({});
    const [fileImg, setFileImg] = useState({});
@@ -90,7 +91,7 @@ const ProfilePage = () =>{
       // window.location.reload(false);
 
 
-   }, [username, phone, getUserByToken])
+   }, [username, phone])
 
    const uploadFile= async (event, token) =>{
 
@@ -149,7 +150,7 @@ const ProfilePage = () =>{
       getUserByToken(auth);
       AOS.init();
       AOS.refresh();
-   }, [auth])
+   }, [image])
    
    return (
       <Fragment>

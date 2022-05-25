@@ -19,10 +19,6 @@ const userRoutes    = require('./api/route/user.routes'),
       reviewRoutes  = require('./api/route/review.routes'),
       likeRoutes    = require('./api/route/like.routes');
 
-
-
-// connecting mongos 
-// mongoose.connect('mongodb+srv://Attaporn1840:Aof.026449013@web-movie-portal.ahueb.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true });
 mongoose.connect('mongodb://127.0.0.1:27017/MoviePortal', { useNewUrlParser: true });
 const connection = mongoose.connection;
 

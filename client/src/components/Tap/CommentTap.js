@@ -7,7 +7,11 @@ import { AuthContext, UserContext } from "../../App";
 import { NotificationManager} from 'react-notifications';
 import CarouselCard from "react-multi-carousel";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CloseIcon from '@mui/icons-material/Close';
 import { useCallback } from "react";
+import swal from "sweetalert";
+
+
 
 const CommentTap = () =>{
 
@@ -41,6 +45,27 @@ const CommentTap = () =>{
       setTextArea(event.target.value);
    }
 
+   const deleteReview = (id) =>{
+      swal({
+         title: "Are you sure to delete your review?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: false,
+       })
+       .then((willDelete) => {
+         
+         if (willDelete) {
+            serviceReview.deleteById(id)
+            .then((response)=>{
+               console.log(response)
+               NotificationManager.success('', 'Poof! Remove review success!');
+               getAllReview()
+            })
+            // getAllReview();
+         } 
+       });
+   }
+
    const getAllReview = useCallback(() =>{
       serviceReview.getAllReview()
       .then((response)=>{ setAllreviw(response.data) })
@@ -55,7 +80,7 @@ const CommentTap = () =>{
       }
       serviceReview.createReview(auth, reviewData)
       .then((response)=>{
-         NotificationManager.success('', 'Poof! Removed from Favorites!');
+         NotificationManager.success('', 'Poof! Create review success!');
          setAllreviw([...allReview, response.data]);
       })
       .catch((err)=>{console.log(err)})
@@ -100,7 +125,12 @@ const CommentTap = () =>{
                            <div key={index} className="review-box">
                               <div className="review-box__title d-flex justify-content-center">
                                  <AccountCircleIcon className="icon"></AccountCircleIcon>
-                                 <h5>{item.author.username}</h5> 
+                                 <h5>{item.author.username}</h5>
+
+                                 {
+                                    user === item.author.username ? <button onClick={()=>{deleteReview(item._id)}} className="icon--close"><CloseIcon></CloseIcon> </button> : <></>
+                                 }
+                                 
                               </div>
                               <div className="review-box__tex d-flex justify-content-center pt-3">
                                  <p>{item.text}</p> 
@@ -157,6 +187,14 @@ const CommentTapStyle = styled.div`
    }
    .text-area{
       width: 500rem;
+   }
+
+   .icon--close{
+      position: absolute;
+      right: 2rem;
+      background-color: transparent;
+      border: 0rem;
+      color: #ffff;
    }
 
 `

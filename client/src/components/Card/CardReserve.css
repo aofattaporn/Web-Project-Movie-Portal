@@ -58,3 +58,17 @@ span h2{
    border-top: #C9B898 solid 2px;
    margin: 0rem 3.5rem;
 }
+
+.seats-tap{
+   background-color: #C9B898;
+   color: #ffff;
+}
+
+.seats-tap span{
+   color: #17130A;
+   font-weight: bolder;
+}
+
+.QR img{
+   height: 5rem;
+}

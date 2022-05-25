@@ -1,8 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
+
 
 const Timer = () => {
-   //  const {initialMinute = 0,initialSeconds = 0} = props;
+
+    let navigate = useNavigate();
+
     const [ minutes, setMinutes ] = useState(8);
     const [seconds, setSeconds ] =  useState(0);
     useEffect(()=>{
@@ -19,15 +24,21 @@ const Timer = () => {
                 }
             } 
         }, 1000)
+        
         return ()=> {
+            
             clearInterval(myInterval);
           };
     });
 
+    const goHome = () =>{
+        return navigate('/');
+    }
+
     return (
         <div>
         { minutes === 0 && seconds === 0
-            ? null
+            ? { goHome }
             : <h1> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
         }
         </div>

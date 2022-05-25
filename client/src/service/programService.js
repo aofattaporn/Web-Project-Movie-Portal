@@ -34,7 +34,6 @@ const getProgramsByMovie =(body)=>{
 
 // use in Booking page
 const getAllDataByProgramId = (id)=>{
-   console.log(id)
    return axios.get(`http://localhost:4000/programs/${id}/all`);
 }
 

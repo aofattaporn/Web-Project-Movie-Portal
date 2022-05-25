@@ -93,11 +93,14 @@ const getMovieByIdCheckLike =(req, res) => {
             else {
                   if(user.likes.length != 0){
                      await user.likes.forEach((element, idx) => {
-                        Like.findById( element, (err, like)=>{
+                        // console.log(element)
+                        Like.findOne( {_id : element}, (err, like)=>{
                            if(err){
                               console.log(err);
                            }else{
-                              if(like.movies.id.toString() === req.params.id){
+                              console.log(like);
+                              console.log(ObjectId(req.params.id));
+                              if(like.movies.id.toString() == req.params.id){
                                  flag++;
                               }
                               if(idx === user.likes.length - 1 && flag > 0 ){

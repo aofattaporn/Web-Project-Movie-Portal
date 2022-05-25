@@ -2,18 +2,21 @@ import { useContext } from "react";
 import { useState } from "react";
 import { Button, Col, Container, Form, Modal, Row , FloatingLabel, NavDropdown } from "react-bootstrap"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import jwt from 'jwt-decode'
 import { Link } from "react-router-dom";
 import  axios  from "axios"
 import styled from "styled-components";
-import { AuthContext, UserContext } from "../../App";
+import { AuthContext, UserContext, IsAdminContext } from "../../App";
 import swal from "sweetalert";
 import "./SignIn.css";
 import { useEffect } from "react";
+
 
 const SignInButton=()=>{
 
    const { auth, setAuth } = useContext(AuthContext);
    const { user, setUser } = useContext(UserContext);
+   const { setIsAdmin } = useContext(IsAdminContext);
 
    const [showSign, setShowSign] = useState(false);
    const [showLog, setShowLog] = useState(false);
@@ -51,11 +54,16 @@ const SignInButton=()=>{
       })
       .then(response => {
       if(response.data.accesstoken && response.status === 201){
+
             swal("Register Success!", "You clicked the button!", "success");
             localStorage.setItem("token", JSON.stringify(response.data.accesstoken));
             localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("isAdmin", JSON.stringify(jwt(response.data.accesstoken.split(" ")[1]).isAdmin));
+            setIsAdmin(localStorage.getItem("isAdmin"))
             setAuth(localStorage.getItem("token"));
             setUser(response.data.user);
+            setShowLog(false);
+            setShowSign(false)
       }else if(response.status === 400){
          swal("Register fail!", "You clicked the button!", "error")
       }
@@ -86,13 +94,19 @@ const SignInButton=()=>{
       )
 
       .then(response => {
-         console.log(response)
+         
          if(response.status === 201){
-               swal("Login Success!", "Clicked to close window!", "success");
+               console.log(response.data);
+               swal("Login Success! ", `Clicked to close window!`, "success");
                localStorage.setItem("token", JSON.stringify(response.data.accesstoken));
                localStorage.setItem("user", JSON.stringify(response.data.user));
+               localStorage.setItem("isAdmin", JSON.stringify(Boolean(jwt(response.data.accesstoken.split(" ")[1]).isAdmin)));
+
                setAuth(localStorage.getItem("token"));
                setUser(localStorage.getItem("user"));
+               setIsAdmin(localStorage.getItem("isAdmin"))
+               // console.log(localStorage.getItem("isAdmin"));
+               
                setShowSign(false);
                setShowLog(false);
          }
@@ -104,7 +118,9 @@ const SignInButton=()=>{
    const handleLogout = () => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("isAdmin");
       setAuth(null);
+      setIsAdmin(false);
    }
 
    // onChange function 
@@ -166,7 +182,7 @@ const SignInButton=()=>{
 
                         <Form.Group>
                            <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
-                              <Form.Control type="text" name="password_SignUp" placeholder="Password"/>
+                              <Form.Control type="password" name="password_SignUp" placeholder="Password"/>
                            </FloatingLabel> 
                         </Form.Group>
 
@@ -212,7 +228,7 @@ const SignInButton=()=>{
                            
                            <Form.Group>
                               <FloatingLabel controlId="floatingInput" label="Password" className="mb-3">
-                                 <Form.Control type="text" name="password_Login" placeholder="Cinema Name" />
+                                 <Form.Control type="password" name="password_Login" placeholder="Cinema Name" />
                               </FloatingLabel> 
                            </Form.Group>
                            

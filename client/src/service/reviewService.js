@@ -8,6 +8,10 @@ const getAllReview = ()=>{
    return axios.get('http://localhost:4000/reviews');
 }
 
-const serviceReview = { createReview, getAllReview }
+const deleteById = (id)=>{
+   return axios.delete(`http://localhost:4000/reviews/${id}`);
+}
+
+const serviceReview = { createReview, getAllReview, }
 
 export default serviceReview;

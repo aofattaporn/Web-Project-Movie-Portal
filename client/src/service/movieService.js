@@ -10,7 +10,6 @@ const getMovieById =(id)=>{
 
 
 const getMovieByIdCheckLike =(token, id)=>{
-   console.log(token);
    return axios.get(`http://localhost:4000/movies/${id}/checkLike`,  { headers: {"authorization" : `${token.split("\"")[1]}`}} );
 }
 

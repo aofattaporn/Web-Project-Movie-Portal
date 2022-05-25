@@ -25,12 +25,21 @@ const createMyReview = (req, res)=>{
      },
      text: req.body.text,
    }
-   console.log(reviewData)
    Review.create(reviewData, (err, review)=>{
       if(err){
          console.log(err)
       }else{
          res.json(review);
+      }
+   })
+}
+
+const deleteById = (req, res) =>{
+   Review.findByIdAndDelete( req.params.id ,(err, review)=>{
+      if(err){
+         console.log(err)
+      }else{
+         res.json(review)
       }
    })
 }
@@ -48,5 +57,6 @@ const removeAllReview = (req, res)=>{
 module.exports = {
    getAllReview, 
    createMyReview,
-   removeAllReview
+   removeAllReview,
+   deleteById
 }

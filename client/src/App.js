@@ -9,16 +9,19 @@ import { createContext } from 'react';
 
 export const AuthContext = createContext();
 export const UserContext = createContext();
+export const IsAdminContext = createContext();
 
 function App() {
 
   const [auth, setAuth] = useState(localStorage.getItem("token"));
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin"));
   const [user, setUser] = useState(localStorage.getItem("user"));
 
   return (
       <div className="App">
-        <AuthContext.Provider value={{auth, setAuth}}>
-        <UserContext.Provider value={{user, setUser}} > 
+        <AuthContext.Provider        value={{auth, setAuth}} >
+        <UserContext.Provider        value={{user, setUser}} > 
+        <IsAdminContext.Provider     value={{isAdmin, setIsAdmin}}>
           <components.Nav/>
           <Routes>
 
@@ -37,18 +40,22 @@ function App() {
             <Route path='/booking/:program_id/payment' element={ <page.PayMentPage/>}></Route>
 
             {/* ------------------ admin -------------------------------------- */}
-            <Route path='/createMovie' element={ <page.CreateMovie/>}></Route>
-            <Route path='/createCinema' element={ <page.CreateCinema/>}></Route>
-            <Route path='/createProgram' element={ <page.CreateProgram/>}></Route>
+            <Route path='/admin'            element={<page.AdminPage></page.AdminPage>}>
+              <Route path='createMovie' element={ <page.CreateMovie/>} > </Route>
+              <Route path='createCinema'  element={ <page.CreateCinema/> }></Route>
+              <Route path='createProgram'  element={ <page.CreateProgram/>}></Route>
+              <Route path='users'  element={ <page.ViewUser/>}></Route>
+            </Route>
 
             {/* ------------------ user -------------------------------------- */}
             <Route path='/profile' element={<page.Protected isLoggedIn={auth}><page.ProfilePage></page.ProfilePage></page.Protected>}></Route>
-            <Route path='/favorite' element={<page.Protected isLoggedIn={auth}><page.FavoritePage></page.FavoritePage></page.Protected>}></Route>
+            <Route path='favorite' element={<page.Protected isLoggedIn={auth}><page.FavoritePage></page.FavoritePage></page.Protected>}></Route>
             <Route path='/history' element={<page.Protected isLoggedIn={auth}><page.HistoryPage></page.HistoryPage></page.Protected>}></Route>
 
           </Routes>
           
           <components.Footer/>
+        </IsAdminContext.Provider>
         </UserContext.Provider>
         </AuthContext.Provider>
       </div>

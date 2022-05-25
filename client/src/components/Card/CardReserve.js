@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
+import { Card, Container, ListGroup, ListGroupItem, Modal, Row, Col} from 'react-bootstrap';
 import propTypes from "prop-types";
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -35,7 +35,6 @@ const CardReserve =(props)=>{
          { Reserve ?  
          <div  className='card mt-3 fade-up ' data-aos="fade-up" >
             <div className='card__header'>
-               <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/>
                { Reserve.moviesImage ? <Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${Reserve.moviesImage}`} onClick={() => setShow(true)}/> : <></> }
             </div>
            <Card.Body className='card__text'>
@@ -94,50 +93,26 @@ const CardReserve =(props)=>{
                         </div>
                      </div>
                      <div className='content-2 mt-3'>
-                     </div>
-                  </div>
-               : <></>
-               }
-
-                              {
-                  Reserve ? 
-                  <div>
-                     <div className='d-flex justify-content-between content' >
-                        <div>
-                           <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
-                           <h6>Movie : <span>{Reserve.moviesName}</span></h6>
-                              <div className='d-flex flex-column date'  >
-                                 <h6>date : <span>{getDate(Reserve.date)}</span></h6>
-                                 <h6>time : <span> {getTime(Reserve.date)}</span></h6>
-                              </div>
-                        </div>
-                        <div>
-                           <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
-                        </div>
-                     </div>
-                     <div className='content-2 mt-3'>
-                     </div>
-                  </div>
-               : <></>
-               }
-
-               {
-                  Reserve ? 
-                  <div>
-                     <div className='d-flex justify-content-between content' >
-                        <div>
-                           <h6>Cinemas : <span>{Reserve.cinemaName}</span></h6>
-                           <h6>Movie : <span>{Reserve.moviesName}</span></h6>
-                              <div className='d-flex flex-column date'  >
-                                 <h6>date : <span> {getDate(Reserve.date)} </span></h6>
-                                 <h6>time : <span> {getTime(Reserve.date)} </span></h6>
-                              </div>
-                        </div>
-                        <div>
-                           <h6 className='d-flex flex-column text-center theater'> theater <span><h2>{Reserve.theater}</h2></span></h6>
-                        </div>
-                     </div>
-                     <div className='content-2 mt-3'>
+                        <Container fluid>
+                           <Row>
+                              <Col sm="9" >
+                                 <div className=' mt-5 seats-tap mt-3 p-2 d-flex'>
+                                    <h6>seats : </h6>
+                                    {
+                                          Reserve.seats ? 
+                                          Reserve.seats.map(item=>{
+                                             return ( <span className='ms-2'>{item}</span>)
+                                          }) : <></>
+                                    }
+                                 </div>
+                              </Col>
+                              <Col sm="3">                                 
+                                 <div className='QR mt-3'>
+                                    <img src={require("../../assets/images/QR.png")} alt="img3" /> 
+                                 </div>
+                              </Col>
+                           </Row>
+                        </Container>
                      </div>
                   </div>
                : <></>
@@ -229,6 +204,8 @@ h1{
    color: #C9B898;
    background-color: #C9B898;
 }
+
+
 
 
 /* ----------------- when screen lester 10000px ------------- */

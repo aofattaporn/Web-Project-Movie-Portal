@@ -9,7 +9,7 @@ const {
 
 routerLike.get('/', getMyMovieLike);
 
-routerLike.get('/movies', getMovieFavorite);
+routerLike.get('/movies', auth, getMovieFavorite);
 
 routerLike.post('/', auth, likeMovie);
 
