@@ -3,7 +3,7 @@ let   Reserve  = require('../model/reserve.model'),
       Program  = require('../model/program.model'),
       User     = require('../model/user.model'),
       Like     = require('../model/like.model'),
-      Review   = require('../model/review.model');
+      Review   = require('../model/review.mode');
 
 ObjectId       = require('mongodb').ObjectID;
 
@@ -25,6 +25,7 @@ const createMyReview = (req, res)=>{
      },
      text: req.body.text,
    }
+
    Review.create(reviewData, (err, review)=>{
       if(err){
          console.log(err)

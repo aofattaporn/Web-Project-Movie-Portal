@@ -3,17 +3,50 @@ import { Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 import propTypes from "prop-types";
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useContext } from 'react';
+import { IsAdminContext } from '../../App';
+import swal from "sweetalert";
+import { NotificationManager} from 'react-notifications';
+import { serviceMovie } from "../../service/movieService"
+import axios from 'axios';
+ 
+
 
 
 const CardMovie =(props)=>{
 
-   const {title, image, released, runtime, genre, movie_id} = props;
+   const {title, image, released, runtime, genre, movie_id, re} = props;
+   const { isAdmin } = useContext(IsAdminContext);
 
    const getDate =(released)=>{
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       let d = new Date(released);
       return ('release date : ' + d.getDate()+ ' ' + month[(d.getMonth()+1)] + ' '+ d.getFullYear());
    }
+
+   const deleteMovieById = (id)=>{
+
+      swal({
+         title: "Are you sure to delete your review?",
+         icon: "warning",
+         buttons: true,
+         dangerMode: false,
+       })
+       .then((willDelete) => {
+         
+         if (willDelete) {
+            axios.delete(`http://localhost:4000/movies/delete/${id}`)
+            .then((response)=>{
+               console.log(response)
+               window.location.reload();
+            })
+            .catch((err)=>{console.log(err)})
+         } 
+       });
+   }
+
+
 
    useEffect(()=>{
       getDate();
@@ -27,6 +60,7 @@ const CardMovie =(props)=>{
 
             {/*----- header --------------------------- */}
             <div className='card__header'>
+               {isAdmin === "true" ?<button onClick={()=>{deleteMovieById(movie_id)}} className='icon-delete'><DeleteForeverIcon ></DeleteForeverIcon></button>  :<></>}
                <Link to={`/movies/${movie_id}`}><Card.Img className='card__ixmg' variant="top" src={`http://localhost:4000/image/poster/${image}`} /></Link>
             </div>
 
@@ -65,7 +99,6 @@ h1{
    background-color: transparent;
    margin-bottom: 3rem;
    border: 0;
-
 
 }
 
@@ -125,6 +158,13 @@ h1{
    left: 4.5rem;
    bottom: 23rem;
 
+}
+.icon-delete{
+   background-color: #ffff;
+   color: red;
+   position: relative;
+   right: -12rem;
+   bottom: -3rem;
 }
 
 .like:active, .like:hover{

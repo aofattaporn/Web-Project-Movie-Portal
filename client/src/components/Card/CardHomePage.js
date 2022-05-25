@@ -16,18 +16,6 @@ const CardHomePage =(props)=>{
    
    const { movie } = props;
 
-   const showFlash =() =>{
-      console.log("Click")
-      return (
-         <>
-                  <h1>dfsdfsdf</h1>
-         <FlashMessage  className="flashMessage" duration={1000}>
-            <strong>I will disapper in 5 seconds!</strong>
-         </FlashMessage>
-         </>
-      )
-   }
-
 
    return (
       <CardHomepageStyle> 
@@ -46,7 +34,7 @@ const CardHomePage =(props)=>{
             <Card.Body className='card__text'>
                <ListGroup>
 
-                  <ListGroupItem className='card__text__releas'><div> {getDate(movie.released)} <span><FavoriteIcon  onClick={showFlash}  className="like"></FavoriteIcon></span></div></ListGroupItem>
+                  <ListGroupItem className='card__text__releas'><div> {getDate(movie.released)} </div></ListGroupItem>
                </ListGroup>
             </Card.Body>
             <ListGroupItem className='card__text__title'><h5>{movie.name}</h5></ListGroupItem>
